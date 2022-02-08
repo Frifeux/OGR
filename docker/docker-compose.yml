@@ -28,7 +28,7 @@ services:
     container_name: database_symfony
     image: mariadb:latest
     environment:
-      - MYSQL_DATABASE=ogrydb
+      - MYSQL_DATABASE=ogrdb
       - MYSQL_USER=ogr
       - MYSQL_PASSWORD=993Djc97ncXhdydfsjPhtFr4
       - MYSQL_ROOT_PASSWORD=LQEzc6pJp8tBHh4zgEEQme7L
@@ -41,7 +41,7 @@ services:
     image: phpmyadmin:latest
     environment:
       PMA_HOST: database
-      #PMA_USER: root
+      #PMA_USER: ogr
       #PMA_PASSWORD: LQEzc6pJp8tBHh4zgEEQme7L
     ports:
       - 8081:80

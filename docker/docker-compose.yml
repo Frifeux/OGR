@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+
+  php-fpm:
+    container_name: php-fpm_symfony
+    build:
+      context: ./php-fpm
+    volumes:
+      - ../symfony:/var/www/symfony
+    restart: always
+
+  nginx:
+    container_name: nginx_symfony
+    build:
+      context: ./nginx
+    volumes:
+      - ../symfony:/var/www/symfony
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/sites/:/etc/nginx/sites-available
+    depends_on:
+      - php-fpm
+    ports:
+      - "8080:80"
+      - "8443:443"
+    restart: always
+
+  database:
+    container_name: database_symfony
+    image: mariadb:latest
+    environment:
+      - MYSQL_DATABASE=ogrydb
+      - MYSQL_USER=ogr
+      - MYSQL_PASSWORD=993Djc97ncXhdydfsjPhtFr4
+      - MYSQL_ROOT_PASSWORD=LQEzc6pJp8tBHh4zgEEQme7L
+    ports:
+      - "3306:3306"
+    restart: always
+
+  phpmyadmin:
+    container_name: phpmyadmin_symfony
+    image: phpmyadmin:latest
+    environment:
+      PMA_HOST: database
+      #PMA_USER: root
+      #PMA_PASSWORD: LQEzc6pJp8tBHh4zgEEQme7L
+    ports:
+      - 8081:80
+    restart: always
+
+  maildev:
+    image: maildev/maildev
+    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+    container_name: maildev_symfony
+    ports:
+      - '1080:80'
+      - '1025:25'
+    restart: always

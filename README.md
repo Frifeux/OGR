@@ -112,7 +112,7 @@ symfony console make:registration-form
 ```
 
 
-# Activer bootstrap 5
+# Activer bootstrap 5 avec NPM
 
 ```
 composer require symfony/webpack-encore-bundle
@@ -171,6 +171,11 @@ Importons-le JavaScript suivant les consignes de la documentation de Bootstrap 5
 import { Tooltip, Toast, Popover } from 'bootstrap';
 ```
 
+Dépendance nécessaire:
+```
+npm install @popperjs/core --save
+```
+
 Créons un fichier `custom.scss` dans `/assets/styles`, puis importons les feuilles de style dans `/assets/styles/app.scss`.
 
 ```js
@@ -183,48 +188,14 @@ Lancer en arrière plan le serveur pour voir les changements en live du css (En 
 npm run dev-server
 ```
 
-# Activer Daisyui et Tailwind
 
-- https://yoandev.co/bootstrap-5-avec-symfony-5-et-webpack-encore
-- https://www.youtube.com/watch?v=SkJti2mrnNM
+# Activer bootstrap 5 avec yarn
 
-Dépendances nécessaires:
-```bash
+```
 composer require symfony/webpack-encore-bundle
-npm install
-```
+yarn install
 
-Lancer en arrière plan le serveur pour voir les changements en live du css (En même temps que celui de symfony):
-```bash
-npm run dev-server
-```
-
-Juste compiler les fichiers CSS pour la version production:
-```bash
-npm run build
-```
-
-Installation des dépendances tailwind:
-```bash
-npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
-npm install -D postcss-loader@latest
-npm install -D sass-loader@latest sass typescript ts-loader@latest
-```
-
-Génération des config tailwind:
-```bash
-npx tailwindcss init -p
-```
-
-Décommenter ça dans le fichier webpack.config.js
-```js
-.enablePostCssLoader()
-
-// enables Sass/SCSS support
-.enableSassLoader()
-
-// uncomment if you use TypeScript
-.enableTypeScriptLoader()
+yarn add bootstrap
 ```
 
 Dans le fichier base.html.twig situé: `src/templates` décommenter pour obtenir ceci:
@@ -239,23 +210,59 @@ Dans le fichier base.html.twig situé: `src/templates` décommenter pour obtenir
 {% endblock %}
 ```
 
-Dans le fichier app.css situé: `assets/styles` mettre:
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
+Renommons le fichier `/assets/styles/app.css` en `app.scss`, et modifions le fichier `/assets/app.js`.
 
-Ajouter Daisyui:
-```bash
-npm i daisyui
-```
-
-Dans le fichier tailwind.config.js ajouter:
 ```js
-plugins: [
-    require('daisyui'),
-],
+import './styles/app.scss';
+```
+
+Dé-commenter `.enableSassLoader()` dans le fichier webpack.config.js et installons sass-loader.
+
+```bash
+yarn add sass-loader sass
+```
+
+Nous allons aussi installer PostCSS
+
+```bash
+yarn add postcss-loader autoprefixer
+```
+
+Créons un fichier `postcss.config.js` à la racine du projet.
+```js
+module.exports = {
+    plugins: {
+        autoprefixer: {}
+    }
+}
+```
+
+```
+yarn run build
+```
+
+Importons-le JavaScript suivant les consignes de la documentation de Bootstrap 5 en modifiant le fichier `/assets/app.js.`
+
+```js
+// You can specify which plugins you need
+import { Tooltip, Toast, Popover } from 'bootstrap';
+```
+
+Dépendance nécessaire:
+```
+yarn add @popperjs/core
+```
+
+Créons un fichier `custom.scss` dans `/assets/styles`, puis importons les feuilles de style dans `/assets/styles/app.scss`.
+
+```js
+@import "custom";
+@import "~bootstrap/scss/bootstrap";
+```
+
+Lancer en arrière plan le serveur pour voir les changements en live du css (En même temps que celui de symfony):
+```bash
+yarn run dev-server
 ```
 
 # Ajout d'images:

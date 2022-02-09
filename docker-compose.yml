@@ -4,19 +4,19 @@ services:
   php-fpm:
     container_name: php-fpm_symfony
     build:
-      context: ./php-fpm
+      context: ./docker/php-fpm
     volumes:
-      - ../symfony:/var/www/symfony
+      - ./:/var/www/symfony
     restart: always
 
   nginx:
     container_name: nginx_symfony
     build:
-      context: ./nginx
+      context: ./docker/nginx
     volumes:
-      - ../symfony:/var/www/symfony
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/sites/:/etc/nginx/sites-available
+      - ./:/var/www/symfony
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/sites/:/etc/nginx/sites-available
     depends_on:
       - php-fpm
     ports:

@@ -176,3 +176,12 @@ modules.xml
 # Support for Project snippet scope
 
 # End of https://www.toptal.com/developers/gitignore/api/phpstorm+all,visualstudiocode,symfony
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+

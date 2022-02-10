@@ -36,8 +36,8 @@ services:
       - MYSQL_USER=ogr
       - MYSQL_PASSWORD=993Djc97ncXhdydfsjPhtFr4
       - MYSQL_ROOT_PASSWORD=LQEzc6pJp8tBHh4zgEEQme7L
-#    ports:
-#      - "3306:3306"
+    ports:
+      - "3306:3306"
     restart: always
     networks:
       - dev

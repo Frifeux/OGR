@@ -8,6 +8,8 @@ services:
     volumes:
       - ./:/var/www/symfony
     restart: always
+    networks:
+      - dev
 
   nginx:
     container_name: nginx_symfony
@@ -23,6 +25,8 @@ services:
       - "8080:80"
       - "8443:443"
     restart: always
+    networks:
+      - dev
 
   database:
     container_name: database_symfony
@@ -32,26 +36,35 @@ services:
       - MYSQL_USER=ogr
       - MYSQL_PASSWORD=993Djc97ncXhdydfsjPhtFr4
       - MYSQL_ROOT_PASSWORD=LQEzc6pJp8tBHh4zgEEQme7L
-    ports:
-      - "3306:3306"
+#    ports:
+#      - "3306:3306"
     restart: always
+    networks:
+      - dev
 
   phpmyadmin:
     container_name: phpmyadmin_symfony
     image: phpmyadmin:latest
     environment:
       PMA_HOST: database
-      #PMA_USER: ogr
-      #PMA_PASSWORD: 993Djc97ncXhdydfsjPhtFr4
+      PMA_USER: ogr
+      PMA_PASSWORD: 993Djc97ncXhdydfsjPhtFr4
     ports:
-      - 8081:80
+      - "8081:80"
     restart: always
+    networks:
+      - dev
 
   maildev:
     image: maildev/maildev
     command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
     container_name: maildev_symfony
     ports:
-      - '1080:80'
-      - '1025:25'
+      - "1080:80"
+#      - "1025:25"
     restart: always
+    networks:
+      - dev
+
+networks:
+  dev:

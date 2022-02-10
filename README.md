@@ -87,7 +87,7 @@ Dépendance composer necessaires:
 ```bash
 composer require security annotations doctrine
 composer require --dev web-profiler
-composer require symfony/security-guard
+composer require symfony/password-hasher
 
 composer require symfonycasts/verify-email-bundle
 ```
@@ -95,8 +95,10 @@ composer require symfonycasts/verify-email-bundle
 Contraite Formulaire:
 - https://symfony.com/doc/current/reference/constraints.html
 	
-Creer la classe utilisateur avec mot de passe sécurisé:
+Creer la classe utilisateur avec mot de passe sécurisé/hasher:
 - https://symfony.com/doc/current/security.html
+- https://symfony.com/doc/current/security/passwords.html
+
 ```bash
 symfony console make:user
 ```

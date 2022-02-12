@@ -46,7 +46,7 @@ services:
     container_name: phpmyadmin_symfony
     image: phpmyadmin:latest
     environment:
-      PMA_HOST: database
+      PMA_HOST: database_symfony
       PMA_USER: ogr
       PMA_PASSWORD: 993Djc97ncXhdydfsjPhtFr4
     ports:

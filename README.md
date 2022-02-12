@@ -113,6 +113,12 @@ Creer le formulaire d'inscription
 symfony console make:registration-form
 ```
 
+Formulaire réinitialisation Mot de passe
+```bash
+composer require symfonycasts/reset-password-bundle
+symfony console make:reset-password
+```
+
 
 # Activer bootstrap 5 avec NPM
 

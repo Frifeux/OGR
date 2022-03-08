@@ -8,20 +8,19 @@
 
     <div class="vh-100 gradient-custom">
         <div class="container py-5 h-100">
-
-            {% for flashError in app.flashes('reset_password_error') %}
-                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-            {% endfor %}
-
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-7">
 
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-center">
-                            <div class="mb-md-4 mt-md-4 pb-5">
+                            <div class="mb-md-4 mt-md-4 pb-1">
 
                                 <h2 class="fw-bold mb-2 text-uppercase">Réinitialiser le mot de passe</h2>
                                 <p class="text-white-50 mb-4">Vous avez oublié votre mot de passe ? Veuillez entrer votre adresse courriel pour initier la réinitialisation.</p>
+
+                                {% for flashError in app.flashes('reset_password_error') %}
+                                    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                                {% endfor %}
 
                                 <div class="form-white mb-4">
                                     {{ form_widget(requestForm.email) }}

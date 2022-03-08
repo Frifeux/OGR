@@ -49,9 +49,8 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
+        //TODO: Changer la redirection quand la page HOME sera faite
         return new RedirectResponse($this->urlGenerator->generate('admin'));
-        // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string

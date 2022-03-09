@@ -15,8 +15,8 @@
                         <div class="card-body p-5 text-center">
                             <div class="mb-md-4 mt-md-4 pb-1">
 
-                                <h2 class="fw-bold mb-2 text-uppercase">Réinitialiser le mot de passe</h2>
-                                <p class="text-white-50 mb-4">Vous avez oublié votre mot de passe ? Veuillez entrer votre adresse courriel pour initier la réinitialisation.</p>
+                                <h2 class="fw-bold mb-2 text-uppercase">{% trans %} Réinitialiser le mot de passe {% endtrans %}</h2>
+                                <p class="text-white-50 mb-4">{% trans %} Vous avez oublié votre mot de passe ? Veuillez entrer votre adresse courriel pour initier la réinitialisation. {% endtrans %}</p>
 
                                 {% for flashError in app.flashes('reset_password_error') %}
                                     <div class="alert alert-danger" role="alert">{{ flashError }}</div>
@@ -26,11 +26,11 @@
                                     {{ form_widget(requestForm.email) }}
                                 </div>
 
-                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Envoyer</button>
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">{% trans %} Envoyer {% endtrans %}</button>
                             </div>
 
                             <div>
-                                <p class="mb-0">Vous n'avez pas de compte ? <a href="{{ path('app_register') }}" class="text-white-50 fw-bold">Inscrivez-vous</a></p>
+                                <p class="mb-0">{% trans %} Vous n'avez pas de compte ? {% endtrans %} <a href="{{ path('app_register') }}" class="text-white-50 fw-bold">{% trans %} Inscrivez-vous {% endtrans %}</a></p>
                             </div>
 
                         </div>

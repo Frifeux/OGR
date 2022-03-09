@@ -26,47 +26,47 @@
 
                                 <div class="row g-3">
                                     <div class="col-md-6">
-                                        <label for="firstname" class="form-label">Nom</label>
+                                        <label for="firstname" class="form-label">{% trans %} Nom {% endtrans %}</label>
                                         {{ form_widget(registrationForm.lastname) }}
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="lastname" class="form-label">Prénom</label>
+                                        <label for="lastname" class="form-label">{% trans %} Prénom {% endtrans %}</label>
                                         {{ form_widget(registrationForm.firstname) }}
                                     </div>
 
                                     <div class="col-12">
-                                        <label for="email" class="form-label">Email</label>
+                                        <label for="email" class="form-label">{% trans %} Email {% endtrans %}</label>
                                         <div class="text-danger mb-2"{{ form_errors(registrationForm.email) }}</div>
                                         {{ form_widget(registrationForm.email) }}
                                     </div>
 
                                     <div class="col-12">
-                                        <label for="plainPassword" class="form-label">Mot de passe</label>
+                                        <label for="plainPassword" class="form-label">{% trans %} Mot de passe {% endtrans %}</label>
                                         <div class="text-danger mb-2"{{ form_errors(registrationForm.plainPassword.first) }}</div>
                                         {{ form_widget(registrationForm.plainPassword.first) }}
 
                                     </div>
                                     <div class="col-12">
-                                        <label for="ConfirmPlainPassword" class="form-label">Confirmation du Mot de passe</label>
+                                        <label for="ConfirmPlainPassword" class="form-label">{% trans %} Confirmation du Mot de passe {% endtrans %}</label>
                                         {{ form_widget(registrationForm.plainPassword.second) }}
                                     </div>
 
                                     <div class="col-12">
                                         <div class="form-check mt-3">
                                             {{ form_widget(registrationForm.agreeTerms) }}
-                                            <label class="form-check-label" for="invalidCheck">J'accepte les conditions générales d'utilisation</label>
+                                            <label class="form-check-label" for="invalidCheck">{% trans %} J'accepte les conditions générales d'utilisation {% endtrans %}</label>
                                         </div>
                                     </div>
 
                                     <div class="col-12 text-center mt-3">
-                                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Inscription</button>
+                                        <button class="btn btn-outline-light btn-lg px-5" type="submit">{% trans %} Inscription {% endtrans %}</button>
                                     </div>
 
                                 </div>
                             </div>
 
                             <div class="text-center">
-                                <p class="mb-0">Vous avez déjâ un compte ? <a href="{{ path('app_login') }}" class="text-white-50 fw-bold">Connectez-vous</a></p>
+                                <p class="mb-0">{% trans %} Vous avez déjâ un compte ? {% endtrans %}<a href="{{ path('app_login') }}" class="text-white-50 fw-bold">{% trans %} Connectez-vous {% endtrans %}</a></p>
                             </div>
                         </div>
                     </div>

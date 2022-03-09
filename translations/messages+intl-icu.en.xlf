@@ -1,17 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="fr" target-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
       <trans-unit id="z7GsDIB" resname="Inscription">
         <source>Inscription</source>
-        <target>__Inscription</target>
+        <target>Registration</target>
       </trans-unit>
       <trans-unit id="E3.sOH2" resname="Entrez vos informations pour créer un compte">
         <source>Entrez vos informations pour créer un compte</source>
-        <target>__Entrez vos informations pour créer un compte</target>
+        <target>Enter your information to create an account</target>
+      </trans-unit>
+      <trans-unit id="ssEkU20" resname="Nom">
+        <source>Nom</source>
+        <target>Firstname</target>
+      </trans-unit>
+      <trans-unit id="4yW.j5A" resname="Prénom">
+        <source>Prénom</source>
+        <target>Lastname</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id=".5yLjAZ" resname="Mot de passe">
+        <source>Mot de passe</source>
+        <target>Password</target>
+      </trans-unit>
+      <trans-unit id="JX5An8Q" resname="Confirmation du Mot de passe">
+        <source>Confirmation du Mot de passe</source>
+        <target>Confirm your password</target>
+      </trans-unit>
+      <trans-unit id="J6hEQEi" resname="J'accepte les conditions générales d'utilisation">
+        <source>J'accepte les conditions générales d'utilisation</source>
+        <target>I agree to the terms and conditions</target>
+      </trans-unit>
+      <trans-unit id="LWLY56e" resname="Vous avez déjâ un compte ?">
+        <source>Vous avez déjâ un compte ?</source>
+        <target>You already have an account ? </target>
+      </trans-unit>
+      <trans-unit id="kljm8Fx" resname="Connectez-vous">
+        <source>Connectez-vous</source>
+        <target>Log on</target>
+      </trans-unit>
+      <trans-unit id="F071dB." resname="Si un compte lié à votre adresse e-mail existe, alors un e-mail vous à été envoyé contenant un lien pour réinitialiser votre mot de passe.">
+        <source>Si un compte lié à votre adresse e-mail existe, alors un e-mail vous à été envoyé contenant un lien pour réinitialiser votre mot de passe.</source>
+        <target>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.</target>
+      </trans-unit>
+      <trans-unit id="Y41Dr0j" resname="Ce lien expirera dans">
+        <source>Ce lien expirera dans</source>
+        <target>This link will expire in</target>
+      </trans-unit>
+      <trans-unit id="euG2itO" resname="Renvoyer un email">
+        <source>Renvoyer un email</source>
+        <target>Resend an email</target>
+      </trans-unit>
+      <trans-unit id="7IbmDjt" resname="Accédez à son compte ?">
+        <source>Accédez à son compte ?</source>
+        <target>Access to your account ?</target>
+      </trans-unit>
+      <trans-unit id="LpkJGx4" resname="Réinitialiser le mot de passe">
+        <source>Réinitialiser le mot de passe</source>
+        <target>Reset password</target>
+      </trans-unit>
+      <trans-unit id="Owph_3O" resname="Vous avez oublié votre mot de passe ? Veuillez entrer votre adresse courriel pour initier la réinitialisation.">
+        <source>Vous avez oublié votre mot de passe ? Veuillez entrer votre adresse courriel pour initier la réinitialisation.</source>
+        <target>Forgot your password ? Enter your email address and we will send you a link to reset your password.</target>
+      </trans-unit>
+      <trans-unit id="eQdSCfK" resname="Envoyer">
+        <source>Envoyer</source>
+        <target>Send</target>
+      </trans-unit>
+      <trans-unit id="YbMrFPA" resname="Vous n'avez pas de compte ?">
+        <source>Vous n'avez pas de compte ?</source>
+        <target>You do not have an account ?</target>
+      </trans-unit>
+      <trans-unit id="5OesQ5R" resname="Inscrivez-vous">
+        <source>Inscrivez-vous</source>
+        <target>Sign up</target>
+      </trans-unit>
+      <trans-unit id="sBFnVlo" resname="Vous êtes connecté en tant que">
+        <source>Vous êtes connecté en tant que</source>
+        <target>You are logged in as</target>
+      </trans-unit>
+      <trans-unit id="_1_eksG" resname="Déconnexion">
+        <source>Déconnexion</source>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="YdaVBBA" resname="Connexion">
+        <source>Connexion</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="b68LUR4" resname="Entrez vos identifiants de connexion">
+        <source>Entrez vos identifiants de connexion</source>
+        <target>Enter your login information</target>
+      </trans-unit>
+      <trans-unit id="RR5Fv0N" resname="Rester connecté">
+        <source>Rester connecté</source>
+        <target>Remember me</target>
+      </trans-unit>
+      <trans-unit id="tOVKc2s" resname="Si vous ne recevez pas d'e-mail, vérifiez votre dossier spam ou faite une nouvelle demande.">
+        <source>Si vous ne recevez pas d'e-mail, vérifiez votre dossier spam ou faite une nouvelle demande.</source>
+        <target>If you don't receive an email please check your spam folder or try again</target>
+      </trans-unit>
+      <trans-unit id="PdvEmIS" resname="Mot de passe oublié?">
+        <source>Mot de passe oublié?</source>
+        <target>Forgot your password?</target>
       </trans-unit>
     </body>
   </file>

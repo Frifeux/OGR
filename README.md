@@ -388,9 +388,11 @@ symfony console translation:extract --force fr
 Ensuite allez dans le dossier `translations` à la racine du projet, on y retrouve tout les fichiers de traduction. Les
 fichiers qui nous intéresse sont ceux qui commence par `messages+intl-icu*.xlf`
 
-Si ces fichiers n'existe pas alors dans vos fichier twig vous n'avez pas utilisé les
-balises `{% trans %} {% endtrans %}`, elles permettent de dire à symfony ou il faut traduire.
+Si ces fichiers n'existe pas alors vous n'avez pas encore mis en place de traduction dans votre code, voir ci-dessous
 
+## Traduction Via fichier Twig
+
+les balises `{% trans %} {% endtrans %}` permettent de dire à symfony ou il faut traduire le text.
 Exemple:
 
 ```html
@@ -399,5 +401,19 @@ Exemple:
     {{ form_widget(registrationForm.firstname) }}
 </div>
 ```
+Ensuite réexecuter la commande pour générer les fichiers de traduction et traduisez vos messages !
+Pour traduire vous avez juste à remplacer le champs `<target></target>` avec votre traduction dans le fichier `messages+intl-icu*.xlf`
 
-Ensuite pour traduire vous avez juste à remplacer le champs `<target></target>` avec votre traduction !
+## Traduction via code php
+
+Certaine partie ne peuvent pas être géré directement via TWIG alors on doit passer par PHP. Pour mettre en place la traduction il faut faire que ceci:
+```php
+use Symfony\Component\Translation\TranslatableMessage;
+$firstname_user_field  = new TranslatableMessage('Prénom');
+
+return [
+    TextField::new('firstname', $firstname_user_field->getMessage())
+]
+```
+Ensuite réexecuter la commande pour générer les fichiers de traduction et traduisez vos messages !
+Pour traduire vous avez juste à remplacer le champs `<target></target>` avec votre traduction dans le fichier `messages+intl-icu*.xlf`

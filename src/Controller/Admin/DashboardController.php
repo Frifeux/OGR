@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -42,10 +43,14 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        $section_user_management_message = new TranslatableMessage('Gestion des utilisateurs');
+        $menu_users = new TranslatableMessage('Utilisateurs');
+
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
 
-        yield MenuItem::section('Gestion utilisateur');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class);
+        // Section: Gestion des utilisateurs
+        yield MenuItem::section($section_user_management_message->getMessage());
+        yield MenuItem::linkToCrud($menu_users->getMessage(), 'fa fa-user', User::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

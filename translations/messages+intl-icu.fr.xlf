@@ -109,6 +109,46 @@
         <source>Mot de passe oublié?</source>
         <target>Mot de passe oublié?</target>
       </trans-unit>
+      <trans-unit id="lQz21jl" resname="Gestion des utilisateurs">
+        <source>Gestion des utilisateurs</source>
+        <target>Gestion des utilisateurs</target>
+      </trans-unit>
+      <trans-unit id=".Q1s1TX" resname="Modification de l'utilisateur">
+        <source>Modification de l'utilisateur</source>
+        <target>Modification de l'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="zqk42bX" resname="Création d'un utilisateur">
+        <source>Création d'un utilisateur</source>
+        <target>Création d'un utilisateur</target>
+      </trans-unit>
+      <trans-unit id="89uHf9m" resname="Informations sur l'utilisateur">
+        <source>Informations sur l'utilisateur</source>
+        <target>Informations sur l'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="WIjgblZ" resname="Créer un utilisateur">
+        <source>Créer un utilisateur</source>
+        <target>Créer un utilisateur</target>
+      </trans-unit>
+      <trans-unit id="wlM3BVR" resname="Roles">
+        <source>Roles</source>
+        <target>Roles</target>
+      </trans-unit>
+      <trans-unit id="PkAxAvZ" resname="Créé le">
+        <source>Créé le</source>
+        <target>Créé le</target>
+      </trans-unit>
+      <trans-unit id="ch5bKau" resname="Utilisateur">
+        <source>Utilisateur</source>
+        <target>Utilisateur</target>
+      </trans-unit>
+      <trans-unit id="53Az_YO" resname="Administrateur">
+        <source>Administrateur</source>
+        <target>Administrateur</target>
+      </trans-unit>
+      <trans-unit id="I9OTi17" resname="Utilisateurs">
+        <source>Utilisateurs</source>
+        <target>Utilisateurs</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

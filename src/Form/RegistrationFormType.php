@@ -30,6 +30,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-check-input',
                 ],
+                'required' => true,
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -47,10 +48,7 @@ class RegistrationFormType extends AbstractType
                         'autocomplete' => 'new-password'
                     ]
                 ],
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
                 'invalid_message' => 'Les deux mots de passe doivent être identiques !',
-
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Entrez un mot de passe',

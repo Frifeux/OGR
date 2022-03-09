@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="Pjous39" resname="register.inscription">
+        <source>register.inscription</source>
+        <target>Inscription</target>
+      </trans-unit>
+      <trans-unit id="z7GsDIB" resname="Inscription">
+        <source>Inscription</source>
+        <target>__Inscription</target>
+      </trans-unit>
+      <trans-unit id="E3.sOH2" resname="Entrez vos informations pour créer un compte">
+        <source>Entrez vos informations pour créer un compte</source>
+        <target>__Entrez vos informations pour créer un compte</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -16,8 +16,8 @@
                             <div class="mb-md-4 mt-md-4 pb-1">
 
                                 <div class="text-center">
-                                    <h2 class="fw-bold mb-2 text-uppercase">Inscription</h2>
-                                    <p class="text-white-50 mb-5">Entrez vos informations pour créer un compte</p>
+                                    <h2 class="fw-bold mb-2 text-uppercase"> {% trans %} Inscription {% endtrans %}</h2>
+                                    <p class="text-white-50 mb-5"> {% trans %} Entrez vos informations pour créer un compte {% endtrans %}</p>
                                 </div>
 
                                 {% for flashError in app.flashes('verify_email_error') %}
@@ -27,11 +27,11 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label for="firstname" class="form-label">Nom</label>
-                                        <input type="text" class="form-control " id="firstname">
+                                        {{ form_widget(registrationForm.lastname) }}
                                     </div>
                                     <div class="col-md-6">
                                         <label for="lastname" class="form-label">Prénom</label>
-                                        <input type="text" class="form-control " id="lastname">
+                                        {{ form_widget(registrationForm.firstname) }}
                                     </div>
 
                                     <div class="col-12">

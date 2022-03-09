@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\EqualTo;
@@ -20,17 +21,50 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('firstname', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Entrez votre nom.',
+                    ]),
+                    new Length([
+                        'min' => 1,
+                        'minMessage' => 'Votre nom ne peut pas dépasser {{ limit }} caractères.',
+                        'max' => 255,
+                    ]),
+                ],
+            ])
+            ->add('lastname', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Entrez votre prénom.',
+                    ]),
+                    new Length([
+                        'min' => 1,
+                        'minMessage' => 'Votre prénom ne peut pas dépasser {{ limit }} caractères.',
+                        'max' => 255,
+                    ]),
+                ],
+            ])
             ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'votre-email@mail.com'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Entrez une addresse mail.',
+                    ]),
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'attr' => [
                     'class' => 'form-check-input',
                 ],
-                'required' => true,
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -55,8 +89,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
+                        'minMessage' => 'Votre mot de passe doit faire moins de {{ limit }} caractères',
                         'max' => 4096,
                     ]),
                 ],

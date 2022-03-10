@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -148,6 +148,14 @@
       <trans-unit id="I9OTi17" resname="Utilisateurs">
         <source>Utilisateurs</source>
         <target>Utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="beLslYB" resname="Un mail de réinitialisation de mot de passe à bien été envoyé à">
+        <source>Un mail de réinitialisation de mot de passe à bien été envoyé à</source>
+        <target>Un mail de réinitialisation de mot de passe à bien été envoyé à</target>
+      </trans-unit>
+      <trans-unit id="74xpkRs" resname="Un mail de réinitialisation de mot de passe à déjà été envoyé à">
+        <source>Un mail de réinitialisation de mot de passe à déjà été envoyé à</source>
+        <target>Un mail de réinitialisation de mot de passe à déjà été envoyé à</target>
       </trans-unit>
     </body>
   </file>

@@ -1,8 +1,11 @@
 <?php
+
 namespace App\EventSubscriber;
 
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeCrudActionEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -22,11 +25,22 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            BeforeEntityPersistedEvent::class => ['setUsersRegister'],
+            BeforeEntityPersistedEvent::class => ['addUser'],
         ];
     }
 
-    public function setUsersRegister(BeforeEntityPersistedEvent $event)
+    // Génération d'un mot de passe aléatoire
+    private function randomPassword(int $lenght): string
+    {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*_";
+
+        // Si la taille est supérieur à 4095 on le force à rester en dessous pour des questions de sécurité symfony
+        if ($lenght > 4095){ $lenght = 4095; }
+        return substr(str_shuffle($chars), 0, $lenght);
+    }
+
+    // On hash le MDP de l'utilisateur
+    public function addUser(BeforeEntityPersistedEvent $event)
     {
         $entity = $event->getEntityInstance();
 
@@ -34,12 +48,9 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $bytes = openssl_random_pseudo_bytes(6);
-        $plainpassword = bin2hex($bytes); // 6 bytes converti en hexa donne 12 caractères
-
         $hashedPassword = $this->passwordHasher->hashPassword(
             $entity,
-            $plainpassword
+            $entity->getPassword(),
         );
 
         // On met en Majuscule le nom de famille
@@ -50,4 +61,5 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 
         $entity->setPassword($hashedPassword);
     }
+
 }

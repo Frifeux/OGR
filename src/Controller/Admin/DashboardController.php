@@ -43,14 +43,11 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        $section_user_management_message = new TranslatableMessage('Gestion des utilisateurs');
-        $menu_users = new TranslatableMessage('Utilisateurs');
-
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
 
         // Section: Gestion des utilisateurs
-        yield MenuItem::section($section_user_management_message->getMessage());
-        yield MenuItem::linkToCrud($menu_users->getMessage(), 'fa fa-user', User::class);
+        yield MenuItem::section(new TranslatableMessage('Gestion des utilisateurs'));
+        yield MenuItem::linkToCrud(new TranslatableMessage('Utilisateurs'), 'fa fa-user', User::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

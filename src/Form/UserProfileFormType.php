@@ -19,6 +19,7 @@ class UserProfileFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'form-control',
+                    'disabled' => true,
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -29,6 +30,7 @@ class UserProfileFormType extends AbstractType
             ->add('firstname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
+                    'disabled' => true,
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -44,6 +46,7 @@ class UserProfileFormType extends AbstractType
             ->add('lastname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
+                    'disabled' => true,
                 ],
                 'constraints' => [
                     new NotBlank([

@@ -22,18 +22,16 @@
                     <div class="card-header ">{% trans %}Détails du compte{% endtrans %}</div>
                     <div class="card-body ">
 
-                        {{ form_start(profileForm) }}
-
                             <div class="row gx-3 mb-3 ">
 
                                 <div class="col-md-6 ">
-                                    <label class="small mb-1 " for="lastname ">{% trans %}Nom{% endtrans %}</label>
-                                    {{ form_widget(profileForm.lastname) }}
+                                    <label class="small mb-1" for="lastname ">{% trans %}Nom{% endtrans %}</label>
+                                    <input disabled class="form-control" id="lastname " type="text" placeholder="{% trans %}Nom{% endtrans %}" value="{{ user.lastname }}">
                                 </div>
 
                                 <div class="col-md-6 ">
                                     <label class="small mb-1 " for="firstname ">{% trans %}Prénom{% endtrans %}</label>
-                                    {{ form_widget(profileForm.firstname) }}
+                                    <input disabled class="form-control" id="firstname " type="text" placeholder="{% trans %}Prénom{% endtrans %}" value="{{ user.firstname }}">
                                 </div>
                             </div>
 
@@ -41,38 +39,32 @@
 
                                 <div class="col-md-6 ">
                                     <label class="small mb-1 " for="inputOrgName ">Nom de l'organisation</label>
-                                    <input class="form-control " id="inputOrgName " type="text" placeholder="Enter your organization name " value="Start Bootstrap ">
+                                    <input disabled class="form-control" id="inputOrgName " type="text" placeholder="{% trans %}test{% endtrans %}" value="Put A value">
                                 </div>
 
                                 <div class="col-md-6 ">
                                     <label class="small mb-1 " for="inputLocation ">Location</label>
-                                    <input class="form-control " id="inputLocation " type="text" placeholder="Enter your location " value="San Francisco, CA ">
+                                    <input disabled class="form-control" id="inputLocation " type="text" placeholder="{% trans %}test{% endtrans %}" value="Put A value">
                                 </div>
                             </div>
 
                             <div class="mb-3 ">
                                 <label class="small mb-1 " for="email ">{% trans %}Email{% endtrans %}</label>
-                                {{ form_widget(profileForm.email) }}
+                                <input disabled class="form-control" id="email " type="text" placeholder="{% trans %}Email{% endtrans %}" value="{{ user.email }}">
                             </div>
 
                             <div class="row gx-3 mb-3 ">
 
                                 <div class="col-md-6 ">
                                     <label class="small mb-1 " for="inputPhone ">Phone number</label>
-                                    <input class="form-control " id="inputPhone " type="tel" placeholder="Enter your phone number " value="555-123-4567 ">
+                                    <input disabled class="form-control " id="inputPhone " type="tel" placeholder="Enter your phone number " value="555-123-4567 ">
                                 </div>
 
                                 <div class="col-md-6 ">
                                     <label class="small mb-1 " for="inputBirthday ">Birthday</label>
-                                    <input class="form-control " id="inputBirthday " type="date" name="birthday " placeholder="Enter your birthday " value="06/10/1988 ">
+                                    <input disabled class="form-control " id="inputBirthday " type="date" name="birthday " placeholder="Enter your birthday " value="06/10/1988 ">
                                 </div>
                             </div>
-
-                            <div class="text-center">
-                                <button class="btn btn-primary" type="submit">{% trans %}Confirmer le changement{% endtrans %}</button>
-                            </div>
-
-                        {{ form_end(profileForm) }}
                     </div>
                 </div>
             </div>

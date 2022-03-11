@@ -30,18 +30,18 @@ class UserProfileController extends AbstractController
     {
             $user = $this->security->getUser();
 
-            // Form infos utilisateur
-            $userInfoForm = $this->createForm(UserProfileFormType::class, $user);
-            $userInfoForm->handleRequest($request);
-
-            if ($userInfoForm->isSubmitted() && $userInfoForm->isValid()) {
-
-                $this->addFlash('success', new TranslatableMessage("Vos paramètres ont bien été enregistrés !"));
-
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
-
-            }
+//            // Form infos utilisateur
+//            $userInfoForm = $this->createForm(UserProfileFormType::class, $user);
+//            $userInfoForm->handleRequest($request);
+//
+//            if ($userInfoForm->isSubmitted() && $userInfoForm->isValid()) {
+//
+//                $this->addFlash('success', new TranslatableMessage("Vos paramètres ont bien été enregistrés !"));
+//
+//                $this->entityManager->persist($user);
+//                $this->entityManager->flush();
+//
+//            }
 
             $passwordUserForm = $this->createForm(ChangePasswordFormType::class);
             $passwordUserForm->handleRequest($request);
@@ -63,8 +63,9 @@ class UserProfileController extends AbstractController
             }
 
             return $this->render('user/profile.html.twig', [
-                'profileForm' => $userInfoForm->createView(),
+//                'profileForm' => $userInfoForm->createView(),
                 'passwordForm' => $passwordUserForm->createView(),
+                'user' => $user,
             ]);
 
     }

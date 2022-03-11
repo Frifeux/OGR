@@ -50,7 +50,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         //TODO: Changer la redirection quand la page HOME sera faite
-        return new RedirectResponse($this->urlGenerator->generate('admin'));
+        return new RedirectResponse($this->urlGenerator->generate('user_profile'));
     }
 
     protected function getLoginUrl(Request $request): string

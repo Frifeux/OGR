@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -46,6 +48,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255)]
     private $location;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: MeetingRoomReservation::class, orphanRemoval: true)]
+    private $meetingRoomReservations;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: EquipmentReservation::class, orphanRemoval: true)]
+    private $equipmentReservations;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: OfficeReservation::class, orphanRemoval: true)]
+    private $officeReservations;
+
+    public function __construct()
+    {
+        $this->meetingRoomReservations = new ArrayCollection();
+        $this->equipmentReservations = new ArrayCollection();
+        $this->officeReservations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -183,6 +201,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLocation(string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MeetingRoomReservation[]
+     */
+    public function getMeetingRoomReservations(): Collection
+    {
+        return $this->meetingRoomReservations;
+    }
+
+    public function addMeetingRoomReservation(MeetingRoomReservation $meetingRoomReservation): self
+    {
+        if (!$this->meetingRoomReservations->contains($meetingRoomReservation)) {
+            $this->meetingRoomReservations[] = $meetingRoomReservation;
+            $meetingRoomReservation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeetingRoomReservation(MeetingRoomReservation $meetingRoomReservation): self
+    {
+        if ($this->meetingRoomReservations->removeElement($meetingRoomReservation)) {
+            // set the owning side to null (unless already changed)
+            if ($meetingRoomReservation->getUser() === $this) {
+                $meetingRoomReservation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EquipmentReservation[]
+     */
+    public function getEquipmentReservations(): Collection
+    {
+        return $this->equipmentReservations;
+    }
+
+    public function addEquipmentReservation(EquipmentReservation $equipmentReservation): self
+    {
+        if (!$this->equipmentReservations->contains($equipmentReservation)) {
+            $this->equipmentReservations[] = $equipmentReservation;
+            $equipmentReservation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipmentReservation(EquipmentReservation $equipmentReservation): self
+    {
+        if ($this->equipmentReservations->removeElement($equipmentReservation)) {
+            // set the owning side to null (unless already changed)
+            if ($equipmentReservation->getUser() === $this) {
+                $equipmentReservation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OfficeReservation[]
+     */
+    public function getOfficeReservations(): Collection
+    {
+        return $this->officeReservations;
+    }
+
+    public function addOfficeReservation(OfficeReservation $officeReservation): self
+    {
+        if (!$this->officeReservations->contains($officeReservation)) {
+            $this->officeReservations[] = $officeReservation;
+            $officeReservation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOfficeReservation(OfficeReservation $officeReservation): self
+    {
+        if ($this->officeReservations->removeElement($officeReservation)) {
+            // set the owning side to null (unless already changed)
+            if ($officeReservation->getUser() === $this) {
+                $officeReservation->setUser(null);
+            }
+        }
 
         return $this;
     }

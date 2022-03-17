@@ -6,11 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomePageController extends AbstractController
+class RoomPageController extends AbstractController
 {
-    #[Route('/home', name: 'app_home')]
-    public function home(): Response
+    #[Route('/reservation/room', name: 'room')]
+    public function room(): Response
     {
-        return $this->render('main_page/home.html.twig');
+        return $this->render('room/reservation_room.html.twig');
     }
 }

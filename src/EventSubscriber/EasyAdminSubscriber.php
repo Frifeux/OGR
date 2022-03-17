@@ -22,7 +22,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         $this->passwordHasher = $passwordHasher;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() :  array
     {
         return [
             BeforeEntityPersistedEvent::class => ['addUser'],
@@ -40,7 +40,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     }
 
     // On hash le MDP de l'utilisateur
-    public function addUser(BeforeEntityPersistedEvent $event)
+    public function addUser(BeforeEntityPersistedEvent $event): void
     {
         $entity = $event->getEntityInstance();
 

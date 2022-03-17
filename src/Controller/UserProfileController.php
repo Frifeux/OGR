@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Form\ChangePasswordFormType;
-use App\Form\UserProfileFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +25,7 @@ class UserProfileController extends AbstractController
     }
 
     #[Route('/user/profile', name: 'user_profile')]
-    public function index(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function profile(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
             $user = $this->security->getUser();
 

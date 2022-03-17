@@ -3,7 +3,16 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Equipment;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class EquipmentCrudController extends AbstractCrudController
 {
@@ -12,14 +21,41 @@ class EquipmentCrudController extends AbstractCrudController
         return Equipment::class;
     }
 
-    /*
+    public function configureCrud(Crud $crud): Crud
+    {
+
+        return $crud
+            ->setPageTitle('index', new TranslatableMessage('Gestion des matériels'))
+            ->setPageTitle('edit', new TranslatableMessage('Modification du matériel'))
+            ->setPageTitle('new', new TranslatableMessage('Création d\'un matériel'))
+            ->setPageTitle('detail', new TranslatableMessage('Informations sur le matériel'));
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->update(Crud::PAGE_INDEX, Action::NEW,
+                function (Action $action) {
+                    return $action->setLabel(new TranslatableMessage('Ajouter un matériel'));
+                })
+            ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+                return $action->setIcon('fa fa-edit');
+            })
+
+            ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
+                return $action->setIcon('fa fa-trash');
+            });
+    }
+
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            IdField::new('id')
+                ->hideOnForm(),
+            TextField::new('name', new TranslatableMessage('Nom')),
+            TextField::new('type', new TranslatableMessage('Type')),
+            TextField::new('location', new TranslatableMessage('Localisation')),
+
         ];
     }
-    */
 }

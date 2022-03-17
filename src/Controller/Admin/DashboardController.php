@@ -51,9 +51,11 @@ class DashboardController extends AbstractDashboardController
     {
 
 //        Lien pour trouver les icons
-//        https://fontawesome.com/v5/icons/phone-laptop?s=regular
+//        https://fontawesome.com/v5/search
 
-        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
+//        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
+
+        yield MenuItem::linkToRoute(new TranslatableMessage('Menu Principal'), 'fa fa-sign-out', 'app_home');
 
         // Section: Gestion des utilisateurs
         yield MenuItem::section(new TranslatableMessage('Gestion des utilisateurs'));

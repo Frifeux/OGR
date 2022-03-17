@@ -102,6 +102,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('password', new TranslatableMessage('Mot de passe'))
                 ->setFormType(PasswordType::class)
                 ->hideWhenUpdating()
+                ->hideOnDetail()
                 ->hideOnIndex(),
             TextField::new('location', new TranslatableMessage('Localisation')),
             ChoiceField::new(new TranslatableMessage('Roles'))

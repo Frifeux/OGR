@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel="icon"
-          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <title>{% block title %}Barre de navigation !{% endblock %}</title>
+
+    {#  TODO: Changer l'icon du site #}
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     {% block stylesheets %}
@@ -19,51 +20,72 @@
 
 <body>
 
-<header class="p-3 bg-dark text-white sticky-top">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+<div class="min-vh-100 bg-light d-flex flex-column">
 
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <i class="bi-bootstrap fs-3"></i>
-            </a>
+    {# navbar du site #}
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+            <div class="container">
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-            </ul>
+                <!-- Mettre Logo du site -->
+                <a class="navbar-brand" href="{{ path('app_home') }}">OGR</a>
 
-            <div class="dropdown">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+                        aria-controls="navbarMenu" aria-expanded="false">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                <a href="#"
-                   class="d-flex align-items-center justify-content-center link-light text-decoration-none dropdown-toggle"
-                   id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi-person-circle h3"></i>
-                </a>
+                <div class="collapse navbar-collapse" id="navbarMenu">
 
-                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-dark text-small shadow"
-                    aria-labelledby="dropdownUser3">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        {# TODO: Mettre le chemin vers les template du site #}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">{% trans %}Salle{% endtrans %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{% trans %}Bureau{% endtrans %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{% trans %}Matériel{% endtrans %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{% trans %}Mes réservation{% endtrans %}</a>
+                        </li>
+                        <!-- seulement visible par le groupe admin -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin') }}">{% trans %}Menu d'administration{% endtrans %}</a>
+                        </li>
+
+                    </ul>
+
+                    <div class="dropdown">
+                        <a href="#" class="link-light text-decoration-none dropdown-toggle" id="dropUserMenu"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi-person-circle h4"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropUserMenu">
+                            <li><a class="dropdown-item" href="{{ path('user_profile') }}">{% trans %}Profile{% endtrans %}</a></li>
+
+                            {# TODO: Mettre le chemin vers la template notifications utilisateur#}
+                            <li><a class="dropdown-item" href="#">{% trans %}Notifications{% endtrans %}</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">{% trans %}Déconnexion{% endtrans %}</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+        </nav>
 
-        </div>
-    </div>
-</header>
+    </header>
 
-<main>
+    {# contenu de notre page, ne pas oublié de mettre les balises <main> ! #}
+    {% block content %}{% endblock %}
 
-    {% block body %}{% endblock %}
-
-</main>
+</div>
 
 </body>
 

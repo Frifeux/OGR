@@ -16,13 +16,13 @@ symfony server:start
 Génération d'un formulaire:
 
 ```bash
-php bin/console make:form RegistrationType
+symfony console make:form RegistrationType
 ```
 
 Génération d'un controller:
 
 ```bash
-php bin/console make:controller
+symfony console make:controller
 ```
 
 # BDD
@@ -36,14 +36,14 @@ DATABASE_URL="mysql://root:@127.0.0.1:3306/macave"
 Création de la BDD:
 
 ```bash
-php bin/console doctrine:database:create
+symfony console doctrine:database:create
 ```
 
 Création des tables de la BDD:
 
 ```bash
-symfony console  make:entity
-symfony console  make:migration
+symfony console make:entity
+symfony console make:migration
 ```
 
 Mettre à jour la BDD:

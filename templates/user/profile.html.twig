@@ -1,15 +1,15 @@
 {% extends 'base.navbar.html.twig' %}
 
-{% block title %}OGR - Profile{% endblock %}
+{% block title %}OGR - Paramètres du profile{% endblock %}
 
-{% block body %}
+{% block content %}
 
     {% for flashError in app.flashes('success') %}
         <div class="alert alert-success" role="alert">{{ flashError }}</div>
     {% endfor %}
 
 
-    <div class="container-xl px-4 mt-4 " style="max-width: 900px; ">
+    <div class="container-xl px-4 mt-4" style="max-width: 900px;">
 
         <nav class="nav nav-tabs">
             <li><a class="nav-link active ms-0 " href="{{ path('user_profile') }}">{% trans %}Profile{% endtrans %}</a></li>
@@ -17,74 +17,57 @@
         </nav>
 
         <div class="row mt-4">
-            <div class="col-xl-12 ">
-                <div class="card mb-4 shadow-sm ">
-                    <div class="card-header ">{% trans %}Détails du compte{% endtrans %}</div>
-                    <div class="card-body ">
+            <div class="col-xl-12">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">{% trans %}Détails du compte{% endtrans %}</div>
+                    <div class="card-body">
 
-                            <div class="row gx-3 mb-3 ">
+                            <div class="row gx-3 mb-3">
 
-                                <div class="col-md-6 ">
-                                    <label class="small mb-1" for="lastname ">{% trans %}Nom{% endtrans %}</label>
-                                    <input disabled class="form-control" id="lastname " type="text" placeholder="{% trans %}Nom{% endtrans %}" value="{{ user.lastname }}">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="lastname">{% trans %}Nom{% endtrans %}</label>
+                                    <input disabled class="form-control" id="lastname" type="text" placeholder="{% trans %}Nom{% endtrans %}" value="{{ user.lastname }}">
                                 </div>
 
-                                <div class="col-md-6 ">
-                                    <label class="small mb-1 " for="firstname ">{% trans %}Prénom{% endtrans %}</label>
-                                    <input disabled class="form-control" id="firstname " type="text" placeholder="{% trans %}Prénom{% endtrans %}" value="{{ user.firstname }}">
-                                </div>
-                            </div>
-
-                            <div class="row gx-3 mb-3 ">
-
-                                <div class="col-md-6 ">
-                                    <label class="small mb-1 " for="inputOrgName ">Nom de l'organisation</label>
-                                    <input disabled class="form-control" id="inputOrgName " type="text" placeholder="{% trans %}test{% endtrans %}" value="Put A value">
-                                </div>
-
-                                <div class="col-md-6 ">
-                                    <label class="small mb-1 " for="inputLocation ">Location</label>
-                                    <input disabled class="form-control" id="inputLocation " type="text" placeholder="{% trans %}test{% endtrans %}" value="Put A value">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="firstname">{% trans %}Prénom{% endtrans %}</label>
+                                    <input disabled class="form-control" id="firstname" type="text" placeholder="{% trans %}Prénom{% endtrans %}" value="{{ user.firstname }}">
                                 </div>
                             </div>
 
-                            <div class="mb-3 ">
-                                <label class="small mb-1 " for="email ">{% trans %}Email{% endtrans %}</label>
-                                <input disabled class="form-control" id="email " type="text" placeholder="{% trans %}Email{% endtrans %}" value="{{ user.email }}">
-                            </div>
+                            <div class="row gx-3 mb-3">
 
-                            <div class="row gx-3 mb-3 ">
-
-                                <div class="col-md-6 ">
-                                    <label class="small mb-1 " for="inputPhone ">Phone number</label>
-                                    <input disabled class="form-control " id="inputPhone " type="tel" placeholder="Enter your phone number " value="555-123-4567 ">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="email">{% trans %}Email{% endtrans %}</label>
+                                    <input disabled class="form-control" id="email" type="text" placeholder="{% trans %}Email{% endtrans %}" value="{{ user.email }}">
                                 </div>
 
-                                <div class="col-md-6 ">
-                                    <label class="small mb-1 " for="inputBirthday ">Birthday</label>
-                                    <input disabled class="form-control " id="inputBirthday " type="date" name="birthday " placeholder="Enter your birthday " value="06/10/1988 ">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="localisation">{% trans %}Localisation{% endtrans %}</label>
+                                    <input disabled class="form-control" id="localisation" type="text" placeholder="{% trans %}Localisation{% endtrans %}" value="">
                                 </div>
+
                             </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row ">
-            <div class="col-xl-12 ">
-                <div class="card mb-4 shadow-sm ">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-4 shadow-sm">
                     <div class="card-header">{% trans %}Changement de mot de passe{% endtrans %}</div>
-                    <div class="card-body ">
+                    <div class="card-body">
                         {{ form_start(passwordForm) }}
-                            <div class="row gx-3 mb-3 ">
+                            <div class="row gx-3 mb-3">
 
-                                <div class="col-md-6 ">
-                                    <label class="small mb-1 ">{% trans %}Nouveau mot de passe{% endtrans %}</label>
+                                <div class="col-md-6">
+                                    <label class="small mb-1">{% trans %}Nouveau mot de passe{% endtrans %}</label>
                                     {{ form_widget(passwordForm.plainPassword.first) }}
                                 </div>
 
-                                <div class="col-md-6 ">
-                                    <label class="small mb-1 " >{% trans %}Retapez le nouveau mot de passe{% endtrans %}</label>
+                                <div class="col-md-6">
+                                    <label class="small mb-1">{% trans %}Retapez le nouveau mot de passe{% endtrans %}</label>
                                     {{ form_widget(passwordForm.plainPassword.second) }}
                                 </div>
                             </div>
@@ -92,7 +75,6 @@
                             <div class="text-center">
                                 <button class="btn btn-danger" type="submit">{% trans %}Changer le mot de passe{% endtrans %}</button>
                             </div>
-
                         {{ form_end(passwordForm) }}
                     </div>
                 </div>

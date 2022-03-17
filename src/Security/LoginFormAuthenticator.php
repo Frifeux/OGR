@@ -49,8 +49,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        //TODO: Changer la redirection quand la page HOME sera faite
-        return new RedirectResponse($this->urlGenerator->generate('user_profile'));
+        return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 
     protected function getLoginUrl(Request $request): string

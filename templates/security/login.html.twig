@@ -51,9 +51,8 @@
                                     </div>
                                 </div>
 
-                                <input type="hidden" name="_csrf_token"
-                                       value="{{ csrf_token('authenticate') }}"
-                                >
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
                                 <div class="text-center">
                                     <p class="mb-0">{% trans %} Vous n'avez pas de compte ? {% endtrans %} <a href="{{ path('app_register') }}" class="text-white-50 fw-bold">{% trans %} Inscrivez-vous {% endtrans %}</a></p>
                                 </div>

@@ -103,6 +103,7 @@ class UserCrudController extends AbstractCrudController
                 ->setFormType(PasswordType::class)
                 ->hideWhenUpdating()
                 ->hideOnIndex(),
+            TextField::new('location', new TranslatableMessage('Localisation')),
             ChoiceField::new(new TranslatableMessage('Roles'))
                 ->allowMultipleChoices()
                 ->setChoices(
@@ -135,7 +136,7 @@ class UserCrudController extends AbstractCrudController
             return $this->redirect($url);
         }
 
-        // TODO: Modifier les paramètres de mail
+        // TODO: Modifier les paramètres de mail, créer des variables d'environement
         $email = (new TemplatedEmail())
             ->from(new Address('no-reply@ogr.fr', 'OGR Reset Password'))
             ->to($user->getEmail())

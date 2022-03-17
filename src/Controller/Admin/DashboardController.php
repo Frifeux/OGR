@@ -2,6 +2,12 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Equipment;
+use App\Entity\EquipmentReservation;
+use App\Entity\MeetingRoom;
+use App\Entity\MeetingRoomReservation;
+use App\Entity\Office;
+use App\Entity\OfficeReservation;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -43,11 +49,24 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+
+//        Lien pour trouver les icons
+//        https://fontawesome.com/v5/icons/phone-laptop?s=regular
+
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
 
         // Section: Gestion des utilisateurs
         yield MenuItem::section(new TranslatableMessage('Gestion des utilisateurs'));
         yield MenuItem::linkToCrud(new TranslatableMessage('Utilisateurs'), 'fa fa-user', User::class);
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+
+        yield MenuItem::section(new TranslatableMessage('Gestion des objects'));
+        yield MenuItem::linkToCrud(new TranslatableMessage('Salles de réunion'), 'fa fa-camera', MeetingRoom::class);
+        yield MenuItem::linkToCrud(new TranslatableMessage('Bureaux'), 'fa fa-door-open', Office::class);
+        yield MenuItem::linkToCrud(new TranslatableMessage('Matériel'), 'fa fa-desktop', Equipment::class);
+
+        yield MenuItem::section(new TranslatableMessage('Gestion des réservations'));
+        yield MenuItem::linkToCrud(new TranslatableMessage('Salles de réunion'), 'fa fa-calendar', MeetingRoomReservation::class);
+        yield MenuItem::linkToCrud(new TranslatableMessage('Bureaux'), 'fa fa-calendar', OfficeReservation::class);
+        yield MenuItem::linkToCrud(new TranslatableMessage('Matériel'), 'fa fa-calendar', EquipmentReservation::class);
     }
 }

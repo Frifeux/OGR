@@ -5,6 +5,8 @@ services:
     container_name: php-fpm_symfony
     build:
       context: ./docker/php-fpm
+    ports:
+      - '9000:9000'
     volumes:
       - ./:/var/www/symfony
     restart: always

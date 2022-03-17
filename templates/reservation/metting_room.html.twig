@@ -1,0 +1,85 @@
+{% extends 'base.navbar.html.twig' %}
+
+{% block title %}OGR - Reservation d'une salle {% endblock %}
+
+{% block content %}
+    <main class="d-flex flex-grow-1 align-items-stretch">
+        <div class="container-fluid">
+            <div class="row g-4 py-3 align-items-stretch">
+
+                <div class="col-12 col-xxl-3 col-xl-4 col-lg-4 align-self-center">
+                    <div class="border rounded shadow-sm py-2 px-3 text-dark">
+
+                        <h2 class="px-4 py-2"> <strong>{% trans %}Salle{% endtrans %}</strong> </h2>
+
+                        <form>
+
+                            <!-- selection de la salle-->
+                            <label for="selectRoom" class="form-label small mb-1">{% trans %}Selection de la salle{% endtrans %}</label>
+
+                            <select class="form-select mb-4" id="selectRoom">
+                                <optgroup label="Picnic">
+                                    <option>Mustard</option>
+                                    <option>Ketchup</option>
+                                    <option>Relish</option>
+                                </optgroup>
+                                <optgroup label="Camping">
+                                    <option>Tent</option>
+                                    <option>Flashlight</option>
+                                    <option>Toilet Paper</option>
+                                </optgroup>
+                            </select>
+
+                            <hr>
+
+                            <!-- Input pour rechercher des horaires-->
+                            <label class="small mb-1 mt-0" for="startDate">{% trans %}Date de début{% endtrans %}</label>
+                            <input class="form-control" id="startDate" type="date" placeholder="Selectionner la date de début" value="">
+
+                            <label class="small mb-1" for="startHour">{% trans %}Heure de début{% endtrans %}</label>
+                            <input class="form-control" id="startHour" type="time" placeholder="Selectionner l'heure de début" value="">
+
+                            <label class="small mb-1" for="endDate">{% trans %}Date de fin{% endtrans %}</label>
+                            <input class="form-control" id="endDate" type="date" placeholder="Selectionner l'heure de fin" value="">
+
+                            <label class="small mb-1" for="endHour">{% trans %}Heure de fin{% endtrans %}</label>
+                            <input class="form-control" id="endHour" type="time" placeholder="Selectionner l'heure de fin" value="">
+
+                            <!-- validation du form -->
+                            <div class="pt-5 pb-2 text-center">
+                                <button class="btn btn-primary" type="button">{% trans %}Rechercher{% endtrans %}</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="border rounded shadow-sm py-2 px-4 text-dark">
+
+                        <h2 class="px-4 py-2"> <strong>{% trans %}Disponibilité{% endtrans %}</strong> </h2>
+
+                        <!-- Affichage des Disponibilité -->
+                        <!-- overflow, Classe CSS custom ICI -->
+                        <div class="overflow-custom">
+
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus neque a assumenda vero animi exercitationem quaerat quibusdam asperiores sed, nesciunt soluta unde iure debitis, aut necessitatibus possimus nobis itaque
+                                repudiandae.
+                            </p>
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus neque a assumenda vero animi exercitationem quaerat quibusdam asperiores sed, nesciunt soluta unde iure debitis, aut necessitatibus possimus nobis itaque
+                                repudiandae.
+                            </p>
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus neque a assumenda vero animi exercitationem quaerat quibusdam asperiores sed, nesciunt soluta unde iure debitis, aut necessitatibus possimus nobis itaque
+                                repudiandae.
+                            </p>
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus neque a assumenda vero animi exercitationem quaerat quibusdam asperiores sed, nesciunt soluta unde iure debitis, aut necessitatibus possimus nobis itaque
+                                repudiandae.
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

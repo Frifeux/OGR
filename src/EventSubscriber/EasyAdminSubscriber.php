@@ -54,10 +54,10 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         );
 
         // On met en Majuscule le nom de famille
-        $entity->setLastname(strtoupper($entity->getLastname()));
+//        $entity->setLastname(strtoupper($entity->getLastname()));
 
         // Définit la date à laquel le compte a été créé
-        $entity->setCreatedAt(new \DateTimeImmutable("now"));
+//        $entity->setCreatedAt(new \DateTimeImmutable("now"));
 
         $entity->setPassword($hashedPassword);
     }

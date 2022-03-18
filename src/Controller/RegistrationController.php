@@ -43,8 +43,8 @@ class RegistrationController extends AbstractController
             );
 
             // On met en Majuscule le nom de famille
-            $user->setLastname(strtoupper($user->getLastname()));
-            $user->setCreatedAt(new \DateTimeImmutable("now"));
+//            $user->setLastname(strtoupper($user->getLastname()));
+//            $user->setCreatedAt(new \DateTimeImmutable("now"));
 
             $entityManager->persist($user);
             $entityManager->flush();

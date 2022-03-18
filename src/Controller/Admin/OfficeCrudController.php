@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Translation\TranslatableMessage;
@@ -49,6 +50,7 @@ class OfficeCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
+            BooleanField::new('enabled', new TranslatableMessage('Activé')),
             TextField::new('name', new TranslatableMessage('Nom')),
             TextField::new('location', new TranslatableMessage('Localisation')),
             TextField::new('floor', new TranslatableMessage('Etage')),

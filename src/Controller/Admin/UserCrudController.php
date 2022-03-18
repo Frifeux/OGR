@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\BatchActionDto;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
@@ -76,8 +77,7 @@ class UserCrudController extends AbstractCrudController
             ->update(Crud::PAGE_INDEX, Action::NEW,
                 function (Action $action) {
                     // Message Custom avec mise en place de traduction
-                    $create_button_message = new TranslatableMessage('Créer un utilisateur');
-                    return $action->setLabel($create_button_message->getMessage());
+                    return $action->setLabel(new TranslatableMessage('Créer un utilisateur'));
                 })
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
                 return $action->setIcon('fa fa-edit');
@@ -96,6 +96,7 @@ class UserCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
+            BooleanField::new('enabled', new TranslatableMessage('Activé')),
             TextField::new('firstname', new TranslatableMessage('Prénom')),
             TextField::new('lastname', new TranslatableMessage('Nom')),
             EmailField::new('email', new TranslatableMessage('Email')),

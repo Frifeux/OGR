@@ -24,9 +24,14 @@ class MeetingRoom
     #[ORM\OneToMany(mappedBy: 'meetingRoom', targetEntity: MeetingRoomReservation::class, orphanRemoval: true)]
     private $meetingRoomReservations;
 
+    #[ORM\Column(type: 'boolean')]
+    private $enabled;
+
     public function __construct()
     {
         $this->meetingRoomReservations = new ArrayCollection();
+
+        $this->enabled = true;
     }
 
     public function getId(): ?int
@@ -91,5 +96,17 @@ class MeetingRoom
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
     }
 }

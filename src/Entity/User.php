@@ -32,9 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private $plainPassword;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -58,11 +56,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: OfficeReservation::class, orphanRemoval: true)]
     private $officeReservations;
 
+    #[ORM\Column(type: 'boolean')]
+    private $enabled;
+
     public function __construct()
     {
         $this->meetingRoomReservations = new ArrayCollection();
         $this->equipmentReservations = new ArrayCollection();
         $this->officeReservations = new ArrayCollection();
+
+        $this->enabled = true;
+        $this->createdAt = new \DateTimeImmutable("now");
     }
 
     public function getId(): ?int
@@ -176,7 +180,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setLastname(string $lastname): self
     {
-        $this->lastname = $lastname;
+        $this->lastname = strtoupper($lastname);
 
         return $this;
     }
@@ -298,5 +302,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->email;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
     }
 }

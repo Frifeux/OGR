@@ -22,7 +22,7 @@
                     <div class="card-header">{% trans %}Détails du compte{% endtrans %}</div>
                     <div class="card-body">
 
-                            <div class="row gx-3 mb-3">
+                        <div class="row gx-3 mb-3">
 
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="lastname">{% trans %}Nom{% endtrans %}</label>
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
 
-                            <div class="row gx-3 mb-3">
+                        <div class="row gx-3 mb-3">
 
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="email">{% trans %}Email{% endtrans %}</label>
@@ -44,10 +44,11 @@
 
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="localisation">{% trans %}Localisation{% endtrans %}</label>
-                                    <input disabled class="form-control" id="localisation" type="text" placeholder="{% trans %}Localisation{% endtrans %}" value="">
+                                    <input disabled class="form-control" id="localisation" type="text" placeholder="{% trans %}Localisation{% endtrans %}" value="{{ user.location }}">
                                 </div>
 
                             </div>
+
                     </div>
                 </div>
             </div>
@@ -56,10 +57,14 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="card mb-4 shadow-sm">
+
                     <div class="card-header">{% trans %}Changement de mot de passe{% endtrans %}</div>
+
                     <div class="card-body">
                         {{ form_start(passwordForm) }}
                             <div class="row gx-3 mb-3">
+
+                                <div class="text-danger mb-2">{{ form_errors(passwordForm.plainPassword.first) }}</div>
 
                                 <div class="col-md-6">
                                     <label class="small mb-1">{% trans %}Nouveau mot de passe{% endtrans %}</label>
@@ -76,6 +81,8 @@
                                 <button class="btn btn-danger" type="submit">{% trans %}Changer le mot de passe{% endtrans %}</button>
                             </div>
                         {{ form_end(passwordForm) }}
+
+
                     </div>
                 </div>
             </div>

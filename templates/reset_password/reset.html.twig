@@ -3,11 +3,54 @@
 {% block title %}Reset your password{% endblock %}
 
 {% block body %}
-    <h1>Reset your password</h1>
 
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+    <div class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-7">
+
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5">
+                            <div class="mb-md-4 mt-md-4">
+
+                                {{ form_start(resetForm) }}
+
+                                <div class="text-center">
+                                    <h2 class="fw-bold mb-4 text-uppercase">{% trans %}Réinitialisation du mot de passe{% endtrans %}</h2>
+                                </div>
+
+                                {% for flashError in app.flashes('reset_password_error') %}
+                                    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                                {% endfor %}
+
+                                <div class="form-white mb-4">
+                                    <label class="form-label">{% trans %}Mot de passe{% endtrans %}</label>
+                                    <div class="text-danger mb-2"{{ form_errors(resetForm.plainPassword.first) }}</div>
+                                    {{ form_widget(resetForm.plainPassword.first) }}
+                                </div>
+
+                                <div class="form-white mb-4">
+                                    <label for="confirmPassword" class="form-label">{% trans %}Confirmation du Mot de passe{% endtrans %}</label>
+                                    {{ form_widget(resetForm.plainPassword.second) }}
+                                </div>
+
+                                <div class="text-center">
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">{% trans %}Confirmation{% endtrans %}</button>
+                                </div>
+                            </div>
+
+                            {{ form_end(resetForm) }}
+
+                            <div class="text-center">
+                                <p class="mb-0">{% trans %}Vous avez déjâ un compte ?{% endtrans %}<a href="{{ path('app_login') }}" class="text-white-50 fw-bold">{% trans %}Connectez-vous{% endtrans %}</a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

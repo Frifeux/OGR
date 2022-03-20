@@ -87,6 +87,7 @@ class ResetPasswordController extends AbstractController
 
         $token = $this->getTokenFromSession();
         if (null === $token) {
+            // TODO: Need to redirect user and not throw an error
             throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
         }
 
@@ -156,6 +157,7 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_check_email');
         }
 
+        // TODO: Change email informations and set with .env vars
         $email = (new TemplatedEmail())
             ->from(new Address('no-reply@ogr.fr', 'OGR Reset Password'))
             ->to($user->getEmail())

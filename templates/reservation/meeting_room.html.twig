@@ -1,5 +1,45 @@
 {% extends 'base.navbar.html.twig' %}
 
+{% block calendar %}
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js" integrity="sha256-YicH/8aE660iEnJtgll3vT54dJApy3XkYmqNfGVFEzA=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+
+                events: {{ meetingRoomReservations|raw }},
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    end: 'dayGridMonth,timeGridWeek'
+                },
+                locale: 'fr',
+                nowIndicator: true,
+                buttonText: {
+                    today: 'Aujourd\'hui',
+                    month: 'Mois',
+                    week: 'Semaine',
+                    day: 'Jour',
+                    list: 'Liste',
+                },
+                timeZone: 'Europe/Paris',
+                businessHours: true, // display business hours
+                themeSystem: 'bootstrap5',
+                initialView: 'timeGridWeek',
+                eventResizableFromStart: true,
+                editable: true,
+            });
+            calendar.render();
+        });
+    </script>
+
+{% endblock %}
+
 {% block title %}OGR - Reservation d'une salle {% endblock %}
 
 {% block content %}
@@ -12,26 +52,20 @@
 
                         <h2 class="px-4 py-2"> <strong>{% trans %}Salle{% endtrans %}</strong> </h2>
 
-                        <form>
-
+                        {{ form_start(chooseMeetingRoom) }}
                             <!-- selection de la salle-->
-                            <label for="selectRoom" class="form-label small mb-1">{% trans %}Selection de la salle{% endtrans %}</label>
+                            <label for="selectedRoom" class="form-label small mb-1">{% trans %}Selection de la salle{% endtrans %}</label>
+                            {{ form_widget(chooseMeetingRoom.meetingRoom) }}
 
-                            <select class="form-select mb-4" id="selectRoom">
-                                <optgroup label="Picnic">
-                                    <option>Mustard</option>
-                                    <option>Ketchup</option>
-                                    <option>Relish</option>
-                                </optgroup>
-                                <optgroup label="Camping">
-                                    <option>Tent</option>
-                                    <option>Flashlight</option>
-                                    <option>Toilet Paper</option>
-                                </optgroup>
-                            </select>
+                            <div class="pt-2 pb-2 text-center">
+                                {{ form_widget(chooseMeetingRoom.save) }}
+                            </div>
+
+                        {{ form_end(chooseMeetingRoom) }}
 
                             <hr>
 
+                        <form>
                             <!-- Input pour rechercher des horaires-->
                             <label class="small mb-1 mt-0" for="startDate">{% trans %}Date de début{% endtrans %}</label>
                             <input class="form-control" id="startDate" type="date" placeholder="Selectionner la date de début" value="">
@@ -47,7 +81,7 @@
 
                             <!-- validation du form -->
                             <div class="pt-5 pb-2 text-center">
-                                <button class="btn btn-primary" type="button">{% trans %}Rechercher{% endtrans %}</button>
+                                <button class="btn btn-primary" type="button">{% trans %}Réserver{% endtrans %}</button>
                             </div>
 
                         </form>
@@ -62,20 +96,7 @@
 
                         <!-- Affichage des Disponibilité -->
                         <!-- overflow, Classe CSS custom ICI -->
-                        <div class="overflow-custom">
-
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus neque a assumenda vero animi exercitationem quaerat quibusdam asperiores sed, nesciunt soluta unde iure debitis, aut necessitatibus possimus nobis itaque
-                                repudiandae.
-                            </p>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus neque a assumenda vero animi exercitationem quaerat quibusdam asperiores sed, nesciunt soluta unde iure debitis, aut necessitatibus possimus nobis itaque
-                                repudiandae.
-                            </p>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus neque a assumenda vero animi exercitationem quaerat quibusdam asperiores sed, nesciunt soluta unde iure debitis, aut necessitatibus possimus nobis itaque
-                                repudiandae.
-                            </p>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus neque a assumenda vero animi exercitationem quaerat quibusdam asperiores sed, nesciunt soluta unde iure debitis, aut necessitatibus possimus nobis itaque
-                                repudiandae.
-                        </div>
+                        <div id="calendar" class="overflow-custom">
 
                     </div>
                 </div>

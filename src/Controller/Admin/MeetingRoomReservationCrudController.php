@@ -17,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use SebastianBergmann\CodeCoverage\Report\Text;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Translation\TranslatableMessage;
 
@@ -58,6 +59,7 @@ class MeetingRoomReservationCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
+            TextField::new('title', new TranslatableMessage('Titre')),
             TextAreaField::new('description', new TranslatableMessage('Description')),
             DateTimeField::new('startAt', new TranslatableMessage('Commence le')),
             DateTimeField::new('endAt', new TranslatableMessage('Finit le')),

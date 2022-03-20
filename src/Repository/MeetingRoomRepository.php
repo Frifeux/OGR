@@ -19,6 +19,19 @@ class MeetingRoomRepository extends ServiceEntityRepository
         parent::__construct($registry, MeetingRoom::class);
     }
 
+    /**
+    * @return MeetingRoom[] Returns an array of active MeetingRoom objects
+    */
+    public function findActiveMeetingRoom()
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return MeetingRoom[] Returns an array of MeetingRoom objects
     //  */

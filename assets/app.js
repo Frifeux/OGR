@@ -14,3 +14,9 @@ import './bootstrap';
 require('bootstrap-icons/font/bootstrap-icons.css'); // Icon bootstrap
 
 import { Tooltip, Toast, Popover } from 'bootstrap';
+
+import { Calendar } from '@fullcalendar/core';
+import interactionPlugin from '@fullcalendar/interaction';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import listPlugin from '@fullcalendar/list';
+import timeGridPlugin from '@fullcalendar/timegrid';

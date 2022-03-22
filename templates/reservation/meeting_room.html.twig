@@ -2,12 +2,15 @@
 
 {% block calendar %}
 
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js" integrity="sha256-YicH/8aE660iEnJtgll3vT54dJApy3XkYmqNfGVFEzA=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
+    {#    Pour afficher le calendrier #}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"
+            integrity="sha256-YicH/8aE660iEnJtgll3vT54dJApy3XkYmqNfGVFEzA=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css"
+          integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
 
     <script>
-
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
 
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -43,48 +46,61 @@
 {% block title %}OGR - Reservation d'une salle {% endblock %}
 
 {% block content %}
+
     <main class="d-flex flex-grow-1 align-items-stretch">
         <div class="container-fluid">
             <div class="row g-4 py-3 align-items-stretch">
 
                 <div class="col-12 col-xxl-3 col-xl-4 col-lg-4 align-self-center">
+
+                    <!-- Affichage des messages de success et erreurs-->
+
+                    {% for flashSuccess in app.flashes('reservation_meeting_room_success') %}
+                        <div class="alert alert-success" role="alert">{{ flashSuccess }}</div>
+                    {% endfor %}
+
+                    {% for flashError in app.flashes('reservation_meeting_room_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                    {% endfor %}
+
                     <div class="border rounded shadow-sm py-2 px-3 text-dark">
 
-                        <h2 class="px-4 py-2"> <strong>{% trans %}Salle{% endtrans %}</strong> </h2>
+                        <h2 class="px-4 py-2"><strong>{% trans %}Salle{% endtrans %}</strong></h2>
 
+                        <!-- Formulaire pour récupérer la salle de réunion et afficher les réservations -->
                         {{ form_start(chooseMeetingRoom) }}
-                            <!-- selection de la salle-->
-                            <label for="selectedRoom" class="form-label small mb-1">{% trans %}Selection de la salle{% endtrans %}</label>
-                            {{ form_widget(chooseMeetingRoom.meetingRoom) }}
 
-                            <div class="pt-2 pb-2 text-center">
+                            <!-- selection de la salle-->
+                            {{ form_row(chooseMeetingRoom.meetingRoom) }}
+
+                            <div class="text-center">
                                 {{ form_widget(chooseMeetingRoom.save) }}
                             </div>
 
                         {{ form_end(chooseMeetingRoom) }}
 
-                            <hr>
+                        <hr>
 
-                        <form>
-                            <!-- Input pour rechercher des horaires-->
-                            <label class="small mb-1 mt-0" for="startDate">{% trans %}Date de début{% endtrans %}</label>
-                            <input class="form-control" id="startDate" type="date" placeholder="Selectionner la date de début" value="">
+                        <!-- Formulaire pour ajouter une réservation à une salle -->
+                        {{ form_start(meetingRoomReservationForm) }}
 
-                            <label class="small mb-1" for="startHour">{% trans %}Heure de début{% endtrans %}</label>
-                            <input class="form-control" id="startHour" type="time" placeholder="Selectionner l'heure de début" value="">
+                            <!-- Infos demandé pour créer une réservation -->
+                            {{ form_row(meetingRoomReservationForm.title) }}
 
-                            <label class="small mb-1" for="endDate">{% trans %}Date de fin{% endtrans %}</label>
-                            <input class="form-control" id="endDate" type="date" placeholder="Selectionner l'heure de fin" value="">
+                            {{ form_row(meetingRoomReservationForm.description) }}
 
-                            <label class="small mb-1" for="endHour">{% trans %}Heure de fin{% endtrans %}</label>
-                            <input class="form-control" id="endHour" type="time" placeholder="Selectionner l'heure de fin" value="">
+                            {{ form_row(meetingRoomReservationForm.meetingRoom) }}
+
+                            <!-- Input pour selectionner un(e) date/horaire-->
+                            {{ form_row(meetingRoomReservationForm.startAt) }}
+                            {{ form_row(meetingRoomReservationForm.endAt) }}
 
                             <!-- validation du form -->
-                            <div class="pt-5 pb-2 text-center">
-                                <button class="btn btn-primary" type="button">{% trans %}Réserver{% endtrans %}</button>
+                            <div class="text-center">
+                                {{ form_widget(meetingRoomReservationForm.save) }}
                             </div>
 
-                        </form>
+                        {{ form_end(meetingRoomReservationForm) }}
 
                     </div>
                 </div>
@@ -92,12 +108,13 @@
                 <div class="col">
                     <div class="border rounded shadow-sm py-2 px-4 text-dark">
 
-                        <h2 class="px-4 py-2"> <strong>{% trans %}Disponibilité{% endtrans %}</strong> </h2>
+                        <h2 class="px-4 py-2"><strong>{% trans %}Disponibilité{% endtrans %}</strong></h2>
 
                         <!-- Affichage des Disponibilité -->
                         <!-- overflow, Classe CSS custom ICI -->
                         <div id="calendar" class="overflow-custom">
 
+                        </div>
                     </div>
                 </div>
             </div>

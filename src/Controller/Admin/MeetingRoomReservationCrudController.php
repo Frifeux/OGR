@@ -31,6 +31,7 @@ class MeetingRoomReservationCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
+        // Modification of the title translation of all pages
         return $crud
             ->setPageTitle('index', new TranslatableMessage('Réservations des salles de réunion'))
             ->setPageTitle('edit', new TranslatableMessage('Modification d\'une réservation'))
@@ -45,10 +46,11 @@ class MeetingRoomReservationCrudController extends AbstractCrudController
                 function (Action $action) {
                     return $action->setLabel(new TranslatableMessage('Ajouter une réservation'));
                 })
+            // add an icon on the button
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
                 return $action->setIcon('fa fa-edit');
             })
-
+            // add an icon on the button
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action->setIcon('fa fa-trash');
             });

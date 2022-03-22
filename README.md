@@ -210,10 +210,17 @@ Créons un fichier `custom.scss` dans `/assets/styles`, puis importons les feuil
 dans `/assets/styles/app.scss`.
 
 ```js
-@import
-"custom";
-@import
-"~bootstrap/scss/bootstrap";
+import "custom";
+import "~bootstrap/scss/bootstrap";
+```
+
+Documentation symfony: https://symfony.com/doc/current/form/form_themes.html
+
+Afin que par symfony par défaut utilise le thème bootstrap, il faut ajouter ceci:
+```yaml
+# config/packages/twig.yaml
+twig:
+    form_themes: ['bootstrap_5_layout.html.twig']
 ```
 
 Lancer en arrière plan le serveur pour voir les changements en live du css (En même temps que celui de symfony):
@@ -293,10 +300,17 @@ Créons un fichier `custom.scss` dans `/assets/styles`, puis importons les feuil
 dans `/assets/styles/app.scss`.
 
 ```js
-@import
-"custom";
-@import
-"~bootstrap/scss/bootstrap";
+import "custom";
+import "~bootstrap/scss/bootstrap";
+```
+
+Documentation symfony: https://symfony.com/doc/current/form/form_themes.html
+
+Afin que par symfony par défaut utilise le thème bootstrap, il faut ajouter ceci:
+```yaml
+# config/packages/twig.yaml
+twig:
+    form_themes: ['bootstrap_5_layout.html.twig']
 ```
 
 Lancer en arrière plan le serveur pour voir les changements en live du css (En même temps que celui de symfony):

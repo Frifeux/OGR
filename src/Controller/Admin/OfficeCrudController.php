@@ -21,7 +21,7 @@ class OfficeCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-
+        // Modification of the title translation of all pages
         return $crud
             ->setPageTitle('index', new TranslatableMessage('Gestion des bureaux'))
             ->setPageTitle('edit', new TranslatableMessage('Modification du bureau'))
@@ -32,14 +32,16 @@ class OfficeCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
+            // Modification of the translation of the button
             ->update(Crud::PAGE_INDEX, Action::NEW,
                 function (Action $action) {
                     return $action->setLabel(new TranslatableMessage('Ajouter un bureau'));
                 })
+            // add an icon on the button
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
                 return $action->setIcon('fa fa-edit');
             })
-
+            // add an icon on the button
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action->setIcon('fa fa-trash');
             });

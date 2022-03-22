@@ -23,18 +23,10 @@
                                     <div class="alert alert-danger" role="alert">{{ flashError }}</div>
                                 {% endfor %}
 
-                                <div class="form-white mb-4">
-                                    <label class="form-label">{% trans %}Mot de passe{% endtrans %}</label>
-                                    <div class="text-danger mb-2"{{ form_errors(resetForm.plainPassword.first) }}</div>
-                                    {{ form_widget(resetForm.plainPassword.first) }}
-                                </div>
+                                {{ form_row(resetForm.plainPassword.first) }}
+                                {{ form_row(resetForm.plainPassword.second) }}
 
-                                <div class="form-white mb-4">
-                                    <label for="confirmPassword" class="form-label">{% trans %}Confirmation du Mot de passe{% endtrans %}</label>
-                                    {{ form_widget(resetForm.plainPassword.second) }}
-                                </div>
-
-                                <div class="text-center">
+                                <div class="text-center mt-4">
                                     <button class="btn btn-outline-light btn-lg px-5" type="submit">{% trans %}Confirmation{% endtrans %}</button>
                                 </div>
                             </div>

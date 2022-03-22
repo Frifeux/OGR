@@ -51,13 +51,8 @@ class UserCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-
+        // Modification of the title translation of all pages
         return $crud
-            // the visible title at the top of the page and the content of the <title> element
-            // it can include these placeholders:
-            //   %entity_name%, %entity_as_string%,
-            //   %entity_id%, %entity_short_id%
-            //   %entity_label_singular%, %entity_label_plural%
             ->setPageTitle('index', new TranslatableMessage('Gestion des utilisateurs'))
             ->setPageTitle('edit', new TranslatableMessage('Modification de l\'utilisateur'))
             ->setPageTitle('new', new TranslatableMessage('Création d\'un utilisateur'))
@@ -67,32 +62,33 @@ class UserCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
 
-        // Ajout d'un bouton et d'un action custom
+        // Ajout d'un bouton et d'un action custom pour renvoyer un mail de reinitialisation de MPD
         $sendResetPassword = Action::new('sendResetPassword', new TranslatableMessage('Réinitialiser le mot de passe'), 'fa fa-file-invoice')
             ->linkToCrudAction('sendResetPassword')
             ->setCssClass('btn btn-danger');
 
 
         return $actions
+            // Modification of the translation of the button
             ->update(Crud::PAGE_INDEX, Action::NEW,
                 function (Action $action) {
-                    // Message Custom avec mise en place de traduction
                     return $action->setLabel(new TranslatableMessage('Créer un utilisateur'));
                 })
+            // add an icon on the button
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
                 return $action->setIcon('fa fa-edit');
             })
-
+            // add an icon on the button
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action->setIcon('fa fa-trash');
             })
 
+            // Added the reset password button on the page
             ->add(Crud::PAGE_EDIT, $sendResetPassword);
     }
 
     public function configureFields(string $pageName): iterable
     {
-
         return [
             IdField::new('id')
                 ->hideOnForm(),
@@ -106,6 +102,8 @@ class UserCrudController extends AbstractCrudController
                 ->hideOnDetail()
                 ->hideOnIndex(),
             TextField::new('location', new TranslatableMessage('Localisation')),
+
+            // TODO: Créer une liste de roles dans le fichier .env
             ChoiceField::new(new TranslatableMessage('Roles'))
                 ->allowMultipleChoices()
                 ->setChoices(
@@ -120,16 +118,20 @@ class UserCrudController extends AbstractCrudController
     }
 
 
-    // Video aide: https://www.youtube.com/watch?v=ze6XJTACo1s
+    // help Video: https://www.youtube.com/watch?v=ze6XJTACo1s
+    //
     public function sendResetPassword(AdminContext $context, AdminUrlGenerator $adminUrlGenerator, MailerInterface $mailer): Response
     {
+        // Get the user's object class
         $user = $context->getEntity()->getInstance();
 
+        // Creation of a URL to redirect the USER after he triggers the button
         $url = $adminUrlGenerator->setController(self::class)
             ->setAction(Action::EDIT)
             ->setEntityId($user->getId())
             ->generateUrl();
 
+        // Creation of a token to allow the user to reset his own password
         try {
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
         } catch (ResetPasswordExceptionInterface $e) {
@@ -139,6 +141,8 @@ class UserCrudController extends AbstractCrudController
         }
 
         // TODO: Modifier les paramètres de mail, créer des variables d'environement
+        // TODO: Modifier la template Email
+        // Sending an email to the user with the link to reset is own password
         $email = (new TemplatedEmail())
             ->from(new Address('no-reply@ogr.fr', 'OGR Reset Password'))
             ->to($user->getEmail())
@@ -147,10 +151,9 @@ class UserCrudController extends AbstractCrudController
             ->context([
                 'resetToken' => $resetToken,
             ]);
+        $mailer->send($email);
 
         $this->addFlash('success', new TranslatableMessage('Un mail de réinitialisation de mot de passe à bien été envoyé à ' . $user->getEmail()));
-
-        $mailer->send($email);
 
         return $this->redirect($url);
     }

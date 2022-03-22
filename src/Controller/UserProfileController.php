@@ -24,17 +24,20 @@ class UserProfileController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * This function is used to change the password of the user
+     */
     #[Route('/user/profile', name: 'user_profile')]
     public function profile(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
+            // récupération de notre objet utilisateur
             $user = $this->security->getUser();
 
+            // Création de notre formulaire
             $passwordUserForm = $this->createForm(ChangePasswordFormType::class);
             $passwordUserForm->handleRequest($request);
 
             if ($passwordUserForm->isSubmitted() && $passwordUserForm->isValid()) {
-
-                $this->addFlash('success', new TranslatableMessage("Vous avez bien changé de mot de passe !"));
 
                 // Encode(hash) the plain password, and set it.
                 $encodedPassword = $userPasswordHasher->hashPassword(
@@ -46,6 +49,8 @@ class UserProfileController extends AbstractController
 
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
+
+                $this->addFlash('success', new TranslatableMessage("Vous avez bien changé de mot de passe !"));
 
             }
 

@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class ChooseMeetingRoomFormType extends AbstractType
 {
@@ -21,35 +22,19 @@ class ChooseMeetingRoomFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // On récupère les salles qui sont active
-        $activeMeetingRooms = $this->meetingRoomRepository->findActiveMeetingRoom();
-
-        $meetingRoomByLocations = [];
-        foreach ($activeMeetingRooms as $meetingRoom)
-        {
-            $meetingRoomByLocations[$meetingRoom->getLocation()][$meetingRoom->getName()] = $meetingRoom->getId();
-        }
-
         $builder
             ->add('meetingRoom', ChoiceType::class, [
-                'attr' => [
-                    'class' => 'form-select',
-                ],
-                'choices' => $meetingRoomByLocations,
+                'label' => new TranslatableMessage('Sélection de la salle'),
+                'choices' => $this->meetingRoomRepository->getMeetingRoomByLocation(),
             ])
             ->add('save', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary',
-                ],
-                'label' => 'Rechercher'
+                'label' => new TranslatableMessage('Voir les réservations')
             ]);
 
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            // Configure your form options here
-        ]);
+        $resolver->setDefaults([]);
     }
 }

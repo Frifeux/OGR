@@ -42,13 +42,11 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // On met en Majuscule le nom de famille
-//            $user->setLastname(strtoupper($user->getLastname()));
-//            $user->setCreatedAt(new \DateTimeImmutable("now"));
-
             $entityManager->persist($user);
             $entityManager->flush();
 
+            // TODO: Modifier les paramètres de mail, créer des variables d'environement
+            // TODO: Modifier la template Email
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
@@ -57,7 +55,6 @@ class RegistrationController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
                 $user,

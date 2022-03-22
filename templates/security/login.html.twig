@@ -7,15 +7,14 @@
     <form method="post">
         <div class="vh-100 gradient-custom">
             <div class="container py-5 h-100">
-
-                {% if app.user %}
-                    <div class="mb-3 text-white">
-                        {% trans %} Vous êtes connecté en tant que {% endtrans %} {{ app.user.email }}, <a href="{{ path('app_logout') }}"> {% trans %} Déconnexion {% endtrans %}</a>
-                    </div>
-                {% endif %}
-
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+
+                        {% if app.user %}
+                            <div class="mb-3 text-white">
+                                {% trans %} Vous êtes connecté en tant que {% endtrans %} {{ app.user.email }}, <a href="{{ path('app_logout') }}"> {% trans %} Déconnexion {% endtrans %}</a>
+                            </div>
+                        {% endif %}
 
                         <div class="card bg-dark text-white" style="border-radius: 1rem;">
                             <div class="card-body p-5">
@@ -31,11 +30,11 @@
                                     {% endif %}
 
                                     <div class="form-white mb-4">
-                                        <input type="email" value="{{ last_username }}" placeholder="{% trans %} Email {% endtrans %}" name="email" id="inputEmail" class="form-control form-control-lg" required autofocus/>
+                                        <input type="email" value="{{ last_username }}" placeholder="{% trans %} Email {% endtrans %}" name="email" id="inputEmail" class="form-control form-control-lg" required/>
                                     </div>
 
                                     <div class="form-white mb-4">
-                                        <input type="password" placeholder="{% trans %} Mot de passe {% endtrans %}" name="password" id="inputPassword" class="form-control form-control-lg" autocomplete="current-password" required />
+                                        <input type="password" placeholder="{% trans %} Mot de passe {% endtrans %}" name="password" id="inputPassword" class="form-control form-control-lg" required />
                                     </div>
 
                                     <p class="small mb-1 pb-lg-2 text-center"><a class="text-white-50" href="{{ path('app_forgot_password_request') }}">{% trans %} Mot de passe oublié? {% endtrans %}</a></p>

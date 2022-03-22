@@ -13,15 +13,16 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class EasyAdminSubscriber implements EventSubscriberInterface
 {
-    private $slugger;
-    private $passwordHasher;
+    private UserPasswordHasherInterface $passwordHasher;
 
-    public function __construct(SluggerInterface $slugger, UserPasswordHasherInterface $passwordHasher)
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
-        $this->slugger = $slugger;
         $this->passwordHasher = $passwordHasher;
     }
 
+    /**
+     * This function is called when the event is triggered
+     */
     public static function getSubscribedEvents() :  array
     {
         return [
@@ -29,7 +30,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         ];
     }
 
-    // Génération d'un mot de passe aléatoire
+    // Fonction pour génération d'un mot de passe aléatoire
     private function randomPassword(int $lenght): string
     {
         $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*_";
@@ -39,7 +40,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         return substr(str_shuffle($chars), 0, $lenght);
     }
 
-    // On hash le MDP de l'utilisateur
+    // On hash le MDP de l'utilisateur avant d'écrire notre entrée dans la BDD
     public function addUser(BeforeEntityPersistedEvent $event): void
     {
         $entity = $event->getEntityInstance();
@@ -52,12 +53,6 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             $entity,
             $entity->getPassword(),
         );
-
-        // On met en Majuscule le nom de famille
-//        $entity->setLastname(strtoupper($entity->getLastname()));
-
-        // Définit la date à laquel le compte a été créé
-//        $entity->setCreatedAt(new \DateTimeImmutable("now"));
 
         $entity->setPassword($hashedPassword);
     }

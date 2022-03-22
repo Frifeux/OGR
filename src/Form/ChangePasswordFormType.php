@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -18,23 +19,24 @@ class ChangePasswordFormType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'mapped' => false,
                 'type' => PasswordType::class,
-                'options' => [
-                    'attr' => [
-                        'class' => 'form-control',
-                        'autocomplete' => 'new-password'
-                    ]
+                'required' => true,
+                'first_options'  => [
+                    'label' => new translatableMessage('Nouveau mot de passe')
+                ],
+                'second_options' => [
+                    'label' => new translatableMessage('Retapez le nouveau mot de passe')
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Entrez un mot de passe',
+                        'message' => new translatableMessage('Entrez un mot de passe'),
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit faire plus de {{ limit }} caractères',
+                        'minMessage' => new translatableMessage('Votre mot de passe doit faire plus de {{ limit }} caractères'),
                         'max' => 4096,
                     ]),
                 ],
-                'invalid_message' => 'Les deux mots de passe doivent être identiques !',
+                'invalid_message' => new translatableMessage('Les deux mots de passe doivent être identiques !'),
             ])
         ;
     }

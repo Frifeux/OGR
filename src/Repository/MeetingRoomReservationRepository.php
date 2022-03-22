@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\MeetingRoomReservation;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,27 @@ class MeetingRoomReservationRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, MeetingRoomReservation::class);
+    }
+
+
+    /**
+     * This function checks if there is an existing reservation for the given meeting room between the given start and end
+     * dates
+     *
+     * @param Int $id The id of the meeting room
+     * @param DateTime $startDate The start date of the reservation.
+     * @param Datetime $endDate The end date of the reservation.
+     *
+     */
+    public function checkExistingReservation(Int $id, DateTime $startDate, Datetime $endDate)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.meetingRoom = :meetingRoomId AND ((m.startAt BETWEEN :startDate AND :endDate) OR (m.endAt BETWEEN :startDate AND :endDate) OR (m.startAt <= :startDate AND m.endAt >= :endDate))')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->setParameter('meetingRoomId', $id)
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

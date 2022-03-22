@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\MeetingRoom;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,16 +21,31 @@ class MeetingRoomRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return MeetingRoom[] Returns an array of active MeetingRoom objects
-    */
+     * @return MeetingRoom[] Returns an array of active MeetingRoom objects
+     */
     public function findActiveMeetingRoom()
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.enabled = :enabled')
             ->setParameter('enabled', true)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
+    }
+
+    /**
+     * Get all active meeting rooms and sort them by location
+     */
+    public function getMeetingRoomByLocation()
+    {
+        $activeMeetingRooms = $this->findActiveMeetingRoom();
+
+        // On fait en sorte de trier les salles par localisation
+        $meetingRoomByLocations = [];
+        foreach ($activeMeetingRooms as $meetingRoom) {
+            $meetingRoomByLocations[$meetingRoom->getLocation()][$meetingRoom->getName()] = $meetingRoom->getId();
+        }
+
+        return $meetingRoomByLocations;
     }
 
     // /**

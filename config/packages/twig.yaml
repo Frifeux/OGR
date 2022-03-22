@@ -1,5 +1,6 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    form_themes: ['bootstrap_5_layout.html.twig'] #On active le thème bootstrap par défaut pour symfony
 
 when@test:
     twig:

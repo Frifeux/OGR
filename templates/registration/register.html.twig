@@ -4,8 +4,6 @@
 
 {% block body %}
 
-    {{ form_start(registrationForm) }}
-
     <div class="vh-100 gradient-custom">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -17,63 +15,52 @@
 
                                 <div class="text-center">
                                     <h2 class="fw-bold mb-2 text-uppercase"> {% trans %} Inscription {% endtrans %}</h2>
-                                    <p class="text-white-50 mb-5"> {% trans %} Entrez vos informations pour créer un compte {% endtrans %}</p>
+                                    <p class="text-white-50 mb-4"> {% trans %} Entrez vos informations pour créer un compte {% endtrans %}</p>
                                 </div>
 
                                 {% for flashError in app.flashes('verify_email_error') %}
                                     <div class="alert alert-danger" role="alert">{{ flashError }}</div>
                                 {% endfor %}
 
-                                <div class="row g-3">
+                                {{ form_start(registrationForm) }}
+
+                                <div class="row">
+
                                     <div class="col-md-6">
-                                        <label for="lastname" class="form-label">{% trans %} Nom {% endtrans %}</label>
-                                        {{ form_widget(registrationForm.lastname) }}
+                                        {{ form_row(registrationForm.lastname) }}
                                     </div>
+
                                     <div class="col-md-6">
-                                        <label for="firstname" class="form-label">{% trans %} Prénom {% endtrans %}</label>
-                                        {{ form_widget(registrationForm.firstname) }}
+                                        {{ form_row(registrationForm.firstname) }}
                                     </div>
 
-                                    <div class="col-12">
-                                        <label for="email" class="form-label">{% trans %} Email {% endtrans %}</label>
-                                        <div class="text-danger mb-2"{{ form_errors(registrationForm.email) }}</div>
-                                        {{ form_widget(registrationForm.email) }}
-                                    </div>
+                                    {{ form_row(registrationForm.email) }}
 
-                                    <div class="col-12">
-                                        <label for="plainPassword" class="form-label">{% trans %} Mot de passe {% endtrans %}</label>
-                                        <div class="text-danger mb-2"{{ form_errors(registrationForm.plainPassword.first) }}</div>
-                                        {{ form_widget(registrationForm.plainPassword.first) }}
+                                    {{ form_row(registrationForm.plainPassword.first) }}
 
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="ConfirmPlainPassword" class="form-label">{% trans %} Confirmation du Mot de passe {% endtrans %}</label>
-                                        {{ form_widget(registrationForm.plainPassword.second) }}
-                                    </div>
+                                    {{ form_row(registrationForm.plainPassword.second) }}
 
-                                    <div class="col-12">
-                                        <div class="form-check mt-3">
-                                            {{ form_widget(registrationForm.agreeTerms) }}
-                                            <label class="form-check-label" for="invalidCheck">{% trans %} J'accepte les conditions générales d'utilisation {% endtrans %}</label>
-                                        </div>
-                                    </div>
+                                    {{ form_row(registrationForm.agreeTerms) }}
 
-                                    <div class="col-12 text-center mt-3">
+                                    <div class="text-center">
                                         <button class="btn btn-outline-light btn-lg px-5" type="submit">{% trans %} Inscription {% endtrans %}</button>
                                     </div>
 
+                                    {{ form_end(registrationForm) }}
                                 </div>
+
                             </div>
 
                             <div class="text-center">
-                                <p class="mb-0">{% trans %} Vous avez déjâ un compte ? {% endtrans %}<a href="{{ path('app_login') }}" class="text-white-50 fw-bold">{% trans %} Connectez-vous {% endtrans %}</a></p>
+                                <p class="mb-0">{% trans %} Vous avez déjâ un compte ? {% endtrans %}<a href="{{ path('app_login') }}" class="text-white-50 fw-bold">{% trans %} Connectez-vous {% endtrans %}</a>
+                                </p>
                             </div>
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-
-    {{ form_end(registrationForm) }}
 {% endblock %}

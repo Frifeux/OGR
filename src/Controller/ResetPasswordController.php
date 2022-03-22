@@ -122,7 +122,6 @@ class ResetPasswordController extends AbstractController
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
 
-            // TODO: Set the home route for reset password redirection
             return $this->redirectToRoute('app_home');
         }
 
@@ -157,7 +156,9 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_check_email');
         }
 
-        // TODO: Change email informations and set with .env vars
+        // TODO: Modifier les paramètres de mail, créer des variables d'environement
+        // TODO: Modifier la template Email
+        // Sending an email to the user with the link to reset is own password
         $email = (new TemplatedEmail())
             ->from(new Address('no-reply@ogr.fr', 'OGR Reset Password'))
             ->to($user->getEmail())

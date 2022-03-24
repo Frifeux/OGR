@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\MeetingRoom;
 use App\Entity\MeetingRoomReservation;
 use App\Form\ChooseMeetingRoomFormType;
 use App\Form\MeetingRoomReservationType;
@@ -18,15 +19,38 @@ use Symfony\Component\Translation\TranslatableMessage;
 class MeetingRoomController extends AbstractController
 {
 
-    private $security;
+    private Security $security;
+    private MeetingRoomReservationRepository $meetingRoomReservationRepository;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, MeetingRoomReservationRepository $meetingRoomReservationRepository)
     {
         $this->security = $security;
+        $this->meetingRoomReservationRepository = $meetingRoomReservationRepository;
+    }
+
+    public function getReservationForFullCalendar(MeetingRoom $meetingRoom)
+    {
+        $allMeetingRoomReservation = [];
+
+        // On récupère les RDV de la salle selectionné
+        $meetingRoomReservations = $this->meetingRoomReservationRepository->findBy(['meetingRoom' => $meetingRoom]);
+        foreach ($meetingRoomReservations as $m) {
+            $allMeetingRoomReservation[] = [
+                'id' => $m->getId(),
+                'start' => $m->getStartAt()->format('Y-m-d H:i:s'),
+                'end' => $m->getEndAt()->format('Y-m-d H:i:s'),
+                'title' => $m->getTitle(),
+                'description' => $m->getDescription(),
+                'backgroundColor' => '#0053a3',
+                'borderColor' => '#0053a3',
+            ];
+        }
+
+        return $allMeetingRoomReservation;
     }
 
     #[Route('/reservation/metting_room', name: 'metting_room')]
-    public function mettingRoom(Request $request, MeetingRoomReservationRepository $meetingRoomReservationRepository, MeetingRoomRepository $meetingRoomRepository, EntityManagerInterface $entityManager): Response
+    public function mettingRoom(Request $request, EntityManagerInterface $entityManager): Response
     {
 
         // Création de nos deux formulaires
@@ -41,44 +65,33 @@ class MeetingRoomController extends AbstractController
         // Formulaire pour afficher les créneaux horaires des salles
         if ($chooseMeetingRoomForm->isSubmitted() && $chooseMeetingRoomForm->isValid()) {
 
-            $meetingRoom = $meetingRoomRepository->findOneBy(['id' => $chooseMeetingRoomForm->get('meetingRoom')->getData()]);
-            $meetingRoomReservation->setMeetingRoom($meetingRoom);
+            $meetingRoom = $chooseMeetingRoomForm->get('meetingRoom')->getData();
 
             // On récupère les RDV de la salle selectionné
-            $meetingRoomReservations = $meetingRoomReservationRepository->findBy(['meetingRoom' => $chooseMeetingRoomForm->get('meetingRoom')->getData()]);
-            foreach ($meetingRoomReservations as $m) {
-                $jsonifyMeetingRoomReservation[] = [
-                    'id' => $m->getId(),
-                    'start' => $m->getStartAt()->format('Y-m-d H:i:s'),
-                    'end' => $m->getEndAt()->format('Y-m-d H:i:s'),
-                    'title' => $m->getTitle(),
-                    'description' => $m->getDescription(),
-                    'backgroundColor' => '#0053a3',
-                    'borderColor' => '#0053a3',
-                ];
-            }
+            $jsonifyMeetingRoomReservation = $this->getReservationForFullCalendar($meetingRoom);
         }
 
         // Formulaire de réservation d'une salle de réunion
         if ($meetingRoomReservationForm->isSubmitted() && $meetingRoomReservationForm->isValid()) {
 
-            $meetingRoom = $meetingRoomRepository->findOneBy(['id' => $meetingRoomReservationForm->get('meetingRoom')->getData()]);
-            if ($meetingRoom)
-            {
-                // On définit les attributs de notre objet MeetingRoomReservation
-                $meetingRoomReservation->setMeetingRoom($meetingRoom);
+            // Si on à une salle de réunion sélectionné
+            if ($meetingRoomReservation->getMeetingRoom()) {
+                // On définit l'utilisateur
                 $meetingRoomReservation->setUser($this->security->getUser());
 
                 // on vérifie si une réservation n'existe pas déja
-                $reservationExist = $meetingRoomReservationRepository->checkExistingReservation($meetingRoom->getId(), $meetingRoomReservation->getStartAt(), $meetingRoomReservation->getEndAt());
-                if (!$reservationExist){
+                $reservationExist = $this->meetingRoomReservationRepository->checkExistingReservation($meetingRoomReservation->getMeetingRoom(), $meetingRoomReservation->getStartAt(), $meetingRoomReservation->getEndAt());
+                if (!$reservationExist) {
                     $entityManager->persist($meetingRoomReservation);
                     $entityManager->flush();
 
                     $this->addFlash('reservation_meeting_room_success', new translatableMessage('Votre réservation à bien été ajouté !'));
-                }else{
+                } else {
                     $this->addFlash('reservation_meeting_room_error', new translatableMessage('Une réservation existe déjâ pour les horraires de la salle de réunion selectionné !'));
                 }
+
+                // On récupère les RDV de la salle selectionné
+                $jsonifyMeetingRoomReservation = $this->getReservationForFullCalendar($meetingRoomReservation->getMeetingRoom());
             }
         }
 

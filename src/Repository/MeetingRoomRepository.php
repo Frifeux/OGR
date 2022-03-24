@@ -42,7 +42,7 @@ class MeetingRoomRepository extends ServiceEntityRepository
         // On fait en sorte de trier les salles par localisation
         $meetingRoomByLocations = [];
         foreach ($activeMeetingRooms as $meetingRoom) {
-            $meetingRoomByLocations[$meetingRoom->getLocation()][$meetingRoom->getName()] = $meetingRoom->getId();
+            $meetingRoomByLocations[$meetingRoom->getLocation()][$meetingRoom->getName()] = $meetingRoom;
         }
 
         return $meetingRoomByLocations;

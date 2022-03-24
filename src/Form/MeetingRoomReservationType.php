@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\MeetingRoom;
 use App\Entity\MeetingRoomReservation;
 use App\Repository\MeetingRoomRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -33,8 +35,15 @@ class MeetingRoomReservationType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => new TranslatableMessage('Titre'),
+                'label_attr' => [
+                    'class' => 'small',
+                ],
                 'attr' => [
+                    'class' => 'form-control-sm',
                     'placeholder' => new translatableMessage('Le nom de votre réservation'),
+                ],
+                'row_attr' => [
+                    'class' => 'mb-2',
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -44,14 +53,30 @@ class MeetingRoomReservationType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'label' => new TranslatableMessage('Description'),
+                'label_attr' => [
+                    'class' => 'small',
+                ],
                 'attr' => [
+                    'class' => 'form-control-sm',
                     'placeholder' => new translatableMessage('La description de votre réservation'),
                 ],
+                'row_attr' => [
+                    'class' => 'mb-2',
+                ],
             ])
-            ->add('meetingRoom', ChoiceType::class, [
-                'mapped' => false,
+            ->add('meetingRoom', EntityType::class, [
                 'label' => new TranslatableMessage('Sélection de la salle'),
+                'class' => MeetingRoom::class,
+                'label_attr' => [
+                    'class' => 'small',
+                ],
+                'attr' => [
+                    'class' => 'form-select-sm',
+                ],
                 'choices' => $this->meetingRoomRepository->getMeetingRoomByLocation(),
+                'row_attr' => [
+                    'class' => 'mb-2',
+                ],
             ])
 
             // TODO: Voir pourquoi les label ne fonctionne pas !!
@@ -63,6 +88,9 @@ class MeetingRoomReservationType extends AbstractType
 //                'time_label' => new TranslatableMessage('Heure de début'),
                 'hours' => range(8,20),
                 'minutes' => [0,30],
+                'row_attr' => [
+                    'class' => 'mb-2',
+                ],
             ])
 
             ->add('endAt', DateTimeType::class,[
@@ -72,10 +100,14 @@ class MeetingRoomReservationType extends AbstractType
 //                'time_label' => new TranslatableMessage('Heure de fin'),
                 'hours' => range(8,20),
                 'minutes' => [0,30],
+//                'by_reference' => true, //The DateTime classes are treated as immutable objects.
             ])
 
             ->add('save', SubmitType::class, [
                 'label' => new TranslatableMessage('Réserver'),
+                'attr' => [
+                    'class' => 'btn btn-primary btn-sm'
+                ]
             ])
         ;
     }

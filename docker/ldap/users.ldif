@@ -82,6 +82,7 @@ objectCategory: User
 cn: Test User
 sn: test
 uid: test
+mail: test@wimpi.net
 sAMAccountName: test
 userPassword: secret
 memberOf: admin

@@ -42,6 +42,8 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $user->setLocation("Paris"); // TODO: Temporary
+
             $entityManager->persist($user);
             $entityManager->flush();
 

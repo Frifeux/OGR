@@ -5,6 +5,9 @@ namespace App\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Ldap\Ldap;
+use Symfony\Component\Ldap\LdapInterface;
+use Symfony\Component\Ldap\Security\LdapAuthenticator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
@@ -22,21 +25,35 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     public const LOGIN_ROUTE = 'app_login';
 
     private UrlGeneratorInterface $urlGenerator;
+//    private LdapInterface $ldap;
 
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
         $this->urlGenerator = $urlGenerator;
+
+//        $this->ldap = Ldap::create('ext_ldap', [
+//            'host' => $_ENV['LDAP_HOST'],
+//            'port' => $_ENV['LDAP_PORT'],
+//            'encryption' => $_ENV['LDAP_ENCRYPTION'],
+//            'debug' => true,
+//        ]);
+//        $this->ldap->bind($_ENV['LDAP_USER_DN'], $_ENV['LDAP_USER_PASSWORD']);
+//
+//        $query = $this->ldap->query('ou=users,dc=wimpi,dc=net', '(uid='.$email.')');
+//        dd($query->execute()->toArray());
+
     }
 
     public function authenticate(Request $request): Passport
     {
-        $email = $request->request->get('email', '');
+
+        $email = $request->request->get('_username', '');
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
         return new Passport(
             new UserBadge($email),
-            new PasswordCredentials($request->request->get('password', '')),
+            new PasswordCredentials($request->request->get('_password', '')),
             [
                 new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
             ]

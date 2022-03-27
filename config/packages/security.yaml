@@ -8,23 +8,58 @@ security:
 
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        # used to reload user from session & other features (e.g. switch_user)
+
         app_user_provider:
             entity:
                 class: App\Entity\User
                 property: email
+
+        ldap_server:
+            ldap:
+                service: Symfony\Component\Ldap\Ldap
+                base_dn: '%env(LDAP_BASE_DN)%'
+                search_dn: '%env(LDAP_USER_DN)%'
+                search_password: '%env(LDAP_USER_PASSWORD)%'
+                default_roles: ROLE_USER
+#                uid_key: uid
+
+        all_users:
+            chain:
+                providers: [ 'app_user_provider', 'ldap_server' ]
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: app_user_provider
-            custom_authenticator: App\Security\LoginFormAuthenticator
+
+            custom_authenticators:
+                - App\Security\LoginFormAuthenticator
+
+            # uncomes to use local authentication
+#            provider: app_user_provider
+#            custom_authenticator: App\Security\LoginFormAuthenticator
+
+            # Uncomment to use LDAP authentication
+            entry_point: form_login_ldap # witch which form to use for the connection
+            provider: all_users
+
+            form_login: true
+            form_login_ldap:
+                service: Symfony\Component\Ldap\Ldap
+                dn_string: 'ou=users,dc=wimpi,dc=net'
+#                dn_string: 'uid={username},ou=users,dc=wimpi,dc=net'
+#                query_string: '(&(uid={username})(memberOf=cn=admin,ou=users,dc=wimpi,dc=net))'
+                query_string: '(uid={_username})'
+                search_dn: '%env(LDAP_USER_DN)%'
+                search_password: '%env(LDAP_USER_PASSWORD)%' # password for the search_dn
+                login_path: app_login
+                check_path: app_login
+
             logout:
                 path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
+                target: app_login # where to redirect after logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -35,8 +70,10 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+#         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/user, roles: ROLE_USER }
+         - { path: ^/home, roles: ROLE_USER }
+         - { path: ^/reservation, roles: ROLE_USER }
 
 when@test:
     security:

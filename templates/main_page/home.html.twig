@@ -10,7 +10,7 @@
                 <div class="col-xl-3 col-sm-6">
 
                     {# TODO: Mettre le chemin vers les template du site #}
-                    <a href="{{ path('metting_room') }}" class="text-decoration-none text-white">
+                    <a href="{{ path('app_metting_room') }}" class="text-decoration-none text-white">
                         <div class="bg-dark rounded shadow-sm py-5 px-2 px-xl-2">
                             <div class="card-category h3 text-uppercase">{% trans %}Salle{% endtrans %}</div>
                             <i class="bi bi-projector fs-1"></i>
@@ -21,7 +21,7 @@
 
                 <div class="col-xl-3 col-sm-6">
 
-                    <a href="" class="text-decoration-none text-white">
+                    <a href="{{ path('app_office') }}" class="text-decoration-none text-white">
                         <div class="bg-dark rounded shadow-sm py-5 px-2 px-xl-2">
                             <div class="card-category h3 text-uppercase">{% trans %}Bureau{% endtrans %}</div>
                             <i class="bi bi-door-open fs-1"></i>

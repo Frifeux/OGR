@@ -29,7 +29,7 @@ symfony console make:controller
 
 Allez dans le fichier .env et ajouter la connexion à la BDD
 
-```json
+```yaml
 DATABASE_URL="mysql://root:@127.0.0.1:3306/macave"
 ```
 
@@ -52,10 +52,10 @@ Mettre à jour la BDD:
 symfony console doctrine:migrations:migrate
 ```
 
-Mettre des fausses données dans la BDD:
+## Mettre des fausses données dans la BDD:
 
 ```bash
-composer require orm-fixtures --dev
+composer require --dev doctrine/doctrine-fixtures-bundle
 ```
 
 Création de la classe pour ajouter des données dans notre table:
@@ -64,10 +64,45 @@ Création de la classe pour ajouter des données dans notre table:
 symfony console make:fixtures
 ```
 
-Ajouter les données fixtures dans la BDD:
+Ajouter les données fixtures dans la BDD de test:
 
 ```bash
-symfony console doctrine:fixtures:load
+symfony console doctrine:fixtures:load --env=test
+```
+
+# Symfony Unit Test
+
+Installation des dépendances:
+```bash
+composer require --dev symfony/test-pack
+```
+
+### Création de la BDD pour les tests:
+```bash
+symfony console --env=test doctrine:database:create
+symfony console --env=test doctrine:schema:create
+```
+
+### Réinitialisation automatique de la base de données avant chaque test
+```bash
+composer require --dev dama/doctrine-test-bundle
+```
+
+Maintenant, activez-le en tant qu'extension PHPUnit :
+```xml
+<!-- phpunit.xml.dist -->
+<phpunit>
+    <!-- ... -->
+
+    <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+    </extensions>
+</phpunit>
+```
+
+Pour créer des sénarios de test:
+```bash
+symfony console make:test
 ```
 
 # BDD Code (Manipulation de données)

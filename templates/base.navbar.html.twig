@@ -27,7 +27,7 @@
 <div class="min-vh-100 bg-light d-flex flex-column">
 
     {# navbar du site #}
-    <header>
+    <header class="sticky-top">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
             <div class="container">
 
@@ -45,16 +45,16 @@
 
                         {# TODO: Mettre le chemin vers les template du site #}
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ path('metting_room') }}">{% trans %}Salle{% endtrans %}</a>
+                            <a class="nav-link active" href="{{ path('app_metting_room') }}">{% trans %}Salle{% endtrans %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{% trans %}Bureau{% endtrans %}</a>
+                            <a class="nav-link" href="{{ path('app_office') }}">{% trans %}Bureau{% endtrans %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{% trans %}Matériel{% endtrans %}</a>
+                            <a class="nav-link" href="{{ path('app_metting_room') }}">{% trans %}Matériel{% endtrans %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{% trans %}Mes réservation{% endtrans %}</a>
+                            <a class="nav-link" href="{{ path('app_metting_room') }}">{% trans %}Mes réservation{% endtrans %}</a>
                         </li>
                         <!-- seulement visible par le groupe admin -->
                         <li class="nav-item">

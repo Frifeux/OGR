@@ -1,0 +1,103 @@
+{% extends 'base.navbar.html.twig' %}
+
+{% block title %}OGR - Reservation d'un bureau {% endblock %}
+
+{% block content %}
+
+    <!-- contenu de notre page -->
+    <main class="d-flex flex-grow-1 align-items-stretch">
+        <div class="container-fluid">
+            <div class="row g-4 py-3 align-items-stretch">
+
+                <div class="col-12 col-xxl-3 col-xl-4 col-lg-4 align-self-center">
+
+                    <!-- Affichage des messages de success et erreurs-->
+                    {% for flashSuccess in app.flashes('reservation_office_success') %}
+                        <div class="alert alert-success" role="alert">{{ flashSuccess }}</div>
+                    {% endfor %}
+
+                    {% for flashError in app.flashes('reservation_office_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                    {% endfor %}
+
+                    <div class="border rounded shadow-sm py-2 px-3 text-dark">
+                        <h2 class="px-4 py-2"> <strong> Bureau </strong> </h2>
+
+                        <!-- Formulaire pour ajouter une réservation à une salle -->
+                        {{ form_start(chooseOfficeReservationFormType) }}
+
+                            <!-- Infos demandé pour créer une réservation -->
+                            {{ form_row(chooseOfficeReservationFormType.office) }}
+
+                            {{ form_row(chooseOfficeReservationFormType.floor) }}
+
+                            {{ form_row(chooseOfficeReservationFormType.department) }}
+
+                            <!-- Input pour selectionner un(e) date/horaire-->
+                            {{ form_row(chooseOfficeReservationFormType.startAt) }}
+                            {{ form_row(chooseOfficeReservationFormType.endAt) }}
+
+                            <!-- validation du form -->
+                            <div class="text-center">
+                                {{ form_widget(chooseOfficeReservationFormType.save) }}
+                            </div>
+
+                        {{ form_end(chooseOfficeReservationFormType) }}
+                    </div>
+                </div>
+
+                <div class="col align-self-center">
+                    <div class="border rounded shadow-sm py-2 px-4 text-dark">
+
+                        <h2 class="px-4 py-2"> <strong> Disponibilité </strong> </h2>
+
+                        <!-- Affichage des Disponibilité -->
+                        <!-- overflow, Classe CSS custom ICI -->
+                        <div class="overflow-custom">
+
+                            <table class="table table-striped text-center">
+
+                                <thead class="table-info sticky-top">
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Localisation</th>
+                                    <th>Etage</th>
+                                    <th>Service</th>
+                                    <th>Début</th>
+                                    <th>Fin</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <td>207-5</td>
+                                    <td>Nantes</td>
+                                    <td>Etage 1</td>
+                                    <td>RH</td>
+                                    <td>2022-03-10 00:22:00</td>
+                                    <td>2022-03-18 00:22:00</td>
+                                    <td><button class="btn btn-primary btn-sm" type="button">Réserver</button></td>
+                                </tr>
+                                <tr>
+                                    <td>207-5</td>
+                                    <td>Nantes</td>
+                                    <td>Etage 1</td>
+                                    <td>RH</td>
+                                    <td>2022-03-10 00:22:00</td>
+                                    <td>2022-03-18 00:22:00</td>
+                                    <td><button class="btn btn-primary btn-sm" type="button">Réserver</button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

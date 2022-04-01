@@ -49,8 +49,10 @@ services:
     image: phpmyadmin:latest
     environment:
       PMA_HOST: database_symfony
-      PMA_USER: ogr
-      PMA_PASSWORD: 993Djc97ncXhdydfsjPhtFr4
+#      PMA_USER: ogr
+#      PMA_PASSWORD: 993Djc97ncXhdydfsjPhtFr4
+      PMA_USER: root
+      PMA_PASSWORD: LQEzc6pJp8tBHh4zgEEQme7L
     ports:
       - "8081:80"
     restart: always

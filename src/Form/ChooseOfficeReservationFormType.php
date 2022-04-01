@@ -3,87 +3,80 @@
 namespace App\Form;
 
 use App\Entity\MeetingRoom;
-use App\Entity\MeetingRoomReservation;
+use App\Entity\Office;
+use App\Entity\OfficeReservation;
 use App\Repository\MeetingRoomRepository;
+use App\Repository\OfficeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatableMessage;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Choice;
 
-class MeetingRoomReservationType extends AbstractType
+class ChooseOfficeReservationFormType extends AbstractType
 {
 
-    private MeetingRoomRepository $meetingRoomRepository;
+    private OfficeRepository $officeRepository;
 
-    public function __construct(MeetingRoomRepository $meetingRoomRepository)
+    public function __construct(OfficeRepository $officeRepository)
     {
-        $this->meetingRoomRepository = $meetingRoomRepository;
+        $this->officeRepository = $officeRepository;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, [
-                'label' => new TranslatableMessage('Titre'),
-                'label_attr' => [
-                    'class' => 'small',
-                ],
-                'attr' => [
-                    'class' => 'form-control-sm',
-                    'placeholder' => new translatableMessage('Le nom de votre réservation'),
-                ],
-                'row_attr' => [
-                    'class' => 'mb-2',
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => new translatableMessage('Entrez l\'intitulé de la réservation'),
-                    ]),
-                ],
-            ])
-            ->add('description', TextareaType::class, [
+            ->add('office', ChoiceType::class, [
+                'label' => new TranslatableMessage('Sélection de l\'emplacement'),
                 'required' => false,
-                'label' => new TranslatableMessage('Description'),
+                'choices' => $this->officeRepository->getAllLocation(),
                 'label_attr' => [
                     'class' => 'small',
-                ],
-                'attr' => [
-                    'class' => 'form-control-sm',
-                    'placeholder' => new translatableMessage('La description de votre réservation'),
                 ],
                 'row_attr' => [
-                    'class' => 'mb-2',
-                ],
-            ])
-            ->add('meetingRoom', EntityType::class, [
-                'label' => new TranslatableMessage('Sélection de la salle'),
-                'class' => MeetingRoom::class,
-                'label_attr' => [
-                    'class' => 'small',
+                    'class' => 'mb-1',
                 ],
                 'attr' => [
                     'class' => 'form-select-sm',
                 ],
-                'choices' => $this->meetingRoomRepository->getMeetingRoomByLocation(),
+            ])
+            ->add('floor', ChoiceType::class, [
+                'label' => new TranslatableMessage('Sélection de l\'étage'),
+                'required' => false,
+                'choices' => $this->officeRepository->getAllFloor(),
+                'label_attr' => [
+                    'class' => 'small',
+                ],
                 'row_attr' => [
-                    'class' => 'mb-2',
+                    'class' => 'mb-1',
+                ],
+                'attr' => [
+                    'class' => 'form-select-sm',
+                ],
+            ])
+            ->add('department', ChoiceType::class, [
+                'label' => new TranslatableMessage('Sélection du service'),
+                'required' => false,
+                'choices' => $this->officeRepository->getAllDepartment(),
+                'label_attr' => [
+                    'class' => 'small',
+                ],
+                'row_attr' => [
+                    'class' => 'mb-1',
+                ],
+                'attr' => [
+                    'class' => 'form-select-sm',
                 ],
             ])
 
             // TODO: Voir pourquoi les label ne fonctionne pas !!
-
             ->add('startAt', DateTimeType::class,[
                 'label' => new TranslatableMessage('Date et Heure de début'),
+                'required' => true,
 //                'date_label' => new TranslatableMessage('Date de début'),
                 'date_widget' => 'single_text',
 //                'time_label' => new TranslatableMessage('Heure de début'),
@@ -96,6 +89,7 @@ class MeetingRoomReservationType extends AbstractType
 
             ->add('endAt', DateTimeType::class,[
                 'label' => new TranslatableMessage('Date et Heure de fin'),
+                'required' => true,
 //                'date_label' => new TranslatableMessage('Date de fin'),
                 'date_widget' => 'single_text',
 //                'time_label' => new TranslatableMessage('Heure de fin'),
@@ -105,18 +99,16 @@ class MeetingRoomReservationType extends AbstractType
             ])
 
             ->add('save', SubmitType::class, [
-                'label' => new TranslatableMessage('Réserver'),
+                'label' => new TranslatableMessage('Voir les disponibilités'),
                 'attr' => [
                     'class' => 'btn btn-primary btn-sm'
                 ]
-            ])
+            ]);
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => MeetingRoomReservation::class,
-        ]);
+        $resolver->setDefaults([]);
     }
 }

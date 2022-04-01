@@ -19,6 +19,73 @@ class OfficeRepository extends ServiceEntityRepository
         parent::__construct($registry, Office::class);
     }
 
+    /**
+     * @return Office[] Returns an array of active Office objects
+     */
+    public function findActiveOffice()
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Get all locations of the active office
+     */
+    public function getAllLocation()
+    {
+        $activeOffice = $this->findActiveOffice();
+
+        // On récupère toutes les localisations
+        $locations = [];
+
+        foreach ($activeOffice as $office) {
+            $officeLocation = $office->getLocation();
+            $officeByLocations[$officeLocation] = $officeLocation;
+        }
+
+        return $officeByLocations;
+    }
+
+
+    /**
+     * Get all the floors of the active office
+     */
+    public function getAllFloor()
+    {
+        $activeOffice = $this->findActiveOffice();
+
+        // On récupère tout les étages
+        $floors = [];
+
+        foreach ($activeOffice as $office) {
+            $officeFloor = $office->getFloor();
+            $floors[$officeFloor] = $officeFloor;
+        }
+
+        return $floors;
+    }
+
+    /**
+     * Get all departments of the active office
+     */
+    public function getAllDepartment()
+    {
+        $activeOffice = $this->findActiveOffice();
+
+        // On récupère tout les services
+        $departments = [];
+
+        foreach ($activeOffice as $office) {
+            $officeDepartments = $office->getDepartment();
+            $departments[$officeDepartments] = $officeDepartments;
+        }
+
+        return $departments;
+    }
+
     // /**
     //  * @return Office[] Returns an array of Office objects
     //  */

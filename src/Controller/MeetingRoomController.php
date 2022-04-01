@@ -49,7 +49,7 @@ class MeetingRoomController extends AbstractController
         return $allMeetingRoomReservation;
     }
 
-    #[Route('/reservation/metting_room', name: 'metting_room')]
+    #[Route('/reservation/metting_room', name: 'app_metting_room')]
     public function mettingRoom(Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -65,10 +65,13 @@ class MeetingRoomController extends AbstractController
         // Formulaire pour afficher les créneaux horaires des salles
         if ($chooseMeetingRoomForm->isSubmitted() && $chooseMeetingRoomForm->isValid()) {
 
-            $meetingRoom = $chooseMeetingRoomForm->get('meetingRoom')->getData();
+            // Si on à une salle de réunion sélectionné
+            if ($meetingRoomReservation->getMeetingRoom()) {
+                $meetingRoom = $chooseMeetingRoomForm->get('meetingRoom')->getData();
 
-            // On récupère les RDV de la salle selectionné
-            $jsonifyMeetingRoomReservation = $this->getReservationForFullCalendar($meetingRoom);
+                // On récupère les RDV de la salle selectionné
+                $jsonifyMeetingRoomReservation = $this->getReservationForFullCalendar($meetingRoom);
+            }
         }
 
         // Formulaire de réservation d'une salle de réunion
@@ -92,6 +95,8 @@ class MeetingRoomController extends AbstractController
 
                 // On récupère les RDV de la salle selectionné
                 $jsonifyMeetingRoomReservation = $this->getReservationForFullCalendar($meetingRoomReservation->getMeetingRoom());
+            }else{
+                $this->addFlash('reservation_meeting_room_error', new translatableMessage('Veuillez sélectionner une salle de réunion !'));
             }
         }
 

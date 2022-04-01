@@ -56,10 +56,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_metting_room') }}">{% trans %}Mes réservation{% endtrans %}</a>
                         </li>
+
                         <!-- seulement visible par le groupe admin -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('admin') }}">{% trans %}Administration{% endtrans %}</a>
-                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('admin') }}">{% trans %}Administration{% endtrans %}</a>
+                            </li>
+                        {% endif %}
 
                     </ul>
 

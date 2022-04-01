@@ -49,20 +49,31 @@
 
     <main class="d-flex flex-grow-1 align-items-stretch">
         <div class="container-fluid">
+
+            <!-- Affichage des messages de success et erreurs-->
+            {% for flashSuccess in app.flashes('reservation_meeting_room_success') %}
+                <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <div>
+                        {{ flashSuccess }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+
+            {% for flashError in app.flashes('reservation_meeting_room_error') %}
+                <div class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <div>
+                        {{ flashError }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+
             <div class="row g-4 py-3 align-items-stretch">
 
                 <div class="col-12 col-xxl-3 col-xl-4 col-lg-4 align-self-center">
-
-                    <!-- Affichage des messages de success et erreurs-->
-
-                    {% for flashSuccess in app.flashes('reservation_meeting_room_success') %}
-                        <div class="alert alert-success" role="alert">{{ flashSuccess }}</div>
-                    {% endfor %}
-
-                    {% for flashError in app.flashes('reservation_meeting_room_error') %}
-                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-                    {% endfor %}
-
                     <div class="border rounded shadow-sm py-2 px-3 text-dark">
 
                         <p class="h3 px-4 py-1"><strong>{% trans %}Salle{% endtrans %}</strong></p>

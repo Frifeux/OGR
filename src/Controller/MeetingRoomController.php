@@ -59,7 +59,10 @@ class MeetingRoomController extends AbstractController
 
         $meetingRoomReservation = new MeetingRoomReservation();
         $meetingRoomReservationForm = $this->createForm(MeetingRoomReservationType::class, $meetingRoomReservation);
+
         $meetingRoomReservationForm->handleRequest($request);
+
+//        dd($meetingRoomReservation);
 
         $jsonifyMeetingRoomReservation = [];
         // Formulaire pour afficher les créneaux horaires des salles

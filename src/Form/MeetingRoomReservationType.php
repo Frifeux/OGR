@@ -17,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -101,7 +103,6 @@ class MeetingRoomReservationType extends AbstractType
 //                'time_label' => new TranslatableMessage('Heure de fin'),
                 'hours' => range($_ENV['WORKING_HOURS_START'],$_ENV['WORKING_HOURS_END']),
                 'minutes' => [0,30],
-//                'by_reference' => true, //The DateTime classes are treated as immutable objects.
             ])
 
             ->add('save', SubmitType::class, [

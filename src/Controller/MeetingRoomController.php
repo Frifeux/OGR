@@ -66,9 +66,8 @@ class MeetingRoomController extends AbstractController
         if ($chooseMeetingRoomForm->isSubmitted() && $chooseMeetingRoomForm->isValid()) {
 
             // Si on à une salle de réunion sélectionné
-            if ($meetingRoomReservation->getMeetingRoom()) {
-                $meetingRoom = $chooseMeetingRoomForm->get('meetingRoom')->getData();
-
+            $meetingRoom = $chooseMeetingRoomForm->get('meetingRoom')->getData();
+            if ($meetingRoom) {
                 // On récupère les RDV de la salle selectionné
                 $jsonifyMeetingRoomReservation = $this->getReservationForFullCalendar($meetingRoom);
             }

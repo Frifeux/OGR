@@ -48,7 +48,7 @@ class MeetingRoomController extends AbstractController
         return $allMeetingRoomReservation;
     }
 
-    #[Route('/reservation/metting_room', name: 'app_metting_room')]
+    #[Route('/reservation/meeting_room', name: 'app_meeting_room')]
     public function mettingRoom(Request $request, EntityManagerInterface $entityManager): Response
     {
 

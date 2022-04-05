@@ -2,7 +2,7 @@
 framework:
 
     # the IP address (or range) of your proxy
-    trusted_proxies: '127.0.0.1,192.168.80.0/24'
+    trusted_proxies: '%env(TRUSTED_PROXIES)%'
 
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true

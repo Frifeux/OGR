@@ -65,7 +65,7 @@ class OfficeController extends AbstractController
             $this->entityManager->persist($officeReservation);
             $this->entityManager->flush();
 
-            $this->addFlash('success', new TranslatableMessage('reservation.office.success', [], 'messages'));
+            $this->addFlash('reservation_office_success', new TranslatableMessage('Votre réservation à bien été ajouté !'));
 
         }else{
             $this->addFlash('reservation_office_error', new TranslatableMessage('Impossible de trouver le bureau que vous avez demandé'));

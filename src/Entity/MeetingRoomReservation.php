@@ -22,7 +22,7 @@ class MeetingRoomReservation
     private $startAt;
 
     #[ORM\Column(type: 'datetime')]
-    #[Assert\GreaterThanOrEqual(
+    #[Assert\GreaterThan(
         propertyPath: 'startAt',
         message: new translatableMessage('La date de fin doit être supérieure ou égale à la date de début')
     )]

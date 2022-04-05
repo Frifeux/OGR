@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\OfficeReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Translation\TranslatableMessage;
 
 #[ORM\Entity(repositoryClass: OfficeReservationRepository::class)]
 class OfficeReservation
@@ -20,6 +22,10 @@ class OfficeReservation
     private $startAt;
 
     #[ORM\Column(type: 'datetime')]
+    #[Assert\GreaterThan(
+        propertyPath: 'startAt',
+        message: new translatableMessage('La date de fin doit être supérieure ou égale à la date de début')
+    )]
     private $endAt;
 
     #[ORM\ManyToOne(targetEntity: Office::class, inversedBy: 'officeReservations')]

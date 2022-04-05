@@ -14,17 +14,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class MeetingRoomController extends AbstractController
 {
 
-    private Security $security;
     private MeetingRoomReservationRepository $meetingRoomReservationRepository;
 
-    public function __construct(Security $security, MeetingRoomReservationRepository $meetingRoomReservationRepository)
+    public function __construct(MeetingRoomReservationRepository $meetingRoomReservationRepository)
     {
-        $this->security = $security;
         $this->meetingRoomReservationRepository = $meetingRoomReservationRepository;
     }
 
@@ -80,7 +79,7 @@ class MeetingRoomController extends AbstractController
             // Si on à une salle de réunion sélectionné
             if ($meetingRoomReservation->getMeetingRoom()) {
                 // On définit l'utilisateur
-                $meetingRoomReservation->setUser($this->security->getUser());
+                $meetingRoomReservation->setUser($this->getUser());
 
                 // on vérifie si une réservation n'existe pas déja
                 $reservationExist = $this->meetingRoomReservationRepository->checkExistingReservation($meetingRoomReservation->getMeetingRoom(), $meetingRoomReservation->getStartAt(), $meetingRoomReservation->getEndAt());
@@ -95,7 +94,7 @@ class MeetingRoomController extends AbstractController
 
                 // On récupère les RDV de la salle selectionné
                 $jsonifyMeetingRoomReservation = $this->getReservationForFullCalendar($meetingRoomReservation->getMeetingRoom());
-            }else{
+            } else {
                 $this->addFlash('reservation_meeting_room_error', new translatableMessage('Veuillez sélectionner une salle de réunion !'));
             }
         }
@@ -106,5 +105,4 @@ class MeetingRoomController extends AbstractController
             'meetingRoomReservations' => json_encode($jsonifyMeetingRoomReservation),
         ]);
     }
-
 }

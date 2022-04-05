@@ -41,7 +41,7 @@
                         {{ form_start(chooseOfficeReservationFormType) }}
 
                             <!-- Infos demandé pour créer une réservation -->
-                            {{ form_row(chooseOfficeReservationFormType.office) }}
+                            {{ form_row(chooseOfficeReservationFormType.location) }}
 
                             {{ form_row(chooseOfficeReservationFormType.floor) }}
 
@@ -77,32 +77,39 @@
                                     <th>Localisation</th>
                                     <th>Etage</th>
                                     <th>Service</th>
-                                    <th>Début</th>
-                                    <th>Fin</th>
+{#                                    <th>Début</th>#}
+{#                                    <th>Fin</th>#}
                                     <th></th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
-                                <tr>
-                                    <td>207-5</td>
-                                    <td>Nantes</td>
-                                    <td>Etage 1</td>
-                                    <td>RH</td>
-                                    <td>2022-03-10 00:22:00</td>
-                                    <td>2022-03-18 00:22:00</td>
-                                    <td><button class="btn btn-primary btn-sm" type="button">Réserver</button></td>
-                                </tr>
-                                <tr>
-                                    <td>207-5</td>
-                                    <td>Nantes</td>
-                                    <td>Etage 1</td>
-                                    <td>RH</td>
-                                    <td>2022-03-10 00:22:00</td>
-                                    <td>2022-03-18 00:22:00</td>
-                                    <td><button class="btn btn-primary btn-sm" type="button">Réserver</button>
-                                    </td>
-                                </tr>
+
+                                {% if not availableOfficeReservations %}
+                                    <!-- Empty table if no reservation is available -->
+                                    <tr>
+                                        <td colspan="7" class="text-center">
+                                            <h4>Aucune réservation disponible</h4>
+                                            <p>Faite une recherche ou changer la date de votre recherche!</p>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+
+                                {% for office in availableOfficeReservations %}
+                                    <tr>
+                                        <td>{{ office.name }}</td>
+                                        <td>{{ office.location }}</td>
+                                        <td>{{ office.floor }}</td>
+                                        <td>{{ office.department }}</td>
+{#                                        <td>{{ officeReservation.startAt|date('d/m/Y H:i') }}</td>#}
+{#                                        <td>{{ officeReservation.endAt|date('d/m/Y H:i') }}</td>#}
+                                        <td>
+                                            <a href="{{ path('app_office_reservation', {'id': office.id, 'startAt': officeReservation.startAt|date('U'), 'endAt': officeReservation.endAt|date('U') }) }}" class="btn btn-primary">
+                                                <i class="fas fa-plus-circle"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
 
                                 </tbody>
                             </table>

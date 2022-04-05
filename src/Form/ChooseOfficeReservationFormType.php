@@ -30,7 +30,8 @@ class ChooseOfficeReservationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('office', ChoiceType::class, [
+            ->add('location', ChoiceType::class, [
+                'mapped' => false,
                 'label' => new TranslatableMessage('Sélection de l\'emplacement'),
                 'required' => false,
                 'choices' => $this->officeRepository->getAllLocation(),
@@ -45,6 +46,7 @@ class ChooseOfficeReservationFormType extends AbstractType
                 ],
             ])
             ->add('floor', ChoiceType::class, [
+                'mapped' => false,
                 'label' => new TranslatableMessage('Sélection de l\'étage'),
                 'required' => false,
                 'choices' => $this->officeRepository->getAllFloor(),
@@ -59,6 +61,7 @@ class ChooseOfficeReservationFormType extends AbstractType
                 ],
             ])
             ->add('department', ChoiceType::class, [
+                'mapped' => false,
                 'label' => new TranslatableMessage('Sélection du service'),
                 'required' => false,
                 'choices' => $this->officeRepository->getAllDepartment(),

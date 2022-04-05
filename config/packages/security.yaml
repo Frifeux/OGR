@@ -46,6 +46,7 @@ security:
             provider: all_users
 
             form_login: true
+
             form_login_ldap:
                 service: Symfony\Component\Ldap\Ldap
                 dn_string: 'ou=users,dc=wimpi,dc=net'
@@ -73,9 +74,8 @@ security:
 #         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } # allow anonymous access to everything
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/user, roles: ROLE_USER }
-         - { path: ^/home, roles: ROLE_USER }
          - { path: ^/reservation, roles: ROLE_USER }
-#         - { path: ^/, roles: ROLE_USER }
+         - { path: ^/home, roles: ROLE_USER }
 
 when@test:
     security:

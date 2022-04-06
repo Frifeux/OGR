@@ -20,9 +20,9 @@ class OfficeRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Office[] Returns an array of active Office objects
+     * @return Office|null Returns an array of active Office objects
      */
-    public function findActiveOffice()
+    public function findActiveOffice(): ?Office
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.enabled = :enabled')
@@ -34,7 +34,7 @@ class OfficeRepository extends ServiceEntityRepository
     /**
      * Get all locations of the active office
      */
-    public function getAllLocation()
+    public function getAllLocation(): ?array
     {
         $activeOffice = $this->findActiveOffice();
 
@@ -43,17 +43,16 @@ class OfficeRepository extends ServiceEntityRepository
 
         foreach ($activeOffice as $office) {
             $officeLocation = $office->getLocation();
-            $officeByLocations[$officeLocation] = $officeLocation;
+            $locations[$officeLocation] = $officeLocation;
         }
 
-        return $officeByLocations;
+        return $locations;
     }
-
 
     /**
      * Get all the floors of the active office
      */
-    public function getAllFloor()
+    public function getAllFloor(): ?array
     {
         $activeOffice = $this->findActiveOffice();
 
@@ -71,7 +70,7 @@ class OfficeRepository extends ServiceEntityRepository
     /**
      * Get all departments of the active office
      */
-    public function getAllDepartment()
+    public function getAllDepartment(): ?array
     {
         $activeOffice = $this->findActiveOffice();
 
@@ -87,7 +86,7 @@ class OfficeRepository extends ServiceEntityRepository
     }
 
 
-    public function searchOffice(string $location = NUll, string $floor = NUll, string $department = NUll)
+    public function searchOffice(string $location = NUll, string $floor = NUll, string $department = NUll): ?Office
     {
         $query = $this->createQueryBuilder('m')
             ->andWhere('m.enabled = :enabled')

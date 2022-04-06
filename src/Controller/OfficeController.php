@@ -41,6 +41,8 @@ class OfficeController extends AbstractController
                 $chooseOfficeReservationForm->get('floor')->getData(),
                 $chooseOfficeReservationForm->get('department')->getData(),
             );
+
+            dd($availableReservations);
         }
 
 
@@ -68,7 +70,6 @@ class OfficeController extends AbstractController
             $this->entityManager->flush();
 
             $this->addFlash('reservation_office_success', new TranslatableMessage('Votre réservation à bien été ajouté !'));
-
         } else {
             $this->addFlash('reservation_office_error', new TranslatableMessage('Impossible de trouver le bureau que vous avez demandé'));
         }

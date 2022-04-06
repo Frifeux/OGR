@@ -40,25 +40,25 @@
                         <h2 class="px-4 py-2"> <strong> Bureau </strong> </h2>
 
                         <!-- Formulaire pour ajouter une réservation à une salle -->
-                        {{ form_start(chooseOfficeReservationFormType) }}
+                        {{ form_start(chooseOfficeReservationForm) }}
 
                             <!-- Infos demandé pour créer une réservation -->
-                            {{ form_row(chooseOfficeReservationFormType.location) }}
+                            {{ form_row(chooseOfficeReservationForm.location) }}
 
-                            {{ form_row(chooseOfficeReservationFormType.floor) }}
+                            {{ form_row(chooseOfficeReservationForm.floor) }}
 
-                            {{ form_row(chooseOfficeReservationFormType.department) }}
+                            {{ form_row(chooseOfficeReservationForm.department) }}
 
                             <!-- Input pour selectionner un(e) date/horaire-->
-                            {{ form_row(chooseOfficeReservationFormType.startAt) }}
-                            {{ form_row(chooseOfficeReservationFormType.endAt) }}
+                            {{ form_row(chooseOfficeReservationForm.startAt) }}
+                            {{ form_row(chooseOfficeReservationForm.endAt) }}
 
                             <!-- validation du form -->
                             <div class="text-center">
-                                {{ form_widget(chooseOfficeReservationFormType.save) }}
+                                {{ form_widget(chooseOfficeReservationForm.save) }}
                             </div>
 
-                        {{ form_end(chooseOfficeReservationFormType) }}
+                        {{ form_end(chooseOfficeReservationForm) }}
                     </div>
                 </div>
 

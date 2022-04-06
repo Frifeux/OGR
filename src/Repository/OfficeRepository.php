@@ -86,6 +86,31 @@ class OfficeRepository extends ServiceEntityRepository
         return $departments;
     }
 
+
+    public function searchOffice(string $location = NUll, string $floor = NUll, string $department = NUll)
+    {
+        $query = $this->createQueryBuilder('m')
+            ->andWhere('m.enabled = :enabled')
+            ->setParameter('enabled', true);
+
+        if ($floor !== null) {
+            $query->andWhere('m.floor = :floor')
+                ->setParameter('floor', $floor);
+        }
+
+        if ($department !== null) {
+            $query->andWhere('m.department = :department')
+                ->setParameter('department', $department);
+        }
+
+        if ($location !== null) {
+            $query->andWhere('m.location = :location')
+                ->setParameter('location', $location);
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Office[] Returns an array of Office objects
     //  */

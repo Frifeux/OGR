@@ -27,21 +27,25 @@ class OfficeController extends AbstractController
     {
 
         $availableReservations = [];
-
         $officeReservation = new OfficeReservation();
 
         // creation of the form to get available office reservations
-        $chooseOfficeReservationFormType = $this->createForm(ChooseOfficeReservationFormType::class, $officeReservation);
-        $chooseOfficeReservationFormType->handleRequest($request);
+        $chooseOfficeReservationForm = $this->createForm(ChooseOfficeReservationFormType::class, $officeReservation);
+        $chooseOfficeReservationForm->handleRequest($request);
 
-        if ($chooseOfficeReservationFormType->isSubmitted() && $chooseOfficeReservationFormType->isValid()) {
+        if ($chooseOfficeReservationForm->isSubmitted() && $chooseOfficeReservationForm->isValid()) {
 
-            $availableReservations = $this->officeRepository->findAll();
+            /* It is used to get offices with some criteria. */
+            $availableReservations = $this->officeRepository->searchOffice(
+                $chooseOfficeReservationForm->get('location')->getData(),
+                $chooseOfficeReservationForm->get('floor')->getData(),
+                $chooseOfficeReservationForm->get('department')->getData(),
+            );
         }
 
 
         return $this->render('reservation/office.html.twig', [
-            'chooseOfficeReservationFormType' => $chooseOfficeReservationFormType->createView(),
+            'chooseOfficeReservationForm' => $chooseOfficeReservationForm->createView(),
             'availableOfficeReservations' => $availableReservations,
             'officeReservation' => $officeReservation,
         ]);
@@ -50,9 +54,7 @@ class OfficeController extends AbstractController
     #[Route('/reservation/office/{id}-{startAt}-{endAt}', name: 'app_office_reservation', methods: ['GET']), ]
     public function addReservation(int $id, \DateTime $startAt, \DateTime $endAt): Response
     {
-
         $office = $this->officeRepository->find($id);
-
         if ($office) {
 
             $officeReservation = new OfficeReservation();
@@ -67,7 +69,7 @@ class OfficeController extends AbstractController
 
             $this->addFlash('reservation_office_success', new TranslatableMessage('Votre réservation à bien été ajouté !'));
 
-        }else{
+        } else {
             $this->addFlash('reservation_office_error', new TranslatableMessage('Impossible de trouver le bureau que vous avez demandé'));
         }
 

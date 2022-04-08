@@ -365,8 +365,7 @@ npm install file-loader
 Dans le fichier webpack.config.js ajouté ça:
 
 ```js
-.
-copyFiles({
+.copyFiles({
     from: './assets/images',
 
     // optional target path, relative to the output dir
@@ -382,6 +381,13 @@ copyFiles({
 
 This will copy all files from assets/images into public/build/images. If you have versioning enabled, the copied files
 will include a hash based on their content.
+
+Ajouter une images dans le projet, il faut les copier dans ce dossier: `assets/images`
+
+Ajouter une image dans un fichier twig:
+```twig
+<link rel="icon" type="image/svg" href={{ asset('build/images/favicon.svg') }} />
+```
 
 # EasyAdminPanel
 

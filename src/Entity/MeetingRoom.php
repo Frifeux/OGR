@@ -7,8 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-//use Cocur\Slugify\Slugify;
-
 #[ORM\Entity(repositoryClass: MeetingRoomRepository::class)]
 class MeetingRoom
 {
@@ -28,10 +26,6 @@ class MeetingRoom
 
     #[ORM\Column(type: 'boolean')]
     private $enabled;
-
-//    public function getSlug(): ?string {
-//        return (new Slugify)->slugify($this->name);
-//    }
 
     public function __construct()
     {

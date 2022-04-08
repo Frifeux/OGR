@@ -57,6 +57,9 @@ class MeetingRoomController extends AbstractController
         $chooseMeetingRoomForm->handleRequest($request);
 
         $meetingRoomReservation = new MeetingRoomReservation();
+        // We set date to today as default
+        $meetingRoomReservation->setStartAt(new \DateTime('now'));
+        $meetingRoomReservation->setEndAt(new \DateTime('now'));
         $meetingRoomReservationForm = $this->createForm(MeetingRoomReservationType::class, $meetingRoomReservation);
 
         $meetingRoomReservationForm->handleRequest($request);

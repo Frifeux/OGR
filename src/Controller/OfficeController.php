@@ -30,6 +30,9 @@ class OfficeController extends AbstractController
 
         $availableReservations = [];
         $officeReservation = new OfficeReservation();
+        // We set date to today as default
+        $officeReservation->setStartAt(new \DateTime('now'));
+        $officeReservation->setEndAt(new \DateTime('now'));
 
         // creation of the form to get available office reservations
         $chooseOfficeReservationForm = $this->createForm(ChooseOfficeReservationFormType::class, $officeReservation);
@@ -47,7 +50,6 @@ class OfficeController extends AbstractController
             );
 
         }
-
 
         return $this->render('reservation/office.html.twig', [
             'chooseOfficeReservationForm' => $chooseOfficeReservationForm->createView(),

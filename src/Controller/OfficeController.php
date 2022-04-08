@@ -15,6 +15,8 @@ use Symfony\Component\Translation\TranslatableMessage;
 
 class OfficeController extends AbstractController
 {
+    private OfficeRepository $officeRepository;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(OfficeRepository $officeRepository, EntityManagerInterface $entityManager)
     {
@@ -37,12 +39,13 @@ class OfficeController extends AbstractController
 
             /* It is used to get offices with some criteria. */
             $availableReservations = $this->officeRepository->searchOffice(
+                $officeReservation->getStartAt(),
+                $officeReservation->getEndAt(),
                 $chooseOfficeReservationForm->get('location')->getData(),
                 $chooseOfficeReservationForm->get('floor')->getData(),
                 $chooseOfficeReservationForm->get('department')->getData(),
             );
 
-            dd($availableReservations);
         }
 
 

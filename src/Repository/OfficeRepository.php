@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Office;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -22,7 +24,7 @@ class OfficeRepository extends ServiceEntityRepository
     /**
      * @return Office|null Returns an array of active Office objects
      */
-    public function findActiveOffice(): ?Office
+    public function findActiveOffice()
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.enabled = :enabled')
@@ -86,26 +88,39 @@ class OfficeRepository extends ServiceEntityRepository
     }
 
 
-    public function searchOffice(string $location = NUll, string $floor = NUll, string $department = NUll): ?Office
+    // Sélectionne seulement les bureaux qui n'ont pas de réservation en cours
+    //SELECT o.*
+    //FROM office o
+    //LEFT JOIN office_reservation r
+    //ON r.office_id = o.id
+    //AND (r.start_at = '2022-04-07 08:00:00' AND r.end_at = '2022-04-07 08:30:00')
+    //WHERE r.office_id IS NULL
+
+    public function searchOffice(\DateTime $startAt, \DateTime $endAt, string $location = NUll, string $floor = NUll, string $department = NUll)
     {
-        $query = $this->createQueryBuilder('m')
-            ->andWhere('m.enabled = :enabled')
+        $query = $this->createQueryBuilder('o')
+            ->leftJoin('o.officeReservations', 'r', Join::WITH, 'r.startAt = :startDate AND r.endAt = :endDate')
+            ->Where('o.enabled = :enabled')
+            ->setParameter('startDate', $startAt)
+            ->setParameter('endDate', $endAt)
             ->setParameter('enabled', true);
 
         if ($floor !== null) {
-            $query->andWhere('m.floor = :floor')
+            $query->andWhere('o.floor = :floor')
                 ->setParameter('floor', $floor);
         }
 
         if ($department !== null) {
-            $query->andWhere('m.department = :department')
+            $query->andWhere('o.department = :department')
                 ->setParameter('department', $department);
         }
 
         if ($location !== null) {
-            $query->andWhere('m.location = :location')
+            $query->andWhere('o.location = :location')
                 ->setParameter('location', $location);
         }
+
+        $query->andWhere('r.office IS NULL');
 
         return $query->getQuery()->getResult();
     }

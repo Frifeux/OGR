@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\OfficeReservation;
 use App\Form\ChooseOfficeReservationFormType;
 use App\Repository\OfficeRepository;
+use App\Repository\OfficeReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,11 +17,13 @@ class OfficeController extends AbstractController
 {
     private OfficeRepository $officeRepository;
     private EntityManagerInterface $entityManager;
+    private OfficeReservationRepository $officeReservationRepository;
 
-    public function __construct(OfficeRepository $officeRepository, EntityManagerInterface $entityManager)
+    public function __construct(OfficeRepository $officeRepository, OfficeReservationRepository $officeReservationRepository, EntityManagerInterface $entityManager)
     {
         $this->officeRepository = $officeRepository;
         $this->entityManager = $entityManager;
+        $this->officeReservationRepository = $officeReservationRepository;
     }
 
     #[Route('/reservation/office', name: 'app_office')]
@@ -47,7 +50,6 @@ class OfficeController extends AbstractController
                 $chooseOfficeReservationForm->get('floor')->getData(),
                 $chooseOfficeReservationForm->get('department')->getData(),
             );
-
         }
 
         return $this->render('reservation/office.html.twig', [
@@ -62,6 +64,15 @@ class OfficeController extends AbstractController
     {
         $office = $this->officeRepository->find($id);
         if ($office && $startAt < $endAt) {
+
+            // We verify if the office is already reserved to be sure that the user can't reserve it twice
+            // that he hasn't modified the link by himself to set bad dates
+
+            $officeReservation = $this->officeReservationRepository->findBy(['office' => $office, 'startAt' => $startAt, 'endAt' => $endAt]);
+            if (count($officeReservation) > 0) {
+                $this->addFlash('reservation_office_error', new TranslatableMessage('Il n\'y a pas de bureau disponible à cette date.'));
+                return $this->redirectToRoute('app_office');
+            }
 
             $officeReservation = new OfficeReservation();
             $officeReservation->setOffice($office);

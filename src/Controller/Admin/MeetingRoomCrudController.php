@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Translation\TranslatableMessage;
 
@@ -55,6 +56,7 @@ class MeetingRoomCrudController extends AbstractCrudController
             BooleanField::new('enabled', new TranslatableMessage('Activé')),
             TextField::new('name', new TranslatableMessage('Nom')),
             TextField::new('location', new TranslatableMessage('Localisation')),
+            IntegerField::new('capacity', new TranslatableMessage('Capacité')),
 
         ];
     }

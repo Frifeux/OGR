@@ -24,6 +24,7 @@ class MeetingRoomFixtures extends Fixture
 
             $meetingRoom->setName('Salle de réunion ' . $i);
             $meetingRoom->setLocation($faker->randomElement($location));
+            $meetingRoom->setCapacity($faker->numberBetween(1, 20));
             $meetingRoom->setEnabled(true);
 
             $manager->persist($meetingRoom);

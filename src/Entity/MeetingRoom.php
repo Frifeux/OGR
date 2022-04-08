@@ -27,6 +27,9 @@ class MeetingRoom
     #[ORM\Column(type: 'boolean')]
     private $enabled;
 
+    #[ORM\Column(type: 'integer')]
+    private $Capacity;
+
     public function __construct()
     {
         $this->meetingRoomReservations = new ArrayCollection();
@@ -106,6 +109,18 @@ class MeetingRoom
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getCapacity(): ?int
+    {
+        return $this->Capacity;
+    }
+
+    public function setCapacity(int $Capacity): self
+    {
+        $this->Capacity = $Capacity;
 
         return $this;
     }

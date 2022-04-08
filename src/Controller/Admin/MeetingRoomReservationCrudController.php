@@ -42,10 +42,9 @@ class MeetingRoomReservationCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-            ->update(Crud::PAGE_INDEX, Action::NEW,
-                function (Action $action) {
-                    return $action->setLabel(new TranslatableMessage('Ajouter une réservation'));
-                })
+            // Suppression of the button new object
+            ->remove(Crud::PAGE_INDEX, Action::NEW)
+            
             // add an icon on the button
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
                 return $action->setIcon('fa fa-edit');

@@ -43,7 +43,7 @@ class OfficeController extends AbstractController
         if ($chooseOfficeReservationForm->isSubmitted() && $chooseOfficeReservationForm->isValid()) {
 
             /* It is used to get offices with some criteria. */
-            $availableReservations = $this->officeRepository->searchOffice(
+            $availableReservations = $this->officeRepository->search(
                 $officeReservation->getStartAt(),
                 $officeReservation->getEndAt(),
                 $chooseOfficeReservationForm->get('location')->getData(),

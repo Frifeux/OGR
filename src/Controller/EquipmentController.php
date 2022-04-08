@@ -46,7 +46,7 @@ class EquipmentController extends AbstractController
 
         if ($chooseEquipmentReservationFormType->isSubmitted() && $chooseEquipmentReservationFormType->isValid()) {
 
-            /* It is used to get offices with some criteria. */
+            /* It is used to get equipment with some criteria. */
             $availableReservations = $this->equipmentRepository->search(
                 $equipmentReservation->getStartAt(),
                 $equipmentReservation->getEndAt(),

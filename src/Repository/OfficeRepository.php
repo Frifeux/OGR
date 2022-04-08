@@ -25,8 +25,8 @@ class OfficeRepository extends ServiceEntityRepository
      */
     public function findActiveOffice()
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.enabled = :enabled')
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.enabled = :enabled')
             ->setParameter('enabled', true)
             ->getQuery()
             ->getResult();
@@ -79,8 +79,8 @@ class OfficeRepository extends ServiceEntityRepository
         $departments = [];
 
         foreach ($activeOffice as $office) {
-            $officeDepartments = $office->getDepartment();
-            $departments[$officeDepartments] = $officeDepartments;
+            $officeDepartment = $office->getDepartment();
+            $departments[$officeDepartment] = $officeDepartment;
         }
 
         return $departments;
@@ -95,7 +95,7 @@ class OfficeRepository extends ServiceEntityRepository
     //AND (r.start_at = '2022-04-07 08:00:00' AND r.end_at = '2022-04-07 08:30:00')
     //WHERE r.office_id IS NULL
 
-    public function searchOffice(\DateTime $startAt, \DateTime $endAt, string $location = NUll, string $floor = NUll, string $department = NUll)
+    public function search(\DateTime $startAt, \DateTime $endAt, string $location = NUll, string $floor = NUll, string $department = NUll)
     {
         $query = $this->createQueryBuilder('o')
             ->leftJoin('o.officeReservations', 'r', Join::WITH, 'r.startAt = :startDate AND r.endAt = :endDate')

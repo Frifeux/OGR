@@ -35,7 +35,7 @@ class OfficeReservationCrudController extends AbstractCrudController
         return $actions
             // Suppression of the button new object
             ->remove(Crud::PAGE_INDEX, Action::NEW)
-            
+
             // add an icon on the button
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
                 return $action->setIcon('fa fa-edit');

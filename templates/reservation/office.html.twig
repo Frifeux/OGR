@@ -102,7 +102,7 @@
                                         <td>{{ office.floor }}</td>
                                         <td>{{ office.department }}</td>
                                         <td>
-                                            <a href="{{ path('app_office_reservation', {'id': office.id, 'startAt': officeReservation.startAt|date('U'), 'endAt': officeReservation.endAt|date('U') }) }}"
+                                            <a href="{{ path('app_office_add_reservation', {'id': office.id, 'startAt': officeReservation.startAt|date('U'), 'endAt': officeReservation.endAt|date('U') }) }}"
                                                class="btn btn-primary">
                                                 <i class="fas fa-plus-circle"></i>
                                             </a>

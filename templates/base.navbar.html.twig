@@ -51,10 +51,10 @@
                             <a class="nav-link {% if current_menu is defined and current_menu == 'office' %}active{% endif %}" href="{{ path('app_office') }}">{% trans %}Bureau{% endtrans %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if current_menu is defined and current_menu == 'equipment' %}active{% endif %}" href="{{ path('app_meeting_room') }}">{% trans %}Matériel{% endtrans %}</a>
+                            <a class="nav-link {% if current_menu is defined and current_menu == 'equipment' %}active{% endif %}" href="{{ path('app_equipment') }}">{% trans %}Matériel{% endtrans %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if current_menu is defined and current_menu == 'reservations' %}active{% endif %}" href="{{ path('app_meeting_room') }}">{% trans %}Mes réservations{% endtrans %}</a>
+                            <a class="nav-link {% if current_menu is defined and current_menu == 'reservations' %}active{% endif %}" href="#">{% trans %}Mes réservations{% endtrans %}</a>
                         </li>
 
                         <!-- seulement visible par le groupe admin -->

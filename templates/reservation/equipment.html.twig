@@ -1,0 +1,118 @@
+{% extends 'base.navbar.html.twig' %}
+
+{% block title %}OGR - Reservation d'un matériel {% endblock %}
+
+{% set current_menu = 'equipment' %}
+
+{% block content %}
+
+    <!-- contenu de notre page -->
+    <main class="d-flex flex-grow-1 align-items-stretch">
+        <div class="container-fluid">
+
+            <!-- Affichage des messages de success et erreurs-->
+            {% for flashSuccess in app.flashes('reservation_equipment_success') %}
+                <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <div>
+                        {{ flashSuccess }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+
+            {% for flashError in app.flashes('reservation_equipment_error') %}
+                <div class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <div>
+                        {{ flashError }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+
+
+            <div class="row g-4 py-3 align-items-stretch">
+
+                <div class="col-12 col-xxl-3 col-xl-4 col-lg-4 align-self-center">
+
+                    <div class="border rounded shadow-sm py-2 px-3 text-dark">
+                        <h2 class="px-4 py-2"> <strong> Matériels </strong> </h2>
+
+                        <!-- Formulaire pour ajouter une réservation à une salle -->
+                        {{ form_start(chooseEquipmentReservationForm) }}
+
+                            <!-- Infos demandé pour créer une réservation -->
+                            {{ form_row(chooseEquipmentReservationForm.location) }}
+
+                            {{ form_row(chooseEquipmentReservationForm.type) }}
+
+                            <!-- Input pour selectionner un(e) date/horaire-->
+                            {{ form_row(chooseEquipmentReservationForm.startAt) }}
+                            {{ form_row(chooseEquipmentReservationForm.endAt) }}
+
+                            <!-- validation du form -->
+                            <div class="text-center">
+                                {{ form_widget(chooseEquipmentReservationForm.save) }}
+                            </div>
+
+                        {{ form_end(chooseEquipmentReservationForm) }}
+                    </div>
+                </div>
+
+                <div class="col align-self-center">
+                    <div class="border rounded shadow-sm py-2 px-4 text-dark">
+
+                        <h2 class="px-4 py-2"> <strong> Disponibilité </strong> </h2>
+
+                        <!-- Affichage des Disponibilité -->
+                        <!-- overflow, Classe CSS custom ICI -->
+                        <div class="overflow-custom">
+
+                            <table class="table table-striped text-center">
+
+                                <thead class="table-info">
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Localisation</th>
+                                    <th>Type</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+                                {% if not availableEquipmentReservations %}
+                                    <!-- Empty table if no reservation is available -->
+                                    <tr>
+                                        <td colspan="7" class="text-center">
+                                            <h4>Aucune réservation disponible</h4>
+                                            <p>Faites une recherche ou changez la date de votre recherche!</p>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+
+                                {% for equipment in availableEquipmentReservations %}
+                                    <tr>
+                                        <td>{{ equipment.name }}</td>
+                                        <td>{{ equipment.location }}</td>
+                                        <td>{{ equipment.type }}</td>
+                                        <td>
+                                            <a href="{{ path('app_equipment_add_reservation', {'id': equipment.id, 'startAt': equipmentReservation.startAt|date('U'), 'endAt': equipmentReservation.endAt|date('U') }) }}"
+                                               class="btn btn-primary">
+                                                <i class="fas fa-plus-circle"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

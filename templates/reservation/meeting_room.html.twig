@@ -38,6 +38,12 @@
                 initialView: 'timeGridWeek',
                 // eventResizableFromStart: true,
                 // editable: true,
+                slotMinTime: '{{ app.request.server.get('WORKING_HOURS_START') }}:00:00',
+                slotMaxTime: '{{ app.request.server.get('WORKING_HOURS_END') + 1 }}:00:00', // Need to add +1 to the end of the working hours
+                allDaySlot: false, // We don't want to display the all day slot
+                firstDay: 1, // We start on Monday
+                weekends: false, // We don't want to display the weekend
+                expandRows: true,
             });
             calendar.render();
         });

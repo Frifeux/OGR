@@ -7,439 +7,439 @@
     <body>
       <trans-unit id="24gaj39" resname="Vous avez bien changé de mot de passe !">
         <source>Vous avez bien changé de mot de passe !</source>
-        <target>__Vous avez bien changé de mot de passe !</target>
+        <target>You have changed your password!</target>
       </trans-unit>
       <trans-unit id="M8aN02o" resname="Il n'y a pas de materiel disponible à cette date.">
         <source>Il n'y a pas de materiel disponible à cette date.</source>
-        <target>__Il n'y a pas de materiel disponible à cette date.</target>
+        <target>There is no material available at this time.</target>
       </trans-unit>
       <trans-unit id="u6Tgd2k" resname="Votre réservation à bien été ajouté !">
         <source>Votre réservation à bien été ajouté !</source>
-        <target>__Votre réservation à bien été ajouté !</target>
+        <target>Your reservation has been added !</target>
       </trans-unit>
       <trans-unit id="3y9bmD8" resname="Impossible de trouver le matériel que vous avez demandé">
         <source>Impossible de trouver le matériel que vous avez demandé</source>
-        <target>__Impossible de trouver le matériel que vous avez demandé</target>
+        <target>Unable to find the material you requested</target>
       </trans-unit>
       <trans-unit id="ZZu4qIu" resname="Il n'y a pas de bureau disponible à cette date.">
         <source>Il n'y a pas de bureau disponible à cette date.</source>
-        <target>__Il n'y a pas de bureau disponible à cette date.</target>
+        <target>There is no office available at this time.</target>
       </trans-unit>
       <trans-unit id="HDyyCwN" resname="Impossible de trouver le bureau que vous avez demandé">
         <source>Impossible de trouver le bureau que vous avez demandé</source>
-        <target>__Impossible de trouver le bureau que vous avez demandé</target>
+        <target>Unable to find the office you requested</target>
       </trans-unit>
       <trans-unit id="NVUsDq2" resname="Réservations des salles de réunion">
         <source>Réservations des salles de réunion</source>
-        <target>__Réservations des salles de réunion</target>
+        <target>Meeting room reservations</target>
       </trans-unit>
       <trans-unit id=".Tvum7G" resname="Modification d'une réservation">
         <source>Modification d'une réservation</source>
-        <target>__Modification d'une réservation</target>
+        <target>Changing a reservation</target>
       </trans-unit>
       <trans-unit id="7g9lMSu" resname="Ajout d'une réservation">
         <source>Ajout d'une réservation</source>
-        <target>__Ajout d'une réservation</target>
+        <target>Ajout d'une réservation</target>
       </trans-unit>
       <trans-unit id="B1zJ3Gd" resname="Informations sur la réservation">
         <source>Informations sur la réservation</source>
-        <target>__Informations sur la réservation</target>
+        <target>Adding a reservation</target>
       </trans-unit>
       <trans-unit id="eOeSABC" resname="Titre">
         <source>Titre</source>
-        <target>__Titre</target>
+        <target>Title</target>
       </trans-unit>
       <trans-unit id="Um4Ah8w" resname="Description">
         <source>Description</source>
-        <target>__Description</target>
+        <target>Description</target>
       </trans-unit>
       <trans-unit id="zJOwmfP" resname="Commence le">
         <source>Commence le</source>
-        <target>__Commence le</target>
+        <target>Start the</target>
       </trans-unit>
       <trans-unit id="0PBAAdy" resname="Finit le">
         <source>Finit le</source>
-        <target>__Finit le</target>
+        <target>Ends the</target>
       </trans-unit>
       <trans-unit id="ch5bKau" resname="Utilisateur">
         <source>Utilisateur</source>
-        <target>__Utilisateur</target>
+        <target>User</target>
       </trans-unit>
       <trans-unit id="iMd0SQJ" resname="Salle de réunion">
         <source>Salle de réunion</source>
-        <target>__Salle de réunion</target>
+        <target>Meeting room</target>
       </trans-unit>
       <trans-unit id="Bm75PAS" resname="Menu Principal">
         <source>Menu Principal</source>
-        <target>__Menu Principal</target>
+        <target>Main menu</target>
       </trans-unit>
       <trans-unit id="lQz21jl" resname="Gestion des utilisateurs">
         <source>Gestion des utilisateurs</source>
-        <target>__Gestion des utilisateurs</target>
+        <target>User management</target>
       </trans-unit>
       <trans-unit id="I9OTi17" resname="Utilisateurs">
         <source>Utilisateurs</source>
-        <target>__Utilisateurs</target>
+        <target>Users</target>
       </trans-unit>
       <trans-unit id="nn0g3zA" resname="Gestion des objects">
         <source>Gestion des objects</source>
-        <target>__Gestion des objects</target>
+        <target>Object management</target>
       </trans-unit>
       <trans-unit id="dwMiMcX" resname="Salles de réunion">
         <source>Salles de réunion</source>
-        <target>__Salles de réunion</target>
+        <target>Meeting rooms</target>
       </trans-unit>
       <trans-unit id="VboGhqe" resname="Bureaux">
         <source>Bureaux</source>
-        <target>__Bureaux</target>
+        <target>Offices</target>
       </trans-unit>
       <trans-unit id="Ozeo1Kg" resname="Matériel">
         <source>Matériel</source>
-        <target>__Matériel</target>
+        <target>Material</target>
       </trans-unit>
       <trans-unit id="A2F_6Kd" resname="Gestion des réservations">
         <source>Gestion des réservations</source>
-        <target>__Gestion des réservations</target>
+        <target>Reservation management</target>
       </trans-unit>
       <trans-unit id="mq2k0Kv" resname="Réservations des bureaux">
         <source>Réservations des bureaux</source>
-        <target>__Réservations des bureaux</target>
+        <target>Office bookings</target>
       </trans-unit>
       <trans-unit id="1ndp7CA" resname="Bureau">
         <source>Bureau</source>
-        <target>__Bureau</target>
+        <target>Office</target>
       </trans-unit>
       <trans-unit id="ewGqwoj" resname="Réservations des matériels">
         <source>Réservations des matériels</source>
-        <target>__Réservations des matériels</target>
+        <target>Reservations for materials</target>
       </trans-unit>
       <trans-unit id="lSzAThk" resname="Gestion des salles">
         <source>Gestion des salles</source>
-        <target>__Gestion des salles</target>
+        <target>Room management</target>
       </trans-unit>
       <trans-unit id="v2nzVQw" resname="Modification de la salle">
         <source>Modification de la salle</source>
-        <target>__Modification de la salle</target>
+        <target>Modification of the room</target>
       </trans-unit>
       <trans-unit id="L18gh2j" resname="Création d'une salle">
         <source>Création d'une salle</source>
-        <target>__Création d'une salle</target>
+        <target>Creation of a room</target>
       </trans-unit>
       <trans-unit id="cn8vS_C" resname="Informations sur la salle">
         <source>Informations sur la salle</source>
-        <target>__Informations sur la salle</target>
+        <target>Room information</target>
       </trans-unit>
       <trans-unit id="X3YT1YT" resname="Ajouter une salle">
         <source>Ajouter une salle</source>
-        <target>__Ajouter une salle</target>
+        <target>Add a room</target>
       </trans-unit>
       <trans-unit id="3xbbWsa" resname="Activé">
         <source>Activé</source>
-        <target>__Activé</target>
+        <target>Activated</target>
       </trans-unit>
       <trans-unit id="ssEkU20" resname="Nom">
         <source>Nom</source>
-        <target>__Nom</target>
+        <target>Name</target>
       </trans-unit>
       <trans-unit id="8x9PyFE" resname="Localisation">
         <source>Localisation</source>
-        <target>__Localisation</target>
+        <target>Localization</target>
       </trans-unit>
       <trans-unit id="9FQhiel" resname="Gestion des bureaux">
         <source>Gestion des bureaux</source>
-        <target>__Gestion des bureaux</target>
+        <target>Office management</target>
       </trans-unit>
       <trans-unit id="uoCp176" resname="Modification du bureau">
         <source>Modification du bureau</source>
-        <target>__Modification du bureau</target>
+        <target>Modification of the office</target>
       </trans-unit>
       <trans-unit id="CRwq5jF" resname="Création d'un bureau">
         <source>Création d'un bureau</source>
-        <target>__Création d'un bureau</target>
+        <target>Creation of an office</target>
       </trans-unit>
       <trans-unit id="sAUI0ob" resname="Informations sur le bureau">
         <source>Informations sur le bureau</source>
-        <target>__Informations sur le bureau</target>
+        <target>Office information</target>
       </trans-unit>
       <trans-unit id="MfecrwE" resname="Ajouter un bureau">
         <source>Ajouter un bureau</source>
-        <target>__Ajouter un bureau</target>
+        <target>Add an office</target>
       </trans-unit>
       <trans-unit id="7zUkIfA" resname="Etage">
         <source>Etage</source>
-        <target>__Etage</target>
+        <target>Floor</target>
       </trans-unit>
       <trans-unit id="1ncZDgq" resname="Service">
         <source>Service</source>
-        <target>__Service</target>
+        <target>Service</target>
       </trans-unit>
       <trans-unit id=".Q1s1TX" resname="Modification de l'utilisateur">
         <source>Modification de l'utilisateur</source>
-        <target>__Modification de l'utilisateur</target>
+        <target>User modification</target>
       </trans-unit>
       <trans-unit id="zqk42bX" resname="Création d'un utilisateur">
         <source>Création d'un utilisateur</source>
-        <target>__Création d'un utilisateur</target>
+        <target>Creating a user</target>
       </trans-unit>
       <trans-unit id="89uHf9m" resname="Informations sur l'utilisateur">
         <source>Informations sur l'utilisateur</source>
-        <target>__Informations sur l'utilisateur</target>
+        <target>User information</target>
       </trans-unit>
       <trans-unit id="LpkJGx4" resname="Réinitialiser le mot de passe">
         <source>Réinitialiser le mot de passe</source>
-        <target>__Réinitialiser le mot de passe</target>
+        <target>Reset password</target>
       </trans-unit>
       <trans-unit id="WIjgblZ" resname="Créer un utilisateur">
         <source>Créer un utilisateur</source>
-        <target>__Créer un utilisateur</target>
+        <target>Create a user</target>
       </trans-unit>
       <trans-unit id="4yW.j5A" resname="Prénom">
         <source>Prénom</source>
-        <target>__Prénom</target>
+        <target>First name</target>
       </trans-unit>
       <trans-unit id="lpzL089" resname="Email">
         <source>Email</source>
-        <target>__Email</target>
+        <target>Email</target>
       </trans-unit>
       <trans-unit id=".5yLjAZ" resname="Mot de passe">
         <source>Mot de passe</source>
-        <target>__Mot de passe</target>
+        <target>Password</target>
       </trans-unit>
       <trans-unit id="wlM3BVR" resname="Roles">
         <source>Roles</source>
-        <target>__Roles</target>
+        <target>Roles</target>
       </trans-unit>
       <trans-unit id="53Az_YO" resname="Administrateur">
         <source>Administrateur</source>
-        <target>__Administrateur</target>
+        <target>Administrator</target>
       </trans-unit>
       <trans-unit id="PkAxAvZ" resname="Créé le">
         <source>Créé le</source>
-        <target>__Créé le</target>
+        <target>Created on</target>
       </trans-unit>
       <trans-unit id="BUNR6b6" resname="Un mail de réinitialisation de mot de passe à déjà été envoyé à ">
         <source>Un mail de réinitialisation de mot de passe à déjà été envoyé à </source>
-        <target>__Un mail de réinitialisation de mot de passe à déjà été envoyé à </target>
+        <target>A password reset email has already been sent to </target>
       </trans-unit>
       <trans-unit id="HQsuWjD" resname="Un mail de réinitialisation de mot de passe à bien été envoyé à ">
         <source>Un mail de réinitialisation de mot de passe à bien été envoyé à </source>
-        <target>__Un mail de réinitialisation de mot de passe à bien été envoyé à </target>
+        <target>A password reset email has been sent to </target>
       </trans-unit>
       <trans-unit id="wQQblCt" resname="Gestion des matériels">
         <source>Gestion des matériels</source>
-        <target>__Gestion des matériels</target>
+        <target>Material management</target>
       </trans-unit>
       <trans-unit id="TytxJZf" resname="Modification du matériel">
         <source>Modification du matériel</source>
-        <target>__Modification du matériel</target>
+        <target>Modification of the equipment</target>
       </trans-unit>
       <trans-unit id="FKfmzfA" resname="Création d'un matériel">
         <source>Création d'un matériel</source>
-        <target>__Création d'un matériel</target>
+        <target>Creation of a material</target>
       </trans-unit>
       <trans-unit id="5mR1FhF" resname="Informations sur le matériel">
         <source>Informations sur le matériel</source>
-        <target>__Informations sur le matériel</target>
+        <target>Information on the material</target>
       </trans-unit>
       <trans-unit id="Kx90FK6" resname="Ajouter un matériel">
         <source>Ajouter un matériel</source>
-        <target>__Ajouter un matériel</target>
+        <target>Add a material</target>
       </trans-unit>
       <trans-unit id="uq3fcPt" resname="Type">
         <source>Type</source>
-        <target>__Type</target>
+        <target>Type</target>
       </trans-unit>
       <trans-unit id="gtL1K3l" resname="Sélection de la salle">
         <source>Sélection de la salle</source>
-        <target>__Sélection de la salle</target>
+        <target>Room selection</target>
       </trans-unit>
       <trans-unit id="hvZ8JTs" resname="Voir les réservations">
         <source>Voir les réservations</source>
-        <target>__Voir les réservations</target>
+        <target>See reservations</target>
       </trans-unit>
       <trans-unit id="1CqBdS8" resname="Sélection de l'emplacement">
         <source>Sélection de l'emplacement</source>
-        <target>__Sélection de l'emplacement</target>
+        <target>Selecting the location</target>
       </trans-unit>
       <trans-unit id="b5_Iid1" resname="Sélection du type">
         <source>Sélection du type</source>
-        <target>__Sélection du type</target>
+        <target>Type selection</target>
       </trans-unit>
       <trans-unit id="nrLrKw1" resname="Date et Heure de début">
         <source>Date et Heure de début</source>
-        <target>__Date et Heure de début</target>
+        <target>Start date and time</target>
       </trans-unit>
       <trans-unit id="gccLOWU" resname="Date et Heure de fin">
         <source>Date et Heure de fin</source>
-        <target>__Date et Heure de fin</target>
+        <target>End date and time</target>
       </trans-unit>
       <trans-unit id="r8XWjmG" resname="Voir les disponibilités">
         <source>Voir les disponibilités</source>
-        <target>__Voir les disponibilités</target>
+        <target>See availability</target>
       </trans-unit>
       <trans-unit id="vrO4l9b" resname="Sélection de l'étage">
         <source>Sélection de l'étage</source>
-        <target>__Sélection de l'étage</target>
+        <target>Floor selection</target>
       </trans-unit>
       <trans-unit id="zX7Ff8n" resname="Sélection du service">
         <source>Sélection du service</source>
-        <target>__Sélection du service</target>
+        <target>Service selection</target>
       </trans-unit>
       <trans-unit id="HZ_ypwp" resname="Entrez votre nom">
         <source>Entrez votre nom</source>
-        <target>__Entrez votre nom</target>
+        <target>Enter your name</target>
       </trans-unit>
       <trans-unit id="ShoNRHo" resname="Entrez votre prénom.">
         <source>Entrez votre prénom.</source>
-        <target>__Entrez votre prénom.</target>
+        <target>Enter your first name.</target>
       </trans-unit>
       <trans-unit id="gCGvLr5" resname="Entrez une adresse email.">
         <source>Entrez une adresse email.</source>
-        <target>__Entrez une adresse email.</target>
+        <target>Enter an email address.</target>
       </trans-unit>
       <trans-unit id="J6hEQEi" resname="J'accepte les conditions générales d'utilisation">
         <source>J'accepte les conditions générales d'utilisation</source>
-        <target>__J'accepte les conditions générales d'utilisation</target>
+        <target>I accept the general conditions of use</target>
       </trans-unit>
       <trans-unit id="Rolda9A" resname="Vous devez acceptez les conditions d'utilisations du site.">
         <source>Vous devez acceptez les conditions d'utilisations du site.</source>
-        <target>__Vous devez acceptez les conditions d'utilisations du site.</target>
+        <target>You must agree to the terms of use of the site.</target>
       </trans-unit>
       <trans-unit id="yfa1J8N" resname="Réserver">
         <source>Réserver</source>
-        <target>__Réserver</target>
+        <target>Reserve</target>
       </trans-unit>
       <trans-unit id="jvDRL.h" resname="Salle">
         <source>Salle</source>
-        <target>__Salle</target>
+        <target>Room</target>
       </trans-unit>
       <trans-unit id="a7JnNCz" resname="Mes réservations">
         <source>Mes réservations</source>
-        <target>__Mes réservations</target>
+        <target>My reservations</target>
       </trans-unit>
       <trans-unit id="S0LGaQ6" resname="Administration">
         <source>Administration</source>
-        <target>__Administration</target>
+        <target>Administration</target>
       </trans-unit>
       <trans-unit id="1pajW90" resname="Profile">
         <source>Profile</source>
-        <target>__Profile</target>
+        <target>Profile</target>
       </trans-unit>
       <trans-unit id="eIARgzp" resname="Notifications">
         <source>Notifications</source>
-        <target>__Notifications</target>
+        <target>Notifications</target>
       </trans-unit>
       <trans-unit id="_1_eksG" resname="Déconnexion">
         <source>Déconnexion</source>
-        <target>__Déconnexion</target>
+        <target>Disconnection</target>
       </trans-unit>
       <trans-unit id="8Tp.aBZ" resname="Disponibilités">
         <source>Disponibilités</source>
-        <target>__Disponibilités</target>
+        <target>Availability</target>
       </trans-unit>
       <trans-unit id="eV9KsdA" resname="Aucune réservation disponible">
         <source>Aucune réservation disponible</source>
-        <target>__Aucune réservation disponible</target>
+        <target>No reservations available</target>
       </trans-unit>
       <trans-unit id="a6AZ_kt" resname="Faites une recherche ou changez la date de votre recherche!">
         <source>Faites une recherche ou changez la date de votre recherche!</source>
-        <target>__Faites une recherche ou changez la date de votre recherche!</target>
+        <target>Make a search or change the date of your search!</target>
       </trans-unit>
       <trans-unit id="F071dB." resname="Si un compte lié à votre adresse e-mail existe, alors un e-mail vous à été envoyé contenant un lien pour réinitialiser votre mot de passe.">
         <source>Si un compte lié à votre adresse e-mail existe, alors un e-mail vous à été envoyé contenant un lien pour réinitialiser votre mot de passe.</source>
-        <target>__Si un compte lié à votre adresse e-mail existe, alors un e-mail vous à été envoyé contenant un lien pour réinitialiser votre mot de passe.</target>
+        <target>If an account linked to your email address exists, then an email has been sent to you containing a link to reset your password.</target>
       </trans-unit>
       <trans-unit id="Y41Dr0j" resname="Ce lien expirera dans">
         <source>Ce lien expirera dans</source>
-        <target>__Ce lien expirera dans</target>
+        <target>This link will expire in</target>
       </trans-unit>
       <trans-unit id="tOVKc2s" resname="Si vous ne recevez pas d'e-mail, vérifiez votre dossier spam ou faite une nouvelle demande.">
         <source>Si vous ne recevez pas d'e-mail, vérifiez votre dossier spam ou faite une nouvelle demande.</source>
-        <target>__Si vous ne recevez pas d'e-mail, vérifiez votre dossier spam ou faite une nouvelle demande.</target>
+        <target>If you do not receive an e-mail, check your spam folder or make a new request.</target>
       </trans-unit>
       <trans-unit id="euG2itO" resname="Renvoyer un email">
         <source>Renvoyer un email</source>
-        <target>__Renvoyer un email</target>
+        <target>Resend an email</target>
       </trans-unit>
       <trans-unit id="7IbmDjt" resname="Accédez à son compte ?">
         <source>Accédez à son compte ?</source>
-        <target>__Accédez à son compte ?</target>
+        <target>Access his account ?</target>
       </trans-unit>
       <trans-unit id="kljm8Fx" resname="Connectez-vous">
         <source>Connectez-vous</source>
-        <target>__Connectez-vous</target>
+        <target>Log on to</target>
       </trans-unit>
       <trans-unit id="Owph_3O" resname="Vous avez oublié votre mot de passe ? Veuillez entrer votre adresse courriel pour initier la réinitialisation.">
         <source>Vous avez oublié votre mot de passe ? Veuillez entrer votre adresse courriel pour initier la réinitialisation.</source>
-        <target>__Vous avez oublié votre mot de passe ? Veuillez entrer votre adresse courriel pour initier la réinitialisation.</target>
+        <target>Forgot your password? Please enter your email address to initiate the reset.</target>
       </trans-unit>
       <trans-unit id="eQdSCfK" resname="Envoyer">
         <source>Envoyer</source>
-        <target>__Envoyer</target>
+        <target>Send</target>
       </trans-unit>
       <trans-unit id="YbMrFPA" resname="Vous n'avez pas de compte ?">
         <source>Vous n'avez pas de compte ?</source>
-        <target>__Vous n'avez pas de compte ?</target>
+        <target>Don't have an account?</target>
       </trans-unit>
       <trans-unit id="5OesQ5R" resname="Inscrivez-vous">
         <source>Inscrivez-vous</source>
-        <target>__Inscrivez-vous</target>
+        <target>Register at</target>
       </trans-unit>
       <trans-unit id="kJgi9GH" resname="Réinitialisation du mot de passe">
         <source>Réinitialisation du mot de passe</source>
-        <target>__Réinitialisation du mot de passe</target>
+        <target>Reset password</target>
       </trans-unit>
       <trans-unit id="10MHBUC" resname="Confirmation">
         <source>Confirmation</source>
-        <target>__Confirmation</target>
+        <target>Confirmation</target>
       </trans-unit>
       <trans-unit id="LWLY56e" resname="Vous avez déjâ un compte ?">
         <source>Vous avez déjâ un compte ?</source>
-        <target>__Vous avez déjâ un compte ?</target>
+        <target>Already have an account?</target>
       </trans-unit>
       <trans-unit id="z7GsDIB" resname="Inscription">
         <source>Inscription</source>
-        <target>__Inscription</target>
+        <target>Registration</target>
       </trans-unit>
       <trans-unit id="E3.sOH2" resname="Entrez vos informations pour créer un compte">
         <source>Entrez vos informations pour créer un compte</source>
-        <target>__Entrez vos informations pour créer un compte</target>
+        <target>Enter your information to create an account</target>
       </trans-unit>
       <trans-unit id="sBFnVlo" resname="Vous êtes connecté en tant que">
         <source>Vous êtes connecté en tant que</source>
-        <target>__Vous êtes connecté en tant que</target>
+        <target>You are logged in as</target>
       </trans-unit>
       <trans-unit id="YdaVBBA" resname="Connexion">
         <source>Connexion</source>
-        <target>__Connexion</target>
+        <target>Login</target>
       </trans-unit>
       <trans-unit id="b68LUR4" resname="Entrez vos identifiants de connexion">
         <source>Entrez vos identifiants de connexion</source>
-        <target>__Entrez vos identifiants de connexion</target>
+        <target>Enter your login details</target>
       </trans-unit>
       <trans-unit id="PdvEmIS" resname="Mot de passe oublié?">
         <source>Mot de passe oublié?</source>
-        <target>__Mot de passe oublié?</target>
+        <target>Forgot your password?</target>
       </trans-unit>
       <trans-unit id="RR5Fv0N" resname="Rester connecté">
         <source>Rester connecté</source>
-        <target>__Rester connecté</target>
+        <target>Staying connected</target>
       </trans-unit>
       <trans-unit id="TAljIJ3" resname="Détails du compte">
         <source>Détails du compte</source>
-        <target>__Détails du compte</target>
+        <target>Account details</target>
       </trans-unit>
       <trans-unit id="npZ5msi" resname="Changement de mot de passe">
         <source>Changement de mot de passe</source>
-        <target>__Changement de mot de passe</target>
+        <target>Change of password</target>
       </trans-unit>
       <trans-unit id="oP7pSXH" resname="Changer le mot de passe">
         <source>Changer le mot de passe</source>
-        <target>__Changer le mot de passe</target>
+        <target>Change password</target>
       </trans-unit>
       <trans-unit id="CHAw8N4" resname="Mes réservation">
         <source>Mes réservation</source>
-        <target>__Mes réservation</target>
+        <target>My reservations</target>
       </trans-unit>
     </body>
   </file>

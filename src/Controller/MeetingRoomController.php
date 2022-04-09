@@ -94,6 +94,7 @@ class MeetingRoomController extends AbstractController
                 } else {
                     // on vérifie si une réservation n'existe pas déja
                     $reservationExist = $this->meetingRoomReservationRepository->checkExistingReservation($meetingRoomReservation->getMeetingRoom(), $meetingRoomReservation->getStartAt(), $meetingRoomReservation->getEndAt());
+//                    dd($reservationExist);
                     if (!$reservationExist) {
                         $entityManager->persist($meetingRoomReservation);
                         $entityManager->flush();

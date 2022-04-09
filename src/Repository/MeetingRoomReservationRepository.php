@@ -30,6 +30,12 @@ class MeetingRoomReservationRepository extends ServiceEntityRepository
      * @param DateTime $startDate The start date of the reservation.
      * @param Datetime $endDate The end date of the reservation.
      */
+
+    //SELECT * FROM `meeting_room_reservation` m
+    //WHERE m.meeting_room_id = 1
+    //AND ((m.start_at BETWEEN '2022-04-04 08:00:00' AND '2022-04-04 17:00:00') AND (m.end_at BETWEEN '2022-04-04 08:00:00' AND '2022-04-04 17:00:00')
+    //OR (m.start_at <= '2022-04-04 08:00:00' AND m.end_at >= '2022-04-04 17:00:00'))
+
     public function checkExistingReservation(MeetingRoom $meetingRoom, \DateTime $startDate, \Datetime $endDate)
     {
         return $this->createQueryBuilder('m')

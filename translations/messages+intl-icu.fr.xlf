@@ -81,7 +81,7 @@
         <source>Utilisateurs</source>
         <target>Utilisateurs</target>
       </trans-unit>
-      <trans-unit id="nn0g3zA" resname="Gestion des objets">
+      <trans-unit id="1nFxS5v" resname="Gestion des objets">
         <source>Gestion des objets</source>
         <target>Gestion des objets</target>
       </trans-unit>
@@ -437,9 +437,101 @@
         <source>Changer le mot de passe</source>
         <target>Changer le mot de passe</target>
       </trans-unit>
-      <trans-unit id="CHAw8N4" resname="Mes réservation">
-        <source>Mes réservation</source>
-        <target>Mes réservation</target>
+      <trans-unit id="nXJuKzF" resname="Dupliquer">
+        <source>Dupliquer</source>
+        <target>Dupliquer</target>
+      </trans-unit>
+      <trans-unit id="Z7.PMth" resname="Capacité">
+        <source>Capacité</source>
+        <target>Capacité</target>
+      </trans-unit>
+      <trans-unit id="OuKFNCa" resname="Le bureau a bien été dupliqué">
+        <source>Le bureau a bien été dupliqué</source>
+        <target>Le bureau a bien été dupliqué</target>
+      </trans-unit>
+      <trans-unit id="WZ4ttBQ" resname="L'équipement a bien été dupliqué">
+        <source>L'équipement a bien été dupliqué</source>
+        <target>L'équipement a bien été dupliqué</target>
+      </trans-unit>
+      <trans-unit id="xGtv1X8" resname="Langage">
+        <source>Langage</source>
+        <target>Langage</target>
+      </trans-unit>
+      <trans-unit id="1RMCR.S" resname="Matériels">
+        <source>Matériels</source>
+        <target>Matériels</target>
+      </trans-unit>
+      <trans-unit id="oLYEzu." resname="La salle a bien été dupliquée">
+        <source>La salle a bien été dupliquée</source>
+        <target>La salle a bien été dupliquée</target>
+      </trans-unit>
+      <trans-unit id="cHQrRWf" resname="Le nom de votre réservation">
+        <source>Le nom de votre réservation</source>
+        <target>Le nom de votre réservation</target>
+      </trans-unit>
+      <trans-unit id="3r4M6j4" resname="Entrez l'intitulé de la réservation">
+        <source>Entrez l'intitulé de la réservation</source>
+        <target>Entrez l'intitulé de la réservation</target>
+      </trans-unit>
+      <trans-unit id="lR.e2we" resname="La description de votre réservation">
+        <source>La description de votre réservation</source>
+        <target>La description de votre réservation</target>
+      </trans-unit>
+      <trans-unit id="nNZ3LuO" resname="Vous ne pouvez pas réserver un créneau le weekend">
+        <source>Vous ne pouvez pas réserver un créneau le weekend</source>
+        <target>Vous ne pouvez pas réserver un créneau le weekend</target>
+      </trans-unit>
+      <trans-unit id="90aXP2d" resname="Une réservation existe déjâ pour les horraires de la salle de réunion selectionné !">
+        <source>Une réservation existe déjâ pour les horraires de la salle de réunion selectionné !</source>
+        <target>Une réservation existe déjâ pour les horraires de la salle de réunion selectionné !</target>
+      </trans-unit>
+      <trans-unit id="QEe7XL1" resname="Veuillez sélectionner une salle de réunion !">
+        <source>Veuillez sélectionner une salle de réunion !</source>
+        <target>Veuillez sélectionner une salle de réunion !</target>
+      </trans-unit>
+      <trans-unit id="ywJNrX5" resname="Entrez votre mail !">
+        <source>Entrez votre mail !</source>
+        <target>Entrez votre mail !</target>
+      </trans-unit>
+      <trans-unit id="o9ZcpWl" resname="Nouveau mot de passe">
+        <source>Nouveau mot de passe</source>
+        <target>Nouveau mot de passe</target>
+      </trans-unit>
+      <trans-unit id="kcgHYF9" resname="Retapez le nouveau mot de passe">
+        <source>Retapez le nouveau mot de passe</source>
+        <target>Retapez le nouveau mot de passe</target>
+      </trans-unit>
+      <trans-unit id="e4WyHpd" resname="Entrez un mot de passe">
+        <source>Entrez un mot de passe</source>
+        <target>Entrez un mot de passe</target>
+      </trans-unit>
+      <trans-unit id="ByQSmFo" resname="Votre mot de passe doit faire plus de {{ limit }} caractères">
+        <source>Votre mot de passe doit faire plus de {{ limit }} caractères</source>
+        <target>Votre mot de passe doit faire plus de {{ limit }} caractères</target>
+      </trans-unit>
+      <trans-unit id="kIfKFQp" resname="Les deux mots de passe doivent être identiques !">
+        <source>Les deux mots de passe doivent être identiques !</source>
+        <target>Les deux mots de passe doivent être identiques !</target>
+      </trans-unit>
+      <trans-unit id="o.JrlUX" resname="La salle {{ value }} existe déjà.">
+        <source>La salle {{ value }} existe déjà.</source>
+        <target>La salle {{ value }} existe déjà.</target>
+      </trans-unit>
+      <trans-unit id="_e.51iM" resname="Il existe déjà un compte avec cet email !">
+        <source>Il existe déjà un compte avec cet email !</source>
+        <target>Il existe déjà un compte avec cet email !</target>
+      </trans-unit>
+      <trans-unit id="ZMKNUGc" resname="La date de fin doit être supérieure à la date de début">
+        <source>La date de fin doit être supérieure à la date de début</source>
+        <target>La date de fin doit être supérieure à la date de début</target>
+      </trans-unit>
+      <trans-unit id="TH53GpD" resname="Le matériel {{ value }} existe déjà.">
+        <source>Le matériel {{ value }} existe déjà.</source>
+        <target>Le matériel {{ value }} existe déjà.</target>
+      </trans-unit>
+      <trans-unit id="Bl0pUpO" resname="Le bureau {{ value }} existe déjà.">
+        <source>Le bureau {{ value }} existe déjà.</source>
+        <target>Le bureau {{ value }} existe déjà.</target>
       </trans-unit>
     </body>
   </file>

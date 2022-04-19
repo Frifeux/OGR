@@ -12,7 +12,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
 #[UniqueEntity(
     fields: ["name"],
-    message: new translatableMessage("Le matériel {{ value }} existe déjà.")
+    message: new TranslatableMessage("Le matériel {{ value }} existe déjà.")
 )]
 class Equipment
 {

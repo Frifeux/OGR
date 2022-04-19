@@ -24,7 +24,7 @@ class OfficeReservation
     #[ORM\Column(type: 'datetime')]
     #[Assert\GreaterThan(
         propertyPath: 'startAt',
-        message: new translatableMessage('La date de fin doit être supérieure ou égale à la date de début')
+        message: new TranslatableMessage('La date de fin doit être supérieure à la date de début')
     )]
     private $endAt;
 

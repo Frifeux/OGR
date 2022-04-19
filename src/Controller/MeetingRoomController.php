@@ -90,7 +90,7 @@ class MeetingRoomController extends AbstractController
 
                 // On verifie que la reservation n'est pas le weekend
                 if ($this->isWeekend($meetingRoomReservation->getStartAt()) || $this->isWeekend($meetingRoomReservation->getEndAt())) {
-                    $this->addFlash('reservation_meeting_room_error', new translatableMessage('Vous ne pouvez pas réserver un créneau le weekend'));
+                    $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Vous ne pouvez pas réserver un créneau le weekend'));
                 } else {
                     // on vérifie si une réservation n'existe pas déja
                     $reservationExist = $this->meetingRoomReservationRepository->checkExistingReservation($meetingRoomReservation->getMeetingRoom(), $meetingRoomReservation->getStartAt(), $meetingRoomReservation->getEndAt());
@@ -99,16 +99,16 @@ class MeetingRoomController extends AbstractController
                         $entityManager->persist($meetingRoomReservation);
                         $entityManager->flush();
 
-                        $this->addFlash('reservation_meeting_room_success', new translatableMessage('Votre réservation à bien été ajouté !'));
+                        $this->addFlash('reservation_meeting_room_success', new TranslatableMessage('Votre réservation à bien été ajouté !'));
                     } else {
-                        $this->addFlash('reservation_meeting_room_error', new translatableMessage('Une réservation existe déjâ pour les horraires de la salle de réunion selectionné !'));
+                        $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Une réservation existe déjâ pour les horraires de la salle de réunion selectionné !'));
                     }
                 }
 
                 // On récupère les RDV de la salle selectionné
                 $jsonifyMeetingRoomReservation = $this->getReservationForFullCalendar($meetingRoomReservation->getMeetingRoom());
             } else {
-                $this->addFlash('reservation_meeting_room_error', new translatableMessage('Veuillez sélectionner une salle de réunion !'));
+                $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Veuillez sélectionner une salle de réunion !'));
             }
         }
 

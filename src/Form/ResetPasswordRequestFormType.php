@@ -21,7 +21,7 @@ class ResetPasswordRequestFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => new translatableMessage('Entrez votre mail !'),
+                        'message' => new TranslatableMessage('Entrez votre mail !'),
                     ]),
                 ],
             ])

@@ -12,7 +12,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 #[ORM\Entity(repositoryClass: MeetingRoomRepository::class)]
 #[UniqueEntity(
     fields: ["name"],
-    message: new translatableMessage("Le salle {{ value }} existe déjà.")
+    message: new TranslatableMessage("La salle {{ value }} existe déjà.")
 )]
 class MeetingRoom
 {

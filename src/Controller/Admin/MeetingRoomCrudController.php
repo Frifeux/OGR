@@ -96,7 +96,7 @@ class MeetingRoomCrudController extends AbstractCrudController
         $this->entityManager->persist($meetingRoom);
         $this->entityManager->flush();
 
-        $this->addFlash('success', new translatableMessage('La salle a bien été dupliquée'));
+        $this->addFlash('success', new TranslatableMessage('La salle a bien été dupliquée'));
 
         return $this->redirect($url);
     }

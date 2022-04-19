@@ -15,7 +15,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(
     fields: ["email"],
-    message: new translatableMessage("Il existe déjà un compte avec cet email !")
+    message: new TranslatableMessage("Il existe déjà un compte avec cet email !")
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {

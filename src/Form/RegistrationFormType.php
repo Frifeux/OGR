@@ -60,22 +60,22 @@ class RegistrationFormType extends AbstractType
                 'type' => PasswordType::class,
                 'required' => true,
                 'first_options'  => [
-                    'label' => new translatableMessage('Nouveau mot de passe')
+                    'label' => new TranslatableMessage('Nouveau mot de passe')
                 ],
                 'second_options' => [
-                    'label' => new translatableMessage('Retapez le nouveau mot de passe')
+                    'label' => new TranslatableMessage('Retapez le nouveau mot de passe')
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => new translatableMessage('Entrez un mot de passe'),
+                        'message' => new TranslatableMessage('Entrez un mot de passe'),
                     ]),
                     new Length([
                         'min' => $_ENV['PASSWORD_MIN_LENGTH'],
-                        'minMessage' => new translatableMessage('Votre mot de passe doit faire plus de {{ limit }} caractères'),
+                        'minMessage' => new TranslatableMessage('Votre mot de passe doit faire plus de {{ limit }} caractères'),
                         'max' => $_ENV['PASSWORD_MAX_LENGTH'],
                     ]),
                 ],
-                'invalid_message' => new translatableMessage('Les deux mots de passe doivent être identiques !'),
+                'invalid_message' => new TranslatableMessage('Les deux mots de passe doivent être identiques !'),
 
             ])
         ;

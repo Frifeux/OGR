@@ -37,7 +37,7 @@
                 <div class="col-12 col-xxl-3 col-xl-4 col-lg-4 align-self-center">
 
                     <div class="border rounded shadow-sm py-2 px-3 text-dark">
-                        <h2 class="px-4 py-2"> <strong> Bureau </strong> </h2>
+                        <h2 class="px-4 py-2"> <strong>{% trans %}Bureau{% endtrans %}</strong> </h2>
 
                         <!-- Formulaire pour ajouter une réservation à une salle -->
                         {{ form_start(chooseOfficeReservationForm) }}
@@ -65,7 +65,7 @@
                 <div class="col align-self-center">
                     <div class="border rounded shadow-sm py-2 px-4 text-dark">
 
-                        <h2 class="px-4 py-2"> <strong> Disponibilité </strong> </h2>
+                        <h2 class="px-4 py-2"> <strong>{% trans %}Disponibilités{% endtrans %}</strong> </h2>
 
                         <!-- Affichage des Disponibilité -->
                         <!-- overflow, Classe CSS custom ICI -->
@@ -75,10 +75,10 @@
 
                                 <thead class="table-info">
                                 <tr>
-                                    <th>Nom</th>
-                                    <th>Localisation</th>
-                                    <th>Etage</th>
-                                    <th>Service</th>
+                                    <th>{% trans %}Nom{% endtrans %}</th>
+                                    <th>{% trans %}Localisation{% endtrans %}</th>
+                                    <th>{% trans %}Etage{% endtrans %}</th>
+                                    <th>{% trans %}Service{% endtrans %}</th>
                                     <th></th>
                                 </tr>
                                 </thead>

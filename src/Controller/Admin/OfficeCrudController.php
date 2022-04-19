@@ -25,7 +25,6 @@ class OfficeCrudController extends AbstractCrudController
         $this->entityManager = $entityManager;
     }
 
-
     public static function getEntityFqcn(): string
     {
         return Office::class;
@@ -92,6 +91,7 @@ class OfficeCrudController extends AbstractCrudController
             ->setAction(Action::INDEX)
             ->generateUrl();
 
+        // Creation of a new object with the same values as the actual one
         $office = clone $officeObjectToDuplicate;
         $office->setName($office->getName() . ' (copie)');
         $this->entityManager->persist($office);

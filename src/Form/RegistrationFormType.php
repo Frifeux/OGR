@@ -70,9 +70,9 @@ class RegistrationFormType extends AbstractType
                         'message' => new translatableMessage('Entrez un mot de passe'),
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => $_ENV['PASSWORD_MIN_LENGTH'],
                         'minMessage' => new translatableMessage('Votre mot de passe doit faire plus de {{ limit }} caractères'),
-                        'max' => 4096,
+                        'max' => $_ENV['PASSWORD_MAX_LENGTH'],
                     ]),
                 ],
                 'invalid_message' => new translatableMessage('Les deux mots de passe doivent être identiques !'),

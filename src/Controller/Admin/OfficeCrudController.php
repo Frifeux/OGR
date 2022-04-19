@@ -26,11 +26,17 @@ class OfficeCrudController extends AbstractCrudController
             ->setPageTitle('index', new TranslatableMessage('Gestion des bureaux'))
             ->setPageTitle('edit', new TranslatableMessage('Modification du bureau'))
             ->setPageTitle('new', new TranslatableMessage('Création d\'un bureau'))
-            ->setPageTitle('detail', new TranslatableMessage('Informations sur le bureau'));
+            ->setPageTitle('detail', new TranslatableMessage('Informations sur le bureau'))
+            ->showEntityActionsInlined();
     }
 
     public function configureActions(Actions $actions): Actions
     {
+        // Ajout d'un bouton et d'un action custom pour renvoyer un mail de reinitialisation de MPD
+        $duplicatingObject = Action::new('duplicatingObject', new TranslatableMessage('Dupliquer'), 'fa fa-copy')
+            ->linkToCrudAction('duplicatingObject')
+            ->setCssClass('btn btn-warning');
+
         return $actions
             // Modification of the translation of the button
             ->update(Crud::PAGE_INDEX, Action::NEW,
@@ -44,7 +50,10 @@ class OfficeCrudController extends AbstractCrudController
             // add an icon on the button
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action->setIcon('fa fa-trash');
-            });
+            })
+
+            // Added the reset password button on the page
+            ->add(Crud::PAGE_DETAIL, $duplicatingObject);
     }
 
     public function configureFields(string $pageName): iterable

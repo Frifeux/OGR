@@ -29,7 +29,8 @@ class EquipmentCrudController extends AbstractCrudController
             ->setPageTitle('index', new TranslatableMessage('Gestion des matériels'))
             ->setPageTitle('edit', new TranslatableMessage('Modification du matériel'))
             ->setPageTitle('new', new TranslatableMessage('Création d\'un matériel'))
-            ->setPageTitle('detail', new TranslatableMessage('Informations sur le matériel'));
+            ->setPageTitle('detail', new TranslatableMessage('Informations sur le matériel'))
+            ->showEntityActionsInlined();
     }
 
     public function configureActions(Actions $actions): Actions

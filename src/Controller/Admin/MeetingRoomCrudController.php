@@ -27,7 +27,8 @@ class MeetingRoomCrudController extends AbstractCrudController
             ->setPageTitle('index', new TranslatableMessage('Gestion des salles'))
             ->setPageTitle('edit', new TranslatableMessage('Modification de la salle'))
             ->setPageTitle('new', new TranslatableMessage('Création d\'une salle'))
-            ->setPageTitle('detail', new TranslatableMessage('Informations sur la salle'));
+            ->setPageTitle('detail', new TranslatableMessage('Informations sur la salle'))
+            ->showEntityActionsInlined();
     }
 
     public function configureActions(Actions $actions): Actions

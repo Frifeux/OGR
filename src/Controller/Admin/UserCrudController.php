@@ -56,7 +56,9 @@ class UserCrudController extends AbstractCrudController
             ->setPageTitle('index', new TranslatableMessage('Gestion des utilisateurs'))
             ->setPageTitle('edit', new TranslatableMessage('Modification de l\'utilisateur'))
             ->setPageTitle('new', new TranslatableMessage('Création d\'un utilisateur'))
-            ->setPageTitle('detail', new TranslatableMessage('Informations sur l\'utilisateur'));
+            ->setPageTitle('detail', new TranslatableMessage('Informations sur l\'utilisateur'))
+            ->showEntityActionsInlined();
+
     }
 
     public function configureActions(Actions $actions): Actions

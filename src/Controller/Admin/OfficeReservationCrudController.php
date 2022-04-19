@@ -27,7 +27,8 @@ class OfficeReservationCrudController extends AbstractCrudController
             ->setPageTitle('index', new TranslatableMessage('Réservations des bureaux'))
             ->setPageTitle('edit', new TranslatableMessage('Modification d\'une réservation'))
             ->setPageTitle('new', new TranslatableMessage('Ajout d\'une réservation'))
-            ->setPageTitle('detail', new TranslatableMessage('Informations sur la réservation'));
+            ->setPageTitle('detail', new TranslatableMessage('Informations sur la réservation'))
+            ->showEntityActionsInlined();
     }
 
     public function configureActions(Actions $actions): Actions

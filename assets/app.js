@@ -11,12 +11,20 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
+require('bootstrap/scss/bootstrap.scss'); // Bootstrap scss
+require('bootstrap/dist/js/bootstrap'); // Bootstrap js
 require('bootstrap-icons/font/bootstrap-icons.css'); // Icon bootstrap
 
-import { Tooltip, Toast, Popover } from 'bootstrap';
+require('@fortawesome/fontawesome-free/css/all.css'); // Font awesome css
+require('@fortawesome/fontawesome-free/js/all.js'); // Font awesome js
 
-import { Calendar } from '@fullcalendar/core';
-import interactionPlugin from '@fullcalendar/interaction';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import listPlugin from '@fullcalendar/list';
-import timeGridPlugin from '@fullcalendar/timegrid';
+require('flag-icons/css/flag-icons.min.css'); // Flag icon
+
+// require('@fullcalendar/core'); // Fullcalendar
+// require('@fullcalendar/daygrid'); // Fullcalendar
+// require('@fullcalendar/timegrid'); // Fullcalendar
+
+// import { Calendar } from '@fullcalendar/core';
+// import dayGridPlugin from '@fullcalendar/daygrid';
+// import listPlugin from '@fullcalendar/list';
+// import timeGridPlugin from '@fullcalendar/timegrid';

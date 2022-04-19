@@ -44,7 +44,7 @@ class OfficeCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        // Ajout d'un bouton et d'un action custom pour renvoyer un mail de reinitialisation de MPD
+        // Ajout d'un bouton et d'un action custom pour dupliquer un objet
         $duplicatingObject = Action::new('duplicatingObject', new TranslatableMessage('Dupliquer'), 'fa fa-copy')
             ->linkToCrudAction('duplicatingObject')
             ->addCssClass('text-warning');

@@ -62,8 +62,7 @@ class OfficeCrudController extends AbstractCrudController
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action->setIcon('fa fa-trash');
             })
-
-            // Added the reset password button on the page
+            // Added the duplicating button on the page
             ->add(Crud::PAGE_INDEX, $duplicatingObject);
     }
 
@@ -97,7 +96,7 @@ class OfficeCrudController extends AbstractCrudController
         $this->entityManager->persist($office);
         $this->entityManager->flush();
 
-        $this->addFlash('success', 'Le bureau a bien été dupliqué');
+        $this->addFlash('success', new TranslatableMessage('Le bureau a bien été dupliqué'));
 
         return $this->redirect($url);
     }

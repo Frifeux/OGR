@@ -81,8 +81,8 @@
         <source>Utilisateurs</source>
         <target>Users</target>
       </trans-unit>
-      <trans-unit id="nn0g3zA" resname="Gestion des objects">
-        <source>Gestion des objects</source>
+      <trans-unit id="nn0g3zA" resname="Gestion des objets">
+        <source>Gestion des objets</source>
         <target>Object management</target>
       </trans-unit>
       <trans-unit id="dwMiMcX" resname="Salles de réunion">

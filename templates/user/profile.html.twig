@@ -4,12 +4,18 @@
 
 {% block content %}
 
-    {% for flashError in app.flashes('success') %}
-        <div class="alert alert-success" role="alert">{{ flashError }}</div>
-    {% endfor %}
-
-
     <div class="container-xl px-4 mt-4" style="max-width: 900px;">
+
+        <!-- Affichage des messages de success et erreurs-->
+        {% for flashSuccess in app.flashes('success') %}
+            <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <div>
+                    {{ flashSuccess }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
 
         <nav class="nav nav-tabs">
             <li><a class="nav-link active ms-0 " href="{{ path('user_profile') }}">{% trans %}Profile{% endtrans %}</a>

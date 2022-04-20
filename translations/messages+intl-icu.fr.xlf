@@ -533,6 +533,26 @@
         <source>Le bureau {{ value }} existe déjà.</source>
         <target>Le bureau {{ value }} existe déjà.</target>
       </trans-unit>
+      <trans-unit id="Z7tRO1Y" resname="Aujourd\'hui">
+        <source>Aujourd\'hui</source>
+        <target>Aujourd\'hui</target>
+      </trans-unit>
+      <trans-unit id="cJzu9tn" resname="Mois">
+        <source>Mois</source>
+        <target>Mois</target>
+      </trans-unit>
+      <trans-unit id="CTTUKTh" resname="Semaine">
+        <source>Semaine</source>
+        <target>Semaine</target>
+      </trans-unit>
+      <trans-unit id="PrD2QBX" resname="Jour">
+        <source>Jour</source>
+        <target>Jour</target>
+      </trans-unit>
+      <trans-unit id="c0OEHnJ" resname="Liste">
+        <source>Liste</source>
+        <target>Liste</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

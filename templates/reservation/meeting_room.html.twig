@@ -14,30 +14,27 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
 
                 events: {{ meetingRoomReservations|raw }},
                 headerToolbar: {
                     left: 'prev,next today',
-                    center: 'title',
+                    center: 'title',    
                     end: 'dayGridMonth,timeGridWeek'
                 },
-                locale: 'fr',
+                locale: '{{ app.request.get('_locale') }}',
                 nowIndicator: true,
                 buttonText: {
-                    today: 'Aujourd\'hui',
-                    month: 'Mois',
-                    week: 'Semaine',
-                    day: 'Jour',
-                    list: 'Liste',
+                    today: '{% trans %}Aujourd\'hui{% endtrans %}',
+                    month: '{% trans %}Mois{% endtrans %}',
+                    week: '{% trans %}Semaine{% endtrans %}',
+                    day: '{% trans %}Jour{% endtrans %}',
+                    list: '{% trans %}Liste{% endtrans %}',
                 },
                 timeZone: 'Europe/Paris',
-                // businessHours: true, // display business hours
                 themeSystem: 'bootstrap5',
                 initialView: 'timeGridWeek',
-                // eventResizableFromStart: true,
-                // editable: true,
                 slotMinTime: '{{ app.request.server.get('WORKING_HOURS_START') }}:00:00',
                 slotMaxTime: '{{ app.request.server.get('WORKING_HOURS_END') + 1 }}:00:00', // Need to add +1 to the end of the working hours
                 allDaySlot: false, // We don't want to display the all day slot

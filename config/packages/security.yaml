@@ -34,7 +34,7 @@ security:
         main:
             lazy: true
 
-            user_checker: App\Security\UserChecker
+#            user_checker: App\Security\UserChecker
             custom_authenticators:
                 - App\Security\LoginFormAuthenticator
 
@@ -73,10 +73,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
 #         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } # allow anonymous access to everything
-         - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/user, roles: ROLE_USER }
-         - { path: ^/reservation, roles: ROLE_USER }
-         - { path: ^/home, roles: ROLE_USER }
+         - { path: ^/(fr|en)/admin, roles: ROLE_ADMIN }
+         - { path: ^/(fr|en)/user, roles: ROLE_USER }
+         - { path: ^/(fr|en)/reservation, roles: ROLE_USER }
+         - { path: ^/(fr|en)/home, roles: ROLE_USER }
 
 when@test:
     security:

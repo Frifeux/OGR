@@ -3,8 +3,8 @@ controllers:
     type: annotation
     #add prefix here to add other langages
     prefix:
-        fr: '/fr_FR'
-        en: '/en_US'
+        fr: '/fr'
+        en: '/en'
 
 kernel:
     resource: ../../src/Kernel.php

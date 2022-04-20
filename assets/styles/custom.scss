@@ -13,6 +13,12 @@
   min-height: calc(100vh - 190px);
 }
 
+.overflow-tabs {
+  overflow-y: auto;
+  max-height: calc(100vh - 190px);
+  min-height: calc(100vh - 190px);
+}
+
 label.required:after, legend.required:after  {
   content: " *";
   color: red;

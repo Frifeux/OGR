@@ -30,7 +30,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
         $this->urlGenerator = $urlGenerator;
-
 //        $this->ldap = Ldap::create('ext_ldap', [
 //            'host' => $_ENV['LDAP_HOST'],
 //            'port' => $_ENV['LDAP_PORT'],
@@ -46,7 +45,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-
         $email = $request->request->get('_username', '');
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);

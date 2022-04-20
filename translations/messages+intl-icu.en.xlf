@@ -495,7 +495,7 @@
       </trans-unit>
       <trans-unit id="o9ZcpWl" resname="Nouveau mot de passe">
         <source>Nouveau mot de passe</source>
-        <target>__New password</target>
+        <target>New password</target>
       </trans-unit>
       <trans-unit id="kcgHYF9" resname="Retapez le nouveau mot de passe">
         <source>Retapez le nouveau mot de passe</source>

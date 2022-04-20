@@ -29,6 +29,10 @@
                                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                                     {% endif %}
 
+{#                                    {% for flashError in app.flashes('error') %}#}
+{#                                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>#}
+{#                                    {% endfor %}#}
+
                                     <div class="form-white mb-4">
                                         <input type="text" value="{{ last_username }}" placeholder="{% trans %} Email {% endtrans %}" name="_username" id="inputEmail" class="form-control form-control-lg" required/>
                                     </div>

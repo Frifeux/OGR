@@ -26,10 +26,10 @@ class ReservationsController extends AbstractController
     #[Route('/reservation/manage', name: 'app_reservation')]
     public function index(): Response
     {
-        // retrive all reservations from user
-        $officeReservations = $this->officeReservationRepository->findBy(['user' => $this->getUser()]);
-        $equipmentReservations = $this->equipmentReservationRepository->findBy(['user' => $this->getUser()]);
-        $meetingRoomReservations = $this->meetingRoomReservationRepository->findBy(['user' => $this->getUser()]);
+        // retrieve all reservations from user and order them by date
+        $officeReservations = $this->officeReservationRepository->findBy(['user' => $this->getUser()], ['startAt' => 'DESC', 'endAt' => 'DESC']);
+        $equipmentReservations = $this->equipmentReservationRepository->findBy(['user' => $this->getUser()], ['startAt' => 'DESC', 'endAt' => 'DESC']);
+        $meetingRoomReservations = $this->meetingRoomReservationRepository->findBy(['user' => $this->getUser()], ['startAt' => 'DESC', 'endAt' => 'DESC']);
 
         return $this->render('reservation/reservations.html.twig', [
             'officeReservations' => $officeReservations,

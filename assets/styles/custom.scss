@@ -19,6 +19,12 @@
   min-height: calc(100vh - 190px);
 }
 
+.overflow-accordion {
+  overflow-y: auto;
+  max-height: calc(100vh - 500px);
+  min-height: calc(100vh - 500px);
+}
+
 label.required:after, legend.required:after  {
   content: " *";
   color: red;

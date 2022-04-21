@@ -73,7 +73,7 @@
                                                         <td>{{ meetingRoomReservation.startAt|date('d/m/Y H:i') }}</td>
                                                         <td>{{ meetingRoomReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
-                                                            <a href="#" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                                            <a href="{{ path('app_reservation_delete', {'id': meetingRoomReservation.id }) }}" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
 
                                                             <a href="#" data-bs-toggle="modal" data-bs-target="#editReservationModal">
                                                                 <i class="fas fa-file-edit text-warning"></i>

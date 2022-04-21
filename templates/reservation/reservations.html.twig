@@ -1,0 +1,209 @@
+{% extends 'base.navbar.html.twig' %}
+
+{% block title %}OGR - Gestion des réservations {% endblock %}
+
+{% set current_menu = 'reservations' %}
+
+{% block content %}
+
+    <!-- contenu de notre page -->
+    <main>
+        <!-- Affichage des messages de success et erreurs-->
+        {% for flashSuccess in app.flashes('reservation_success') %}
+            <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <div>
+                    {{ flashSuccess }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+
+        {% for flashError in app.flashes('reservation_error') %}
+            <div class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <div>
+                    {{ flashError }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+
+        <div class="container">
+            <div class="row g-4 py-3">
+                <div class="col">
+                    <div class="py-2 px-4 text-dark">
+
+                        <h2 class="px-4 py-2"> <strong>{% trans %}Réservations{% endtrans %}</strong> </h2>
+
+                        <div class="accordion accordion-flush" id="accordionReservation">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-headingMeetingroom">
+                                    <button class="accordion-button collapsed " type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseMeetingroom"
+                                            aria-expanded="false" aria-controls="flush-collapseMeetingroom">
+                                        {% trans %}Salle de réunion{% endtrans %}
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseMeetingroom" class="accordion-collapse collapse"
+                                     aria-labelledby="flush-headingMeetingroom"
+                                     data-bs-parent="#accordionReservation">
+                                    <div class="accordion-body overflow-accordion">
+
+                                        {% if meetingRoomReservations is defined and meetingRoomReservations|length > 0 %}
+
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>{% trans %}Nom{% endtrans %}</th>
+                                                <th>{% trans %}Titre{% endtrans %}</th>
+                                                <th>{% trans %}Description{% endtrans %}</th>
+                                                <th>{% trans %}Début{% endtrans %}</th>
+                                                <th>{% trans %}Fin{% endtrans %}</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                {% for meetingRoomReservation in meetingRoomReservations %}
+                                                    <tr>
+                                                        <td>{{ meetingRoomReservation.meetingRoom.name }}</td>
+                                                        <td>{{ meetingRoomReservation.title }}</td>
+                                                        <td>{{ meetingRoomReservation.description }}</td>
+                                                        <td>{{ meetingRoomReservation.startAt|date('d/m/Y H:i') }}</td>
+                                                        <td>{{ meetingRoomReservation.endAt|date('d/m/Y H:i') }}</td>
+                                                        <td>
+                                                            <a href="#" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
+
+                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editReservationModal">
+                                                                <i class="fas fa-file-edit text-warning"></i>
+                                                            </a>
+
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                        {% else %}
+                                            <div class="text-center fs-4">
+                                                {% trans %}Aucune réservation pour le moment.{% endtrans %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-headingOffice">
+                                    <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseOffice"
+                                            aria-expanded="false" aria-controls="flush-collapseOffice">
+                                        {% trans %}Bureaux{% endtrans %}
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseOffice" class="accordion-collapse collapse"
+                                     aria-labelledby="flush-headingOffice" data-bs-parent="#accordionReservation">
+                                    <div class="accordion-body">
+                                        {% if officeReservations is defined and officeReservations|length > 0 %}
+
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>{% trans %}Nom{% endtrans %}</th>
+                                                    <th>{% trans %}Description{% endtrans %}</th>
+                                                    <th>{% trans %}Début{% endtrans %}</th>
+                                                    <th>{% trans %}Fin{% endtrans %}</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                {% for officeReservation in officeReservations %}
+                                                    <tr>
+                                                        <td>{{ officeReservation.office.name }}</td>
+                                                        <td>{{ officeReservation.description }}</td>
+                                                        <td>{{ officeReservation.startAt|date('d/m/Y H:i') }}</td>
+                                                        <td>{{ officeReservation.endAt|date('d/m/Y H:i') }}</td>
+                                                        <td>
+                                                            <a href="#" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
+
+                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editReservationModal">
+                                                                <i class="fas fa-file-edit text-warning"></i>
+                                                            </a>
+
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+
+                                        {% else %}
+                                            <div class="text-center fs-4">
+                                                {% trans %}Aucune réservation pour le moment.{% endtrans %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-headingEquipment">
+                                    <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseEquipment"
+                                            aria-expanded="false" aria-controls="flush-collapseEquipment">
+                                        {% trans %}Matériels{% endtrans %}
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseEquipment" class="accordion-collapse collapse"
+                                     aria-labelledby="flush-headingEquipment" data-bs-parent="#accordionReservation">
+                                    <div class="accordion-body">
+                                        {% if equipmentReservations is defined and equipmentReservations|length > 0 %}
+
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>{% trans %}Nom{% endtrans %}</th>
+                                                    <th>{% trans %}Description{% endtrans %}</th>
+                                                    <th>{% trans %}Début{% endtrans %}</th>
+                                                    <th>{% trans %}Fin{% endtrans %}</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                {% for equipmentReservation in equipmentReservations %}
+                                                    <tr>
+                                                        <td>{{ equipmentReservation.equipment.name }}</td>
+                                                        <td>{{ equipmentReservation.description }}</td>
+                                                        <td>{{ equipmentReservation.startAt|date('d/m/Y H:i') }}</td>
+                                                        <td>{{ equipmentReservation.endAt|date('d/m/Y H:i') }}</td>
+                                                        <td>
+                                                            <a href="#" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
+
+                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editReservationModal">
+                                                                <i class="fas fa-file-edit text-warning"></i>
+                                                            </a>
+
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+
+                                        {% else %}
+                                            <div class="text-center fs-4">
+                                                {% trans %}Aucune réservation pour le moment.{% endtrans %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

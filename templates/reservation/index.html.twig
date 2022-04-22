@@ -4,28 +4,64 @@
 
 {% set current_menu = 'reservations' %}
 
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ready(function() {
+            // Send the request to the server to delete a reservation when the user click on the trash icon
+            function deleteReservation(event) {
+                event.preventDefault();
+
+                $.ajax({
+                    url: this.href,
+                    type: 'DELETE',
+                    success: function () {
+                        // Remove the reservation from the table
+                        $(event.target).closest('tr').remove();
+                    },
+                    error: function(xhr) {
+                        console.log("Impossible de supprimer la réservation, code d'erreur : " + xhr.status);
+                    }
+                });
+            }
+
+            document.querySelectorAll('a.delete-reservation').forEach(function(element) {
+                element.addEventListener('click', deleteReservation);
+            });
+        });
+
+
+    </script>
+{% endblock %}
+
 {% block content %}
 
     <!-- contenu de notre page -->
     <main>
         <!-- Affichage des messages de success et erreurs-->
         {% for flashSuccess in app.flashes('reservation_success') %}
-            <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
+            <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2"
+                 role="alert">
                 <i class="bi bi-check-circle-fill me-2"></i>
                 <div>
                     {{ flashSuccess }}
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
             </div>
         {% endfor %}
 
         {% for flashError in app.flashes('reservation_error') %}
-            <div class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
+            <div class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle-x mt-2"
+                 role="alert">
                 <i class="bi bi-exclamation-triangle-fill me-2"></i>
                 <div>
                     {{ flashError }}
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
             </div>
         {% endfor %}
 
@@ -34,7 +70,7 @@
                 <div class="col">
                     <div class="py-2 px-4 text-dark">
 
-                        <h2 class="px-4 py-2"> <strong>{% trans %}Réservations{% endtrans %}</strong> </h2>
+                        <h2 class="px-4 py-2"><strong>{% trans %}Réservations{% endtrans %}</strong></h2>
 
                         <div class="accordion accordion-flush" id="accordionReservation">
                             <div class="accordion-item">
@@ -52,38 +88,41 @@
 
                                         {% if meetingRoomReservations is defined and meetingRoomReservations|length > 0 %}
 
-                                        <table class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>{% trans %}Nom{% endtrans %}</th>
-                                                <th>{% trans %}Titre{% endtrans %}</th>
-                                                <th>{% trans %}Description{% endtrans %}</th>
-                                                <th>{% trans %}Début{% endtrans %}</th>
-                                                <th>{% trans %}Fin{% endtrans %}</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>{% trans %}Nom{% endtrans %}</th>
+                                                    <th>{% trans %}Titre{% endtrans %}</th>
+                                                    <th>{% trans %}Description{% endtrans %}</th>
+                                                    <th>{% trans %}Début{% endtrans %}</th>
+                                                    <th>{% trans %}Fin{% endtrans %}</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
 
-                                            <tbody>
+                                                <tbody>
                                                 {% for meetingRoomReservation in meetingRoomReservations %}
-                                                    <tr>
+                                                    <tr class="">
                                                         <td>{{ meetingRoomReservation.meetingRoom.name }}</td>
                                                         <td>{{ meetingRoomReservation.title }}</td>
                                                         <td>{{ meetingRoomReservation.description }}</td>
                                                         <td>{{ meetingRoomReservation.startAt|date('d/m/Y H:i') }}</td>
                                                         <td>{{ meetingRoomReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
-                                                            <a href="{{ path('app_reservation_delete', {'id': meetingRoomReservation.id }) }}" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                                            <a href="{{ path('app_reservation_delete', {'id': meetingRoomReservation.id }) }}"
+                                                               class="delete-reservation me-2"><i
+                                                                        class="fa-solid fa-trash-can text-danger"></i></a>
 
-                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editReservationModal">
+                                                            <a href="#" data-bs-toggle="modal"
+                                                               data-bs-target="#editReservationModal">
                                                                 <i class="fas fa-file-edit text-warning"></i>
                                                             </a>
 
                                                         </td>
                                                     </tr>
                                                 {% endfor %}
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
 
                                         {% else %}
                                             <div class="text-center fs-4">
@@ -126,9 +165,11 @@
                                                         <td>{{ officeReservation.startAt|date('d/m/Y H:i') }}</td>
                                                         <td>{{ officeReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
-                                                            <a href="{{ path('app_reservation_delete', {'id': officeReservation.id }) }}" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                                            <a href="{{ path('app_reservation_delete', {'id': officeReservation.id }) }}"
+                                                               class="delete-reservation me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
 
-                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editReservationModal">
+                                                            <a href="#" data-bs-toggle="modal"
+                                                               data-bs-target="#editReservationModal">
                                                                 <i class="fas fa-file-edit text-warning"></i>
                                                             </a>
 
@@ -179,9 +220,11 @@
                                                         <td>{{ equipmentReservation.startAt|date('d/m/Y H:i') }}</td>
                                                         <td>{{ equipmentReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
-                                                            <a href="{{ path('app_reservation_delete', {'id': equipmentReservation.id }) }}" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                                            <a href="{{ path('app_reservation_delete', {'id': equipmentReservation.id }) }}"
+                                                               class="delete-reservation me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
 
-                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editReservationModal">
+                                                            <a href="#" data-bs-toggle="modal"
+                                                               data-bs-target="#editReservationModal">
                                                                 <i class="fas fa-file-edit text-warning"></i>
                                                             </a>
 

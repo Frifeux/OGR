@@ -59,7 +59,7 @@ class OfficeController extends AbstractController
         ]);
     }
 
-    #[Route('/reservation/office/{id}-{startAt}-{endAt}', name: 'app_office_add_reservation', requirements: ['id' => '\d+', 'startAt' => '\d{10}', 'endAt' => '\d{10}'], methods: ['GET'])]
+    #[Route('/office/add/{id}-{startAt}-{endAt}', name: 'app_office_add_reservation', requirements: ['id' => '\d+', 'startAt' => '\d{10}', 'endAt' => '\d{10}'], methods: ['GET'])]
     public function addReservation(int $id, \DateTime $startAt, \DateTime $endAt): Response
     {
         $office = $this->officeRepository->find($id);

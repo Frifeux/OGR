@@ -62,7 +62,7 @@ class EquipmentController extends AbstractController
         ]);
     }
 
-    #[Route('/reservation/equipment/{id}-{startAt}-{endAt}', name: 'app_equipment_add_reservation', requirements: ['id' => '\d+', 'startAt' => '\d{10}', 'endAt' => '\d{10}'], methods: ['GET'])]
+    #[Route('/equipment/add/{id}-{startAt}-{endAt}', name: 'app_equipment_add_reservation', requirements: ['id' => '\d+', 'startAt' => '\d{10}', 'endAt' => '\d{10}'], methods: ['GET'])]
     public function addReservation(int $id, \DateTime $startAt, \DateTime $endAt): Response
     {
         $equipment = $this->equipmentRepository->find($id);

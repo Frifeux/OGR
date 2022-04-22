@@ -52,7 +52,7 @@ class MeetingRoomController extends AbstractController
         return (date('N', $date->getTimestamp()) >= 6);
     }
 
-    #[Route('/reservation/meeting_room', name: 'app_meeting_room')]
+    #[Route('/meeting_room', name: 'app_meeting_room')]
     public function mettingRoom(Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -112,7 +112,7 @@ class MeetingRoomController extends AbstractController
             }
         }
 
-        return $this->render('reservation/meeting_room.html.twig', [
+        return $this->render('meeting_room/index.html.twig', [
             'chooseMeetingRoom' => $chooseMeetingRoomForm->createView(),
             'meetingRoomReservationForm' => $meetingRoomReservationForm->createView(),
             'meetingRoomReservations' => json_encode($jsonifyMeetingRoomReservation),

@@ -126,7 +126,7 @@
                                                         <td>{{ officeReservation.startAt|date('d/m/Y H:i') }}</td>
                                                         <td>{{ officeReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
-                                                            <a href="#" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                                            <a href="{{ path('app_reservation_delete', {'id': officeReservation.id }) }}" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
 
                                                             <a href="#" data-bs-toggle="modal" data-bs-target="#editReservationModal">
                                                                 <i class="fas fa-file-edit text-warning"></i>
@@ -179,7 +179,7 @@
                                                         <td>{{ equipmentReservation.startAt|date('d/m/Y H:i') }}</td>
                                                         <td>{{ equipmentReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
-                                                            <a href="#" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                                            <a href="{{ path('app_reservation_delete', {'id': equipmentReservation.id }) }}" class="me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
 
                                                             <a href="#" data-bs-toggle="modal" data-bs-target="#editReservationModal">
                                                                 <i class="fas fa-file-edit text-warning"></i>

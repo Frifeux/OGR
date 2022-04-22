@@ -28,8 +28,7 @@ class ReservationsController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    // TODO: TROUVER UN NOM DE ROUTE POUR CETTE ACTION
-    #[Route('/reservation/manage', name: 'app_reservation')]
+    #[Route('/reservation', name: 'app_reservation')]
     public function index(): Response
     {
         // retrieve all reservations from user and order them by date
@@ -37,7 +36,7 @@ class ReservationsController extends AbstractController
         $equipmentReservations = $this->equipmentReservationRepository->findBy(['user' => $this->getUser()], ['startAt' => 'DESC', 'endAt' => 'DESC']);
         $meetingRoomReservations = $this->meetingRoomReservationRepository->findBy(['user' => $this->getUser()], ['startAt' => 'DESC', 'endAt' => 'DESC']);
 
-        return $this->render('reservation/reservations.html.twig', [
+        return $this->render('reservation/index.html.twig', [
             'officeReservations' => $officeReservations,
             'equipmentReservations' => $equipmentReservations,
             'meetingRoomReservations' => $meetingRoomReservations,

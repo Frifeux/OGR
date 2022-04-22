@@ -26,7 +26,7 @@ class OfficeController extends AbstractController
         $this->officeReservationRepository = $officeReservationRepository;
     }
 
-    #[Route('/reservation/office', name: 'app_office')]
+    #[Route('/office', name: 'app_office')]
     public function index(Request $request): Response
     {
 
@@ -52,7 +52,7 @@ class OfficeController extends AbstractController
             );
         }
 
-        return $this->render('reservation/office.html.twig', [
+        return $this->render('office/index.html.twig', [
             'chooseOfficeReservationForm' => $chooseOfficeReservationForm->createView(),
             'availableOfficeReservations' => $availableReservations,
             'officeReservation' => $officeReservation,

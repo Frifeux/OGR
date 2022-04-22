@@ -30,7 +30,7 @@ class EquipmentController extends AbstractController
         $this->equipmentReservationRepository = $equipmentReservationRepository;
     }
 
-    #[Route('/reservation/equipment', name: 'app_equipment')]
+    #[Route('/equipment', name: 'app_equipment')]
     public function index(Request $request): Response
     {
 
@@ -55,7 +55,7 @@ class EquipmentController extends AbstractController
             );
         }
 
-        return $this->render('reservation/equipment.html.twig', [
+        return $this->render('equipment/index.html.twig', [
             'chooseEquipmentReservationForm' => $chooseEquipmentReservationFormType->createView(),
             'availableEquipmentReservations' => $availableReservations,
             'equipmentReservation' => $equipmentReservation,

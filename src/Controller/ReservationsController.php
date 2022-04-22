@@ -44,7 +44,7 @@ class ReservationsController extends AbstractController
     }
 
     // Delete a reservation from user
-    #[Route('/reservation/delete/{id}', name: 'app_reservation_delete', requirements: ['id' => '\d+'])]
+    #[Route('/reservation/delete/{id}', name: 'app_reservation_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
     public function delete(int $id): Response
     {
         $officeReservation = $this->officeReservationRepository->findOneBy(['user' => $this->getUser(), 'id' => $id]);

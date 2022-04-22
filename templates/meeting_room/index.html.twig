@@ -2,7 +2,8 @@
 
 {% block title %}OGR - Reservation d'une salle {% endblock %}
 
-{% block calendar %}
+{% block javascripts %}
+    {{ parent() }}
 
     {#    Pour afficher le calendrier #}
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"
@@ -12,15 +13,16 @@
           integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
 
     <script>
+
+        let $calendar;
+        // We display the calendar for the user
         document.addEventListener('DOMContentLoaded', function () {
-
             const calendarEl = document.getElementById('calendar');
-            const calendar = new FullCalendar.Calendar(calendarEl, {
+            $calendar = new FullCalendar.Calendar(calendarEl, {
 
-                events: {{ meetingRoomReservations|raw }},
                 headerToolbar: {
                     left: 'prev,next today',
-                    center: 'title',    
+                    center: 'title',
                     end: 'dayGridMonth,timeGridWeek'
                 },
                 locale: '{{ app.request.get('_locale') }}',
@@ -42,7 +44,37 @@
                 weekends: false, // We don't want to display the weekend
                 expandRows: true,
             });
-            calendar.render();
+            $calendar.render();
+        });
+
+        // Dynamically change the calendar view
+        $(document).ready(function() {
+
+            function updateMeetingRoomReservation($meetingRoom) {
+                //get all reservation for the selected meeting room and display them to the calendar
+                $.ajax({
+                    url: '{{ path('app_meeting_room_reservation', {'id': '_idMeetingRoom_'}) }}'.replace('_idMeetingRoom_', $meetingRoom),
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $calendar.removeAllEvents();
+                        $calendar.addEventSource(data);
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+            // // On load, we display the reservations for the meeting room selected
+            updateMeetingRoomReservation($(this).find('.js-selected-meeting-room :selected').attr('value'));
+
+            // When the user select a room in the select box, we get all reservations for this room and update the calendar
+            $('.js-selected-meeting-room').on("change", function(){
+                    const $roomSelected = $("option:selected").attr('value');
+                    updateMeetingRoomReservation($roomSelected);
+                }
+            );
         });
     </script>
 
@@ -83,29 +115,17 @@
 
                         <p class="h3 px-4 py-1"><strong>{% trans %}Salle{% endtrans %}</strong></p>
 
-                        <!-- Formulaire pour récupérer la salle de réunion et afficher les réservations -->
-                        {{ form_start(chooseMeetingRoom) }}
-
-                            <!-- selection de la salle-->
-                            {{ form_row(chooseMeetingRoom.meetingRoom) }}
-
-                            <div class="text-center">
-                                {{ form_widget(chooseMeetingRoom.save) }}
-                            </div>
-
-                        {{ form_end(chooseMeetingRoom) }}
-
-                        <hr>
-
                         <!-- Formulaire pour ajouter une réservation à une salle -->
                         {{ form_start(meetingRoomReservationForm) }}
+
+                            {{ form_row(meetingRoomReservationForm.meetingRoom, { 'attr': { 'class': 'js-selected-meeting-room' } }) }}
+
+                            <hr>
 
                             <!-- Infos demandé pour créer une réservation -->
                             {{ form_row(meetingRoomReservationForm.title) }}
 
                             {{ form_row(meetingRoomReservationForm.description) }}
-
-                            {{ form_row(meetingRoomReservationForm.meetingRoom) }}
 
                             <!-- Input pour selectionner un(e) date/horaire-->
                             {{ form_row(meetingRoomReservationForm.startAt) }}

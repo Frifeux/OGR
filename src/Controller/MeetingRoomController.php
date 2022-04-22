@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Entity\MeetingRoom;
 use App\Entity\MeetingRoomReservation;
-use App\Form\ChooseMeetingRoomFormType;
 use App\Form\MeetingRoomReservationType;
+use App\Repository\MeetingRoomRepository;
 use App\Repository\MeetingRoomReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,14 +19,16 @@ class MeetingRoomController extends AbstractController
 {
 
     private MeetingRoomReservationRepository $meetingRoomReservationRepository;
+    private MeetingRoomRepository $meetingRoomRepository;
 
-    public function __construct(MeetingRoomReservationRepository $meetingRoomReservationRepository)
+    public function __construct(MeetingRoomReservationRepository $meetingRoomReservationRepository, MeetingRoomRepository $meetingRoomRepository)
     {
         $this->meetingRoomReservationRepository = $meetingRoomReservationRepository;
+        $this->meetingRoomRepository = $meetingRoomRepository;
     }
 
     // Transform meeting room object in json format for the calendar
-    public function getReservationForFullCalendar(MeetingRoom $meetingRoom)
+    public function getReservationForFullCalendar(MeetingRoom $meetingRoom): array
     {
         $allMeetingRoomReservation = [];
 
@@ -52,13 +55,9 @@ class MeetingRoomController extends AbstractController
         return (date('N', $date->getTimestamp()) >= 6);
     }
 
-    #[Route('/meeting_room', name: 'app_meeting_room')]
+    #[Route('/meeting-room', name: 'app_meeting_room')]
     public function mettingRoom(Request $request, EntityManagerInterface $entityManager): Response
     {
-
-        // Création de nos deux formulaires
-        $chooseMeetingRoomForm = $this->createForm(ChooseMeetingRoomFormType::class);
-        $chooseMeetingRoomForm->handleRequest($request);
 
         $meetingRoomReservation = new MeetingRoomReservation();
         // We set date to today as default
@@ -67,18 +66,6 @@ class MeetingRoomController extends AbstractController
         $meetingRoomReservationForm = $this->createForm(MeetingRoomReservationType::class, $meetingRoomReservation);
 
         $meetingRoomReservationForm->handleRequest($request);
-
-        $jsonifyMeetingRoomReservation = [];
-        // Formulaire pour afficher les créneaux horaires des salles
-        if ($chooseMeetingRoomForm->isSubmitted() && $chooseMeetingRoomForm->isValid()) {
-
-            // Si on à une salle de réunion sélectionné
-            $meetingRoom = $chooseMeetingRoomForm->get('meetingRoom')->getData();
-            if ($meetingRoom) {
-                // On récupère les RDV de la salle selectionné
-                $jsonifyMeetingRoomReservation = $this->getReservationForFullCalendar($meetingRoom);
-            }
-        }
 
         // Formulaire de réservation d'une salle de réunion
         if ($meetingRoomReservationForm->isSubmitted() && $meetingRoomReservationForm->isValid()) {
@@ -94,7 +81,6 @@ class MeetingRoomController extends AbstractController
                 } else {
                     // on vérifie si une réservation n'existe pas déja
                     $reservationExist = $this->meetingRoomReservationRepository->checkExistingReservation($meetingRoomReservation->getMeetingRoom(), $meetingRoomReservation->getStartAt(), $meetingRoomReservation->getEndAt());
-//                    dd($reservationExist);
                     if (!$reservationExist) {
                         $entityManager->persist($meetingRoomReservation);
                         $entityManager->flush();
@@ -104,18 +90,27 @@ class MeetingRoomController extends AbstractController
                         $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Une réservation existe déjâ pour les horraires de la salle de réunion selectionné !'));
                     }
                 }
-
-                // On récupère les RDV de la salle selectionné
-                $jsonifyMeetingRoomReservation = $this->getReservationForFullCalendar($meetingRoomReservation->getMeetingRoom());
             } else {
                 $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Veuillez sélectionner une salle de réunion !'));
             }
         }
 
         return $this->render('meeting_room/index.html.twig', [
-            'chooseMeetingRoom' => $chooseMeetingRoomForm->createView(),
             'meetingRoomReservationForm' => $meetingRoomReservationForm->createView(),
-            'meetingRoomReservations' => json_encode($jsonifyMeetingRoomReservation),
         ]);
     }
+
+    // A route that getting all reservation for a meeting room and return a json for fullcalendar
+    #[Route('/meeting-room/reservation/{id}', name: 'app_meeting_room_reservation', methods: ['GET'])]
+    public function getReservationForMeetingRoom(int $id): JsonResponse
+    {
+        $allMeetingRoomReservation = [];
+        $meetingRoom = $this->meetingRoomRepository->findOneBy(['id' => $id]);
+        if ($meetingRoom) {
+            $allMeetingRoomReservation =  $this->getReservationForFullCalendar($meetingRoom);
+        }
+
+        return new JsonResponse($allMeetingRoomReservation);
+    }
+
 }

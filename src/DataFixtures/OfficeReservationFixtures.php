@@ -27,7 +27,6 @@ class OfficeReservationFixtures extends Fixture implements DependentFixtureInter
             $officeReservation->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
 
             $manager->persist($officeReservation);
-            $manager->persist($officeReservation);
         }
 
         $manager->flush();

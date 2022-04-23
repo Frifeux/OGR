@@ -67,7 +67,7 @@ class OfficeController extends AbstractController
     }
 
     #[Route('/office/add/{id}', name: 'app_office_add_reservation', methods: ['POST'])]
-    public function addReservation(int $id, Request $request)
+    public function addReservation(int $id, Request $request): JsonResponse
     {
         // get the data send by the post request
         $data = $request->request->all();

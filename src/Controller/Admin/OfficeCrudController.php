@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Office;
+use App\Repository\OfficeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -19,10 +20,12 @@ use Symfony\Component\Translation\TranslatableMessage;
 class OfficeCrudController extends AbstractCrudController
 {
     private EntityManagerInterface $entityManager;
+    private OfficeRepository $officeRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, OfficeRepository $officeRepository)
     {
         $this->entityManager = $entityManager;
+        $this->officeRepository = $officeRepository;
     }
 
     public static function getEntityFqcn(): string
@@ -92,7 +95,26 @@ class OfficeCrudController extends AbstractCrudController
 
         // Creation of a new object with the same values as the actual one
         $office = clone $officeObjectToDuplicate;
-        $office->setName($office->getName() . ' (copie)');
+
+        // Change the name of the object to avoid duplicates in the database (the name is unique)
+        // The name is changed by adding a number at the end of the name (ex: "Office 1", "Office 2", ...)
+        // The number is incremented and the name is changed again if there is already an object with the same name
+        $number = 1;
+        $newName = $office->getName() . ' (' . $number . ')' ;
+
+        do {
+            $existingEquipment = $this->officeRepository->findOneBy(['name' => $newName]);
+
+            if ($existingEquipment) {
+                $number++;
+                $newName = $office->getName() . ' (' . $number . ')' ;
+                $existingEquipment = $this->officeRepository->findOneBy(['name' => $newName]);
+            }
+
+        } while ($existingEquipment);
+
+        $office->setName($newName);
+
         $this->entityManager->persist($office);
         $this->entityManager->flush();
 

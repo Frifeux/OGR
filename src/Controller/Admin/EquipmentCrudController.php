@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Equipment;
+use App\Repository\EquipmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -22,10 +23,12 @@ use Symfony\Component\Translation\TranslatableMessage;
 class EquipmentCrudController extends AbstractCrudController
 {
     private EntityManagerInterface $entityManager;
+    private EquipmentRepository $equipmentRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, EquipmentRepository $equipmentRepository)
     {
         $this->entityManager = $entityManager;
+        $this->equipmentRepository = $equipmentRepository;
     }
 
     public static function getEntityFqcn(): string
@@ -95,7 +98,26 @@ class EquipmentCrudController extends AbstractCrudController
 
         // Creation of a new object with the same values as the actual one
         $equipment = clone $equipmentObjectToDuplicate;
-        $equipment->setName($equipment->getName() . ' (copie)');
+
+        // Change the name of the object to avoid duplicates in the database (the name is unique)
+        // The name is changed by adding a number at the end of the name (ex: "Equipment 1", "Equipment 2", ...)
+        // The number is incremented and the name is changed again if there is already an object with the same name
+        $number = 1;
+        $newName = $equipment->getName() . ' (' . $number . ')' ;
+
+        do {
+            $existingEquipment = $this->equipmentRepository->findOneBy(['name' => $newName]);
+
+            if ($existingEquipment) {
+                $number++;
+                $newName = $equipment->getName() . ' (' . $number . ')' ;
+                $existingEquipment = $this->equipmentRepository->findOneBy(['name' => $newName]);
+            }
+
+        } while ($existingEquipment);
+
+        $equipment->setName($newName);
+
         $this->entityManager->persist($equipment);
         $this->entityManager->flush();
 

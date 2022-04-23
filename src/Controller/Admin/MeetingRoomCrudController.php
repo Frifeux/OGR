@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\MeetingRoom;
+use App\Repository\MeetingRoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -20,10 +21,12 @@ use Symfony\Component\Translation\TranslatableMessage;
 class MeetingRoomCrudController extends AbstractCrudController
 {
     private EntityManagerInterface $entityManager;
+    private MeetingRoomRepository $meetingRoomRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, MeetingRoomRepository $meetingRoomRepository)
     {
         $this->entityManager = $entityManager;
+        $this->meetingRoomRepository = $meetingRoomRepository;
     }
 
     public static function getEntityFqcn(): string
@@ -92,7 +95,26 @@ class MeetingRoomCrudController extends AbstractCrudController
 
         // Creation of a new object with the same values as the actual one
         $meetingRoom = clone $meetingRoomObjectToDuplicate;
-        $meetingRoom->setName($meetingRoom->getName() . ' (copie)');
+
+        // Change the name of the object to avoid duplicates in the database (the name is unique)
+        // The name is changed by adding a number at the end of the name (ex: "MeetingRoom 1", "MeetingRoom 2", ...)
+        // The number is incremented and the name is changed again if there is already an object with the same name
+        $number = 1;
+        $newName = $meetingRoom->getName() . ' (' . $number . ')' ;
+
+        do {
+            $existingEquipment = $this->meetingRoomRepository->findOneBy(['name' => $newName]);
+
+            if ($existingEquipment) {
+                $number++;
+                $newName = $meetingRoom->getName() . ' (' . $number . ')' ;
+                $existingEquipment = $this->meetingRoomRepository->findOneBy(['name' => $newName]);
+            }
+
+        } while ($existingEquipment);
+
+        $meetingRoom->setName($newName);
+
         $this->entityManager->persist($meetingRoom);
         $this->entityManager->flush();
 

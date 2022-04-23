@@ -24,7 +24,7 @@ class EquipmentReservationFixtures extends Fixture implements DependentFixtureIn
             $equipmentReservation->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
 
             $equipmentReservation->setStartAt(new \DateTime('now'));
-            $equipmentReservation->setEndAt($faker->dateTimeBetween('now', '+' . $i . ' day'));
+            $equipmentReservation->setEndAt(new \DateTime('now +' . $i . ' hour'));
 
             $manager->persist($equipmentReservation);
         }

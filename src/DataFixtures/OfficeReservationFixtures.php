@@ -21,7 +21,7 @@ class OfficeReservationFixtures extends Fixture implements DependentFixtureInter
             $officeReservation->setDescription($faker->words(20, true));
 
             $officeReservation->setStartAt(new \DateTime('now'));
-            $officeReservation->setEndAt($faker->dateTimeBetween('now', '+' . $i . ' day'));
+            $officeReservation->setEndAt(new \DateTime('now +' . $i . ' hour'));
 
             $officeReservation->setOffice($this->getReference('office_' . $faker->numberBetween(0, 9)));
             $officeReservation->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));

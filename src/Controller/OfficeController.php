@@ -8,22 +8,29 @@ use App\Repository\OfficeRepository;
 use App\Repository\OfficeReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OfficeController extends AbstractController
 {
     private OfficeRepository $officeRepository;
     private EntityManagerInterface $entityManager;
     private OfficeReservationRepository $officeReservationRepository;
+    private TranslatorInterface $translator;
 
-    public function __construct(OfficeRepository $officeRepository, OfficeReservationRepository $officeReservationRepository, EntityManagerInterface $entityManager)
+    public function __construct(OfficeRepository $officeRepository,
+                                OfficeReservationRepository $officeReservationRepository,
+                                EntityManagerInterface $entityManager,
+                                TranslatorInterface $translator)
     {
         $this->officeRepository = $officeRepository;
         $this->entityManager = $entityManager;
         $this->officeReservationRepository = $officeReservationRepository;
+        $this->translator = $translator;
     }
 
     #[Route('/office', name: 'app_office')]
@@ -59,19 +66,27 @@ class OfficeController extends AbstractController
         ]);
     }
 
-    #[Route('/office/add/{id}-{startAt}-{endAt}', name: 'app_office_add_reservation', requirements: ['id' => '\d+', 'startAt' => '\d{10}', 'endAt' => '\d{10}'], methods: ['GET'])]
-    public function addReservation(int $id, \DateTime $startAt, \DateTime $endAt): Response
+    #[Route('/office/add/{id}', name: 'app_office_add_reservation', methods: ['POST'])]
+    public function addReservation(int $id, Request $request)
     {
+        // get the data send by the post request
+        $data = $request->request->all();
+
+        $startAt = new \DateTime($data['startAt']);
+        $endAt = new \DateTime($data['endAt']);
+
+        // we get the office we want to reserve
         $office = $this->officeRepository->find($id);
-        if ($office && $startAt < $endAt) {
+        if ($office) {
 
             // We verify if the office is already reserved to be sure that the user can't reserve it twice
             // that he hasn't modified the link by himself to set bad dates
-
             $officeReservation = $this->officeReservationRepository->findBy(['office' => $office, 'startAt' => $startAt, 'endAt' => $endAt]);
+
             if (count($officeReservation) > 0) {
-                $this->addFlash('reservation_office_error', new TranslatableMessage('Il n\'y a pas de bureau disponible à cette date.'));
-                return $this->redirectToRoute('app_office');
+
+                // return a json response with the error message translated for the current locale of the user
+                return new JsonResponse(['error' => $this->translator->trans("'Il n\'y a pas de bureau disponible à cette date.'")]);
             }
 
             $officeReservation = new OfficeReservation();
@@ -84,11 +99,9 @@ class OfficeController extends AbstractController
             $this->entityManager->persist($officeReservation);
             $this->entityManager->flush();
 
-            $this->addFlash('reservation_office_success', new TranslatableMessage('Votre réservation à bien été ajouté !'));
-        } else {
-            $this->addFlash('reservation_office_error', new TranslatableMessage('Impossible de trouver le bureau que vous avez demandé'));
+            return new JsonResponse(['success' => $this->translator->trans('Votre réservation à bien été ajouté !')]);
         }
 
-        return $this->redirectToRoute('app_office');
+        return new JsonResponse(['error' => $this->translator->trans('Impossible de trouver le bureau que vous avez demandé')]);
     }
 }

@@ -22,7 +22,7 @@ class MeetingRoomReservationFixtures extends Fixture implements DependentFixture
             $meetingRoomReservation->setDescription($faker->words(20, true));
 
             $meetingRoomReservation->setStartAt(new \DateTime('now'));
-            $meetingRoomReservation->setEndAt(new \DateTime('now +' . $i . ' hour'));
+            $meetingRoomReservation->setEndAt($faker->dateTimeBetween('now', '+' . $i . ' hours'));
 
             $meetingRoomReservation->setMeetingRoom($this->getReference('meeting_room_' . $faker->numberBetween(0, 9)));
             $meetingRoomReservation->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));

@@ -31,16 +31,6 @@
                         // Remove the reservation from the table
                         $(event.target).closest('tr').remove();
 
-                        // getting the size of the table with class 'js-table'
-                        if ($('.js-table').find('tr').length === 1) {
-                            // If the table is empty, we show a message to the user that he can't make a reservation
-                            $('.js-table tbody').html(
-                                "<tr><td colspan='5' class='text-center'>" +
-                                "<h4>{% trans %}Aucune réservation disponible{% endtrans %}</h4>" +
-                                "<p>{% trans %}Faites une recherche ou changez la date de votre recherche!{% endtrans %}</p>" +
-                                "</td></tr>");
-                        }
-
                         // Display message to the user
                         if (data.success) {
                             document.getElementById('js-alert-danger-message').classList.add('d-none');
@@ -62,7 +52,7 @@
             }
 
             // Retrieve when the user clicks on the "plus" button to add a new reservation
-            document.querySelectorAll('a.add-reservation').forEach(function (element) {
+            document.querySelectorAll('a.js-add-reservation').forEach(function (element) {
                 element.addEventListener('click', addReservation);
             });
 
@@ -167,7 +157,7 @@
                                         <td>{{ office.department }}</td>
                                         <td>
                                             <a href="{{ path('app_office_add_reservation', {'id': office.id }) }}"
-                                               class="add-reservation btn btn-primary">
+                                               class="js-add-reservation btn btn-primary">
                                                 <i class="fas fa-plus-circle"></i>
                                             </a>
                                         </td>

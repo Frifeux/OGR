@@ -105,7 +105,6 @@ class UserCrudController extends AbstractCrudController
                 ->hideOnIndex(),
             TextField::new('location', new TranslatableMessage('Localisation')),
 
-            // TODO: Créer une liste de roles dans le fichier .env
             ChoiceField::new(new TranslatableMessage('Roles'))
                 ->allowMultipleChoices()
                 ->setChoices(

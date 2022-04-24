@@ -87,7 +87,7 @@ class MeetingRoomController extends AbstractController
 
                         $this->addFlash('reservation_meeting_room_success', new TranslatableMessage('Votre réservation à bien été ajouté !'));
                     } else {
-                        $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Une réservation existe déjâ pour les horraires de la salle de réunion selectionné !'));
+                        $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Une réservation existe déjà pour les horaires de la salle de réunion sélectionnée !'));
                     }
                 }
             } else {

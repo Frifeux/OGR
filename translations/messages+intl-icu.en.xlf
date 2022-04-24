@@ -393,8 +393,8 @@
         <source>Confirmation</source>
         <target>Confirmation</target>
       </trans-unit>
-      <trans-unit id="LWLY56e" resname="Vous avez déjâ un compte ?">
-        <source>Vous avez déjâ un compte ?</source>
+      <trans-unit id="LWLY56e" resname="Vous avez déjà un compte ?">
+        <source>Vous avez déjà un compte ?</source>
         <target>Already have an account?</target>
       </trans-unit>
       <trans-unit id="z7GsDIB" resname="Inscription">
@@ -481,8 +481,8 @@
         <source>Vous ne pouvez pas réserver un créneau le weekend</source>
         <target>You can't book a slot on the weekend</target>
       </trans-unit>
-      <trans-unit id="90aXP2d" resname="Une réservation existe déjâ pour les horraires de la salle de réunion selectionné !">
-        <source>Une réservation existe déjâ pour les horraires de la salle de réunion selectionné !</source>
+      <trans-unit id="90aXP2d" resname="Une réservation existe déjà pour les horaires de la salle de réunion sélectionnée !">
+        <source>Une réservation existe déjà pour les horaires de la salle de réunion sélectionnée !</source>
         <target>A reservation already exists for the selected meeting room times !</target>
       </trans-unit>
       <trans-unit id="QEe7XL1" resname="Veuillez sélectionner une salle de réunion !">

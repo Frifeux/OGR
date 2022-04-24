@@ -100,21 +100,23 @@ class EquipmentCrudController extends AbstractCrudController
         $equipment = clone $equipmentObjectToDuplicate;
 
         // Change the name of the object to avoid duplicates in the database (the name is unique)
-        // The name is changed by adding a number at the end of the name (ex: "Equipment 1", "Equipment 2", ...)
-        // The number is incremented and the name is changed again if there is already an object with the same name
-        $number = 1;
-        $newName = $equipment->getName() . ' (' . $number . ')' ;
 
-        do {
-            $existingEquipment = $this->equipmentRepository->findOneBy(['name' => $newName]);
+        // Get the number in the name of the object if there is one
+        // If there is no number, the number is set to 1. We used the preg_match function to get the number
+        $number = preg_match('/\((\d+)\)/', $equipment->getName(), $matches) ? $matches[1] : 1;
 
-            if ($existingEquipment) {
-                $number++;
-                $newName = $equipment->getName() . ' (' . $number . ')' ;
-                $existingEquipment = $this->equipmentRepository->findOneBy(['name' => $newName]);
-            }
+        // We remove the number in the name of the object if there is one
+        if ($number >= 1) {
+            $equipment->setName(preg_replace('/ \((\d+)\)/', '', $equipment->getName()));
+        }
 
-        } while ($existingEquipment);
+        $newName = $equipment->getName() . ' (' . ($number) . ')';
+
+        // The number is incremented if the name already exists in the database (ex: "Equipment (1)", "Equipment (2)", ...)
+        while ($this->equipmentRepository->findOneBy(['name' => $newName])) {
+            $number++;
+            $newName = $equipment->getName() . ' (' . ($number) . ')';
+        }
 
         $equipment->setName($newName);
 

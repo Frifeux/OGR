@@ -97,21 +97,23 @@ class MeetingRoomCrudController extends AbstractCrudController
         $meetingRoom = clone $meetingRoomObjectToDuplicate;
 
         // Change the name of the object to avoid duplicates in the database (the name is unique)
-        // The name is changed by adding a number at the end of the name (ex: "MeetingRoom 1", "MeetingRoom 2", ...)
-        // The number is incremented and the name is changed again if there is already an object with the same name
-        $number = 1;
-        $newName = $meetingRoom->getName() . ' (' . $number . ')' ;
 
-        do {
-            $existingEquipment = $this->meetingRoomRepository->findOneBy(['name' => $newName]);
+        // Get the number in the name of the object if there is one
+        // If there is no number, the number is set to 1. We used the preg_match function to get the number
+        $number = preg_match('/\((\d+)\)/', $meetingRoom->getName(), $matches) ? $matches[1] : 1;
 
-            if ($existingEquipment) {
-                $number++;
-                $newName = $meetingRoom->getName() . ' (' . $number . ')' ;
-                $existingEquipment = $this->meetingRoomRepository->findOneBy(['name' => $newName]);
-            }
+        // We remove the number in the name of the object if there is one
+        if ($number >= 1) {
+            $meetingRoom->setName(preg_replace('/ \((\d+)\)/', '', $meetingRoom->getName()));
+        }
 
-        } while ($existingEquipment);
+        $newName = $meetingRoom->getName() . ' (' . ($number) . ')';
+
+        // The number is incremented if the name already exists in the database (ex: "MeetingRoom (1)", "MeetingRoom (2)", ...)
+        while ($this->meetingRoomRepository->findOneBy(['name' => $newName])) {
+            $number++;
+            $newName = $meetingRoom->getName() . ' (' . ($number) . ')';
+        }
 
         $meetingRoom->setName($newName);
 

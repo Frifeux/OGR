@@ -97,21 +97,23 @@ class OfficeCrudController extends AbstractCrudController
         $office = clone $officeObjectToDuplicate;
 
         // Change the name of the object to avoid duplicates in the database (the name is unique)
-        // The name is changed by adding a number at the end of the name (ex: "Office 1", "Office 2", ...)
-        // The number is incremented and the name is changed again if there is already an object with the same name
-        $number = 1;
-        $newName = $office->getName() . ' (' . $number . ')' ;
 
-        do {
-            $existingEquipment = $this->officeRepository->findOneBy(['name' => $newName]);
+        // Get the number in the name of the object if there is one
+        // If there is no number, the number is set to 1. We used the preg_match function to get the number
+        $number = preg_match('/\((\d+)\)/', $office->getName(), $matches) ? $matches[1] : 1;
 
-            if ($existingEquipment) {
-                $number++;
-                $newName = $office->getName() . ' (' . $number . ')' ;
-                $existingEquipment = $this->officeRepository->findOneBy(['name' => $newName]);
-            }
+        // We remove the number in the name of the object if there is one
+        if ($number >= 1) {
+            $office->setName(preg_replace('/ \((\d+)\)/', '', $office->getName()));
+        }
 
-        } while ($existingEquipment);
+        $newName = $office->getName() . ' (' . ($number) . ')';
+
+        // The number is incremented if the name already exists in the database (ex: "Office (1)", "Office (2)", ...)
+        while ($this->officeRepository->findOneBy(['name' => $newName])) {
+            $number++;
+            $newName = $office->getName() . ' (' . ($number) . ')';
+        }
 
         $office->setName($newName);
 

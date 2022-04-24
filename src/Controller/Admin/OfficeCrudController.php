@@ -103,10 +103,7 @@ class OfficeCrudController extends AbstractCrudController
         $number = preg_match('/\((\d+)\)/', $office->getName(), $matches) ? $matches[1] : 1;
 
         // We remove the number in the name of the object if there is one
-        if ($number >= 1) {
-            $office->setName(preg_replace('/ \((\d+)\)/', '', $office->getName()));
-        }
-
+        $office->setName(preg_replace('/ \((\d+)\)/', '', $office->getName()));
         $newName = $office->getName() . ' (' . ($number) . ')';
 
         // The number is incremented if the name already exists in the database (ex: "Office (1)", "Office (2)", ...)

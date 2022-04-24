@@ -103,10 +103,7 @@ class MeetingRoomCrudController extends AbstractCrudController
         $number = preg_match('/\((\d+)\)/', $meetingRoom->getName(), $matches) ? $matches[1] : 1;
 
         // We remove the number in the name of the object if there is one
-        if ($number >= 1) {
-            $meetingRoom->setName(preg_replace('/ \((\d+)\)/', '', $meetingRoom->getName()));
-        }
-
+        $meetingRoom->setName(preg_replace('/ \((\d+)\)/', '', $meetingRoom->getName()));
         $newName = $meetingRoom->getName() . ' (' . ($number) . ')';
 
         // The number is incremented if the name already exists in the database (ex: "MeetingRoom (1)", "MeetingRoom (2)", ...)

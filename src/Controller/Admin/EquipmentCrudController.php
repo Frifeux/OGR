@@ -106,10 +106,7 @@ class EquipmentCrudController extends AbstractCrudController
         $number = preg_match('/\((\d+)\)/', $equipment->getName(), $matches) ? $matches[1] : 1;
 
         // We remove the number in the name of the object if there is one
-        if ($number >= 1) {
-            $equipment->setName(preg_replace('/ \((\d+)\)/', '', $equipment->getName()));
-        }
-
+        $equipment->setName(preg_replace('/ \((\d+)\)/', '', $equipment->getName()));
         $newName = $equipment->getName() . ' (' . ($number) . ')';
 
         // The number is incremented if the name already exists in the database (ex: "Equipment (1)", "Equipment (2)", ...)

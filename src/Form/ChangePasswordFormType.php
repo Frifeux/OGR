@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints as RollerworksPassword;
 
 class ChangePasswordFormType extends AbstractType
 {
@@ -30,10 +31,15 @@ class ChangePasswordFormType extends AbstractType
                     new NotBlank([
                         'message' => new TranslatableMessage('Entrez un mot de passe'),
                     ]),
-                    new Length([
-                        'min' => $_ENV['PASSWORD_MIN_LENGTH'],
-                        'minMessage' => new TranslatableMessage('Votre mot de passe doit faire plus de {{ limit }} caractères'),
-                        'max' => $_ENV['PASSWORD_MAX_LENGTH'],
+                    new RollerworksPassword\PasswordRequirements([
+                        'minLength' => $_ENV['PASSWORD_MIN_LENGTH'],
+                        'requireLetters' => $_ENV['PASSWORD_REQUIRE_LETTERS'],
+                        'requireNumbers' => $_ENV['PASSWORD_REQUIRE_NUMBERS'],
+                        'requireCaseDiff' => $_ENV['PASSWORD_REQUIRE_CASE_DIFF'],
+                        'tooShortMessage' => new TranslatableMessage("Le mot de passe doit contenir au moins {{length}} caractères"),
+                        'missingLettersMessage' => new TranslatableMessage("Le mot de passe doit contenir des lettres"),
+                        'requireCaseDiffMessage' => new TranslatableMessage("Le mot de passe doit contenir des majuscules et minuscules"),
+                        'missingNumbersMessage' => new TranslatableMessage("Le mot de passe doit contenir des chiffres"),
                     ]),
                 ],
                 'invalid_message' => new TranslatableMessage('Les deux mots de passe doivent être identiques !'),

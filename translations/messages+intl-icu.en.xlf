@@ -393,7 +393,7 @@
         <source>Confirmation</source>
         <target>Confirmation</target>
       </trans-unit>
-      <trans-unit id="LWLY56e" resname="Vous avez déjà un compte ?">
+      <trans-unit id="nJ0pmH0" resname="Vous avez déjà un compte ?">
         <source>Vous avez déjà un compte ?</source>
         <target>Already have an account?</target>
       </trans-unit>
@@ -481,7 +481,7 @@
         <source>Vous ne pouvez pas réserver un créneau le weekend</source>
         <target>You can't book a slot on the weekend</target>
       </trans-unit>
-      <trans-unit id="90aXP2d" resname="Une réservation existe déjà pour les horaires de la salle de réunion sélectionnée !">
+      <trans-unit id="0OsAV3S" resname="Une réservation existe déjà pour les horaires de la salle de réunion sélectionnée !">
         <source>Une réservation existe déjà pour les horaires de la salle de réunion sélectionnée !</source>
         <target>A reservation already exists for the selected meeting room times !</target>
       </trans-unit>
@@ -552,6 +552,30 @@
       <trans-unit id="c0OEHnJ" resname="Liste">
         <source>Liste</source>
         <target>List</target>
+      </trans-unit>
+      <trans-unit id="rSwSaAE" resname="Il n\'y a pas de bureau disponible à cette date">
+        <source>Il n\'y a pas de bureau disponible à cette date</source>
+        <target>There is no office available at this date</target>
+      </trans-unit>
+      <trans-unit id="nkN0x1h" resname="Impossible d\'ajouter une reservation pour le bureau sélectionné, code d\'erreur:">
+        <source>Impossible d\'ajouter une reservation pour le bureau sélectionné, code d\'erreur:</source>
+        <target>Unable to add a reservation for the selected office, error code:</target>
+      </trans-unit>
+      <trans-unit id="nMJWozX" resname="Réservations">
+        <source>Réservations</source>
+        <target>Reservations</target>
+      </trans-unit>
+      <trans-unit id="PEiqK99" resname="Début">
+        <source>Début</source>
+        <target>Start</target>
+      </trans-unit>
+      <trans-unit id="Wir2Aee" resname="Fin">
+        <source>Fin</source>
+        <target>End</target>
+      </trans-unit>
+      <trans-unit id="UHzrTuP" resname="Aucune réservation pour le moment.">
+        <source>Aucune réservation pour le moment.</source>
+        <target>Aucune réservation pour le moment.</target>
       </trans-unit>
     </body>
   </file>

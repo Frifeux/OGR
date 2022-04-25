@@ -86,7 +86,7 @@ class OfficeController extends AbstractController
             if (count($officeReservation) > 0) {
 
                 // return a json response with the error message translated for the current locale of the user
-                return new JsonResponse(['error' => $this->translator->trans("'Il n\'y a pas de bureau disponible à cette date.'")]);
+                return new JsonResponse(['error' => $this->translator->trans("Il n\'y a pas de bureau disponible à cette date")]);
             }
 
             $officeReservation = new OfficeReservation();

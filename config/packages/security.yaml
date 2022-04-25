@@ -34,7 +34,7 @@ security:
         main:
             lazy: true
 
-#            user_checker: App\Security\UserChecker
+            user_checker: App\Security\UserChecker
             custom_authenticators:
                 - App\Security\LoginFormAuthenticator
 

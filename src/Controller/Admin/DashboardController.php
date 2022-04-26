@@ -10,6 +10,7 @@ use App\Entity\Office;
 use App\Entity\OfficeReservation;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\RouteMenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -34,7 +35,8 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('OGR');
+            ->setTitle('OGR')
+            ->setFaviconPath('build/images/favicon.svg');
     }
 
     public function configureMenuItems(): iterable
@@ -43,8 +45,7 @@ class DashboardController extends AbstractDashboardController
 //        Lien pour trouver les icons
 //        https://fontawesome.com/v5/search
 
-//        yield MenuItem::linktoDashboard(new TranslatableMessage('Menu Principal'), 'fa fa-home');
-        yield MenuItem::linkToRoute(new TranslatableMessage('Menu Principal'), 'fa fa-sign-out', 'app_home');
+        yield MenuItem::linkToUrl(new TranslatableMessage('Menu Principal'), 'fas fa-home', $this->generateUrl('app_home'));
 
         // Section: Gestion des utilisateurs
         yield MenuItem::section(new TranslatableMessage('Gestion des utilisateurs'));

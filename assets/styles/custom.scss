@@ -7,16 +7,15 @@
   background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
 }
 
-.overflow-custom {
-  //overflow-y: auto;
+.overflow-calendar {
   max-height: calc(100vh - 190px);
-  min-height: calc(100vh - 190px);
+  min-height: 600px;
 }
 
 .overflow-tabs {
   overflow-y: auto;
   max-height: calc(100vh - 190px);
-  min-height: calc(100vh - 190px);
+  min-height: 600px;
 }
 
 .overflow-accordion {

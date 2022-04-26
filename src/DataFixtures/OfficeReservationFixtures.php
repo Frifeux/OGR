@@ -10,21 +10,40 @@ use Faker\Factory;
 
 class OfficeReservationFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
 
         $faker = Factory::create('fr_FR');
+
+        $date = new \DateTime();
+        $dayOfWeek = 1;
 
         // Create 10 office reservations
         for ($i = 0; $i < 10; $i++) {
             $officeReservation = new OfficeReservation();
             $officeReservation->setDescription($faker->words(20, true));
 
-            $officeReservation->setStartAt(new \DateTime('now'));
-            $officeReservation->setEndAt($faker->dateTimeBetween('now', '+' . $i . ' hours'));
+            // We don't want to create a reservation for the weekend
+            if ($dayOfWeek > 5) {
+                $dayOfWeek = 1;
 
-            $officeReservation->setOffice($this->getReference('office_' . $faker->numberBetween(0, 9)));
-            $officeReservation->setUser($this->getReference('user_' . $faker->numberBetween(0, 4)));
+                // we change the date to the next monday
+                $date->modify('+1 week');
+            }
+
+            $dateStart = clone $date;
+            $dateStart->setISODate($dateStart->format('o'), $dateStart->format('W'), $dayOfWeek);
+            $dateStart->setTime($faker->numberBetween($_ENV['WORKING_HOURS_START'], $_ENV['WORKING_HOURS_END'] - 2), 0);
+            $officeReservation->setStartAt($dateStart);
+
+            $dateEnd = clone $dateStart;
+            $dateEnd->modify('+2 hour');
+            $officeReservation->setEndAt($dateEnd);
+
+            $officeReservation->setOffice($this->getReference('office_' . $i));
+            $officeReservation->setUser($this->getReference('user_' . $i));
+
+            $dayOfWeek++;
 
             $manager->persist($officeReservation);
         }
@@ -33,7 +52,7 @@ class OfficeReservationFixtures extends Fixture implements DependentFixtureInter
     }
 
     // We need to load the OfficeFixtures and UserFixtures before
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             OfficeFixtures::class,

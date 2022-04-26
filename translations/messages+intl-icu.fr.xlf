@@ -321,8 +321,8 @@
         <source>Administration</source>
         <target>Administration</target>
       </trans-unit>
-      <trans-unit id="1pajW90" resname="Profile">
-        <source>Profile</source>
+      <trans-unit id="1pajW90" resname="Profil">
+        <source>Profil</source>
         <target>Profile</target>
       </trans-unit>
       <trans-unit id="eIARgzp" resname="Notifications">
@@ -453,9 +453,9 @@
         <source>L'équipement a bien été dupliqué</source>
         <target>L'équipement a bien été dupliqué</target>
       </trans-unit>
-      <trans-unit id="xGtv1X8" resname="Langage">
-        <source>Langage</source>
-        <target>Langage</target>
+      <trans-unit id="xGtv1X8" resname="Langue">
+        <source>Langue</source>
+        <target>Langue</target>
       </trans-unit>
       <trans-unit id="1RMCR.S" resname="Matériels">
         <source>Matériels</source>

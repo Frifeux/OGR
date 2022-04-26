@@ -77,7 +77,7 @@ class OfficeController extends AbstractController
 
         // we get the office we want to reserve
         $office = $this->officeRepository->find($id);
-        if ($office) {
+        if ($office && $startAt < $endAt) {
 
             // We verify if the office is already reserved to be sure that the user can't reserve it twice
             // that he hasn't modified the link by himself to set bad dates

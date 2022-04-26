@@ -12,22 +12,29 @@ use App\Repository\OfficeRepository;
 use App\Repository\OfficeReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EquipmentController extends AbstractController
 {
     private EquipmentRepository $equipmentRepository;
     private EntityManagerInterface $entityManager;
     private EquipmentReservationRepository $equipmentReservationRepository;
+    private TranslatorInterface $translator;
 
-    public function __construct(EquipmentRepository $equipmentRepository, EquipmentReservationRepository $equipmentReservationRepository, EntityManagerInterface $entityManager)
+    public function __construct(EquipmentRepository $equipmentRepository,
+                                EquipmentReservationRepository $equipmentReservationRepository,
+                                EntityManagerInterface $entityManager,
+                                TranslatorInterface $translator)
     {
         $this->equipmentRepository = $equipmentRepository;
         $this->entityManager = $entityManager;
         $this->equipmentReservationRepository = $equipmentReservationRepository;
+        $this->translator = $translator;
     }
 
     #[Route('/equipment', name: 'app_equipment')]
@@ -62,19 +69,25 @@ class EquipmentController extends AbstractController
         ]);
     }
 
-    #[Route('/equipment/add/{id}-{startAt}-{endAt}', name: 'app_equipment_add_reservation', requirements: ['id' => '\d+', 'startAt' => '\d{10}', 'endAt' => '\d{10}'], methods: ['GET'])]
-    public function addReservation(int $id, \DateTime $startAt, \DateTime $endAt): Response
+    #[Route('/equipment/add/{id}', name: 'app_equipment_add_reservation', methods: ['POST'])]
+    public function addReservation(int $id, Request $request): JsonResponse
     {
+        // get the data send by the post request
+        $data = $request->request->all();
+
+        $startAt = new \DateTime($data['startAt']);
+        $endAt = new \DateTime($data['endAt']);
+
         $equipment = $this->equipmentRepository->find($id);
         if ($equipment && $startAt < $endAt) {
 
             // We verify if the equipment is already reserved to be sure that the user can't reserve it twice
             // that he hasn't modified the link by himself to set bad dates
-
             $equipmentReservation = $this->equipmentReservationRepository->findBy(['equipment' => $equipment, 'startAt' => $startAt, 'endAt' => $endAt]);
             if (count($equipmentReservation) > 0) {
-                $this->addFlash('reservation_equipment_error', new TranslatableMessage('Il n\'y a pas de materiel disponible à cette date.'));
-                return $this->redirectToRoute('app_equipment');
+
+                // return a json response with the error message translated for the current locale of the user
+                return new JsonResponse(['error' => $this->translator->trans("Il n\'y a pas de matériel disponible à cette date")]);
             }
 
             $equipmentReservation = new EquipmentReservation();
@@ -87,11 +100,9 @@ class EquipmentController extends AbstractController
             $this->entityManager->persist($equipmentReservation);
             $this->entityManager->flush();
 
-            $this->addFlash('reservation_equipment_success', new TranslatableMessage('Votre réservation a bien été ajoutée !'));
-        } else {
-            $this->addFlash('reservation_equipment_error', new TranslatableMessage('Impossible de trouver le matériel que vous avez demandé'));
+            return new JsonResponse(['success' => $this->translator->trans('Votre réservation a bien été ajoutée !')]);
         }
 
-        return $this->redirectToRoute('app_equipment');
+        return new JsonResponse(['error' => $this->translator->trans('Impossible de trouver l\'équipement que vous avez demandé')]);
     }
 }

@@ -4,6 +4,64 @@
 
 {% set current_menu = 'equipment' %}
 
+{% block javascripts %}
+    {{ parent() }}
+
+<script>
+
+    $(document).ready(function () {
+
+        // Function that add new equipment reservation
+        // Ajax requests
+        function addReservation(event) {
+            event.preventDefault();
+
+            // send data
+            $.ajax({
+                url: this.href,
+                type: 'POST',
+                dataType: 'json',
+
+                // Sending data: the start and end date get from the form
+                data: {
+                    startAt: '{{ equipmentReservation.startAt|date('Y-m-d H:i:s') }}',
+                    endAt: '{{ equipmentReservation.endAt|date('Y-m-d H:i:s') }}',
+                },
+                success: function (data) {
+                    // Remove the reservation from the table
+                    $(event.target).closest('tr').remove();
+
+                    // Display message to the user
+                    if (data.success) {
+                        document.getElementById('js-alert-danger-message').classList.add('d-none');
+
+                        document.getElementById('js-alert-success-message').classList.remove('d-none');
+                        document.getElementById('js-alert-success-message-body').innerHTML = data.success;
+                    } else if (data.error) {
+                        document.getElementById('js-alert-success-message').classList.add('d-none');
+
+                        document.getElementById('js-alert-danger-message').classList.remove('d-none');
+                        document.getElementById('js-alert-danger-message-body').innerHTML = data.error;
+                    }
+
+                },
+                error: function (xhr) {
+                    console.log('{% trans %}Impossible d\'ajouter une reservation pour l\'équipement sélectionné, code d\'erreur:{% endtrans %} ' + xhr.status);
+                }
+            });
+        }
+
+        // Retrieve when the user clicks on the "plus" button to add a new reservation
+        document.querySelectorAll('a.js-add-reservation').forEach(function (element) {
+            element.addEventListener('click', addReservation);
+        });
+
+    });
+
+</script>
+
+{% endblock %}
+
 {% block content %}
 
     <!-- contenu de notre page -->
@@ -11,26 +69,23 @@
         <div class="container-fluid">
 
             <!-- Affichage des messages de success et erreurs-->
-            {% for flashSuccess in app.flashes('reservation_equipment_success') %}
-                <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
-                    <i class="bi bi-check-circle-fill me-2"></i>
-                    <div>
-                        {{ flashSuccess }}
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
+            <div id="js-alert-success-message"
+                 class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2 d-none"
+                 role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <div id="js-alert-success-message-body"></div>
+                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+            </div>
 
-            {% for flashError in app.flashes('reservation_equipment_error') %}
-                <div class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    <div>
-                        {{ flashError }}
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-
+            <div id="js-alert-danger-message"
+                 class="alert d-flex align-items-center position-absolute start-50 translate-middle-x mt-2 d-none"
+                 role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <div id="js-alert-danger-message-body"></div>
+                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+            </div>
 
             <div class="row g-4 py-3 align-items-stretch">
 
@@ -69,7 +124,7 @@
                         <!-- overflow, Classe CSS custom ICI -->
                         <div class="overflow-tabs">
 
-                            <table class="table table-striped text-center">
+                            <table class="js-table table table-striped text-center">
 
                                 <thead class="table-info">
                                 <tr>
@@ -85,7 +140,7 @@
                                 {% if not availableEquipmentReservations %}
                                     <!-- Empty table if no reservation is available -->
                                     <tr>
-                                        <td colspan="7" class="text-center">
+                                        <td colspan="4" class="text-center">
                                             <h4>{% trans %}Aucune réservation disponible{% endtrans %}</h4>
                                             <p>{% trans %}Faites une recherche ou changez la date de votre recherche!{% endtrans %}</p>
                                         </td>
@@ -98,8 +153,8 @@
                                         <td>{{ equipment.location }}</td>
                                         <td>{{ equipment.type }}</td>
                                         <td>
-                                            <a href="{{ path('app_equipment_add_reservation', {'id': equipment.id, 'startAt': equipmentReservation.startAt|date('U'), 'endAt': equipmentReservation.endAt|date('U') }) }}"
-                                               class="btn btn-primary">
+                                            <a href="{{ path('app_equipment_add_reservation', {'id': equipment.id }) }}"
+                                               class="js-add-reservation btn btn-primary">
                                                 <i class="fas fa-plus-circle"></i>
                                             </a>
                                         </td>

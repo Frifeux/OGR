@@ -92,13 +92,13 @@ class OfficeRepository extends ServiceEntityRepository
     //FROM office o
     //LEFT JOIN office_reservation r
     //ON r.office_id = o.id
-    //AND (r.start_at = '2022-04-07 08:00:00' AND r.end_at = '2022-04-07 08:30:00')
+    //AND ((r.start_at BETWEEN '2022-04-26 14:00:00' AND '2022-04-26 14:30:00') AND (r.end_at BETWEEN '2022-04-26 14:00:00' AND '2022-04-26 14:30:00') OR (r.start_at <= '2022-04-26 14:00:00' AND r.end_at >= '2022-04-26 14:30:00'))
     //WHERE r.office_id IS NULL
 
     public function search(\DateTime $startAt, \DateTime $endAt, string $location = NUll, string $floor = NUll, string $department = NUll)
     {
         $query = $this->createQueryBuilder('o')
-            ->leftJoin('o.officeReservations', 'r', Join::WITH, 'r.startAt = :startDate AND r.endAt = :endDate')
+            ->leftJoin('o.officeReservations', 'r', Join::WITH, '(r.startAt BETWEEN :startDate AND :endDate) AND (r.endAt BETWEEN :startDate AND :endDate) OR (r.startAt <= :startDate AND r.endAt >= :endDate)')
             ->Where('o.enabled = :enabled')
             ->setParameter('startDate', $startAt)
             ->setParameter('endDate', $endAt)

@@ -13,9 +13,9 @@
         <source>Il n'y a pas de materiel disponible à cette date.</source>
         <target>Il n'y a pas de materiel disponible à cette date.</target>
       </trans-unit>
-      <trans-unit id="u6Tgd2k" resname="Votre réservation à bien été ajouté !">
-        <source>Votre réservation à bien été ajouté !</source>
-        <target>Votre réservation à bien été ajouté !</target>
+      <trans-unit id="u6Tgd2k" resname="Votre réservation a bien été ajoutée !">
+        <source>Votre réservation a bien été ajoutée !</source>
+        <target>Votre réservation a bien été ajoutée !</target>
       </trans-unit>
       <trans-unit id="3y9bmD8" resname="Impossible de trouver le matériel que vous avez demandé">
         <source>Impossible de trouver le matériel que vous avez demandé</source>

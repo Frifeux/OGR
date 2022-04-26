@@ -87,7 +87,7 @@ class EquipmentController extends AbstractController
             $this->entityManager->persist($equipmentReservation);
             $this->entityManager->flush();
 
-            $this->addFlash('reservation_equipment_success', new TranslatableMessage('Votre réservation à bien été ajouté !'));
+            $this->addFlash('reservation_equipment_success', new TranslatableMessage('Votre réservation a bien été ajoutée !'));
         } else {
             $this->addFlash('reservation_equipment_error', new TranslatableMessage('Impossible de trouver le matériel que vous avez demandé'));
         }

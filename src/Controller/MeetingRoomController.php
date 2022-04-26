@@ -85,7 +85,7 @@ class MeetingRoomController extends AbstractController
                         $entityManager->persist($meetingRoomReservation);
                         $entityManager->flush();
 
-                        $this->addFlash('reservation_meeting_room_success', new TranslatableMessage('Votre réservation à bien été ajouté !'));
+                        $this->addFlash('reservation_meeting_room_success', new TranslatableMessage('Votre réservation a bien été ajoutée !'));
                     } else {
                         $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Une réservation existe déjà pour les horaires de la salle de réunion sélectionnée !'));
                     }

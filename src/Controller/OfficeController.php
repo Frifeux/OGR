@@ -99,7 +99,7 @@ class OfficeController extends AbstractController
             $this->entityManager->persist($officeReservation);
             $this->entityManager->flush();
 
-            return new JsonResponse(['success' => $this->translator->trans('Votre réservation à bien été ajouté !')]);
+            return new JsonResponse(['success' => $this->translator->trans('Votre réservation a bien été ajoutée !')]);
         }
 
         return new JsonResponse(['error' => $this->translator->trans('Impossible de trouver le bureau que vous avez demandé')]);

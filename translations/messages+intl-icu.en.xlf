@@ -11,7 +11,7 @@
       </trans-unit>
       <trans-unit id="M8aN02o" resname="Il n'y a pas de materiel disponible à cette date.">
         <source>Il n'y a pas de materiel disponible à cette date.</source>
-        <target>There is no material available at this time.</target>
+        <target>There is no equipement available at this time.</target>
       </trans-unit>
       <trans-unit id="u6Tgd2k" resname="Votre réservation a bien été ajoutée !">
         <source>Votre réservation a bien été ajoutée !</source>
@@ -19,7 +19,7 @@
       </trans-unit>
       <trans-unit id="3y9bmD8" resname="Impossible de trouver le matériel que vous avez demandé">
         <source>Impossible de trouver le matériel que vous avez demandé</source>
-        <target>Unable to find the material you requested</target>
+        <target>Unable to find the equipement you requested</target>
       </trans-unit>
       <trans-unit id="ZZu4qIu" resname="Il n'y a pas de bureau disponible à cette date.">
         <source>Il n'y a pas de bureau disponible à cette date.</source>
@@ -95,7 +95,7 @@
       </trans-unit>
       <trans-unit id="Ozeo1Kg" resname="Matériel">
         <source>Matériel</source>
-        <target>Material</target>
+        <target>Equipement</target>
       </trans-unit>
       <trans-unit id="A2F_6Kd" resname="Gestion des réservations">
         <source>Gestion des réservations</source>
@@ -227,7 +227,7 @@
       </trans-unit>
       <trans-unit id="wQQblCt" resname="Gestion des matériels">
         <source>Gestion des matériels</source>
-        <target>Material management</target>
+        <target>Equipement management</target>
       </trans-unit>
       <trans-unit id="TytxJZf" resname="Modification du matériel">
         <source>Modification du matériel</source>

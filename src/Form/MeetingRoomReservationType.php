@@ -42,7 +42,7 @@ class MeetingRoomReservationType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control-sm',
-                    'placeholder' => new TranslatableMessage('Le nom de votre réservation'),
+                    'placeholder' => new TranslatableMessage('Le titre de votre réservation'),
                 ],
                 'row_attr' => [
                     'class' => 'mb-2',

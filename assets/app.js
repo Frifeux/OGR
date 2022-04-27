@@ -20,10 +20,11 @@ require('@fortawesome/fontawesome-free/js/all.js'); // Font awesome js
 
 require('flag-icons/css/flag-icons.min.css'); // Flag icon
 
-// const $ = require('jquery'); // Jquery
-// window.jQuery = $;
+import $ from 'jquery';
+global.$ = global.jQuery = $;
 
-// require('@fullcalendar/core'); // Fullcalendar
+// require('fullcalendar'); // Fullcalendar
+// require('fullcalendar/main.css'); // Fullcalendar
 // require('@fullcalendar/daygrid'); // Fullcalendar
 // require('@fullcalendar/timegrid'); // Fullcalendar
 

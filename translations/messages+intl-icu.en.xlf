@@ -11,7 +11,7 @@
       </trans-unit>
       <trans-unit id="M8aN02o" resname="Il n'y a pas de materiel disponible à cette date.">
         <source>Il n'y a pas de materiel disponible à cette date.</source>
-        <target>There is no material available at this time.</target>
+        <target>There is no equipement available at this time.</target>
       </trans-unit>
       <trans-unit id="u6Tgd2k" resname="Votre réservation a bien été ajoutée !">
         <source>Votre réservation a bien été ajoutée !</source>
@@ -19,7 +19,7 @@
       </trans-unit>
       <trans-unit id="3y9bmD8" resname="Impossible de trouver le matériel que vous avez demandé">
         <source>Impossible de trouver le matériel que vous avez demandé</source>
-        <target>Unable to find the material you requested</target>
+        <target>Unable to find the equipement you requested</target>
       </trans-unit>
       <trans-unit id="ZZu4qIu" resname="Il n'y a pas de bureau disponible à cette date.">
         <source>Il n'y a pas de bureau disponible à cette date.</source>
@@ -31,19 +31,19 @@
       </trans-unit>
       <trans-unit id="NVUsDq2" resname="Réservations des salles de réunion">
         <source>Réservations des salles de réunion</source>
-        <target>Meeting room reservations</target>
+        <target>Meeting room booking</target>
       </trans-unit>
       <trans-unit id=".Tvum7G" resname="Modification d'une réservation">
         <source>Modification d'une réservation</source>
-        <target>Changing a reservation</target>
+        <target>Changing a booking</target>
       </trans-unit>
       <trans-unit id="7g9lMSu" resname="Ajout d'une réservation">
         <source>Ajout d'une réservation</source>
-        <target>Ajout d'une réservation</target>
+        <target>Adding a booking</target>
       </trans-unit>
       <trans-unit id="B1zJ3Gd" resname="Informations sur la réservation">
         <source>Informations sur la réservation</source>
-        <target>Adding a reservation</target>
+        <target>Booking information</target>
       </trans-unit>
       <trans-unit id="eOeSABC" resname="Titre">
         <source>Titre</source>
@@ -95,11 +95,11 @@
       </trans-unit>
       <trans-unit id="Ozeo1Kg" resname="Matériel">
         <source>Matériel</source>
-        <target>Material</target>
+        <target>Equipement</target>
       </trans-unit>
       <trans-unit id="A2F_6Kd" resname="Gestion des réservations">
         <source>Gestion des réservations</source>
-        <target>Reservation management</target>
+        <target>Booking management</target>
       </trans-unit>
       <trans-unit id="mq2k0Kv" resname="Réservations des bureaux">
         <source>Réservations des bureaux</source>
@@ -111,7 +111,7 @@
       </trans-unit>
       <trans-unit id="ewGqwoj" resname="Réservations des matériels">
         <source>Réservations des matériels</source>
-        <target>Reservations for materials</target>
+        <target>Equipment bookings</target>
       </trans-unit>
       <trans-unit id="lSzAThk" resname="Gestion des salles">
         <source>Gestion des salles</source>
@@ -227,7 +227,7 @@
       </trans-unit>
       <trans-unit id="wQQblCt" resname="Gestion des matériels">
         <source>Gestion des matériels</source>
-        <target>Material management</target>
+        <target>Equipement management</target>
       </trans-unit>
       <trans-unit id="TytxJZf" resname="Modification du matériel">
         <source>Modification du matériel</source>
@@ -235,15 +235,15 @@
       </trans-unit>
       <trans-unit id="FKfmzfA" resname="Création d'un matériel">
         <source>Création d'un matériel</source>
-        <target>Creation of a material</target>
+        <target>Creation of a equipment</target>
       </trans-unit>
       <trans-unit id="5mR1FhF" resname="Informations sur le matériel">
         <source>Informations sur le matériel</source>
-        <target>Information on the material</target>
+        <target>Information on the equipment</target>
       </trans-unit>
       <trans-unit id="Kx90FK6" resname="Ajouter un matériel">
         <source>Ajouter un matériel</source>
-        <target>Add a material</target>
+        <target>Add a equipment</target>
       </trans-unit>
       <trans-unit id="uq3fcPt" resname="Type">
         <source>Type</source>
@@ -255,7 +255,7 @@
       </trans-unit>
       <trans-unit id="hvZ8JTs" resname="Voir les réservations">
         <source>Voir les réservations</source>
-        <target>See reservations</target>
+        <target>See bookings</target>
       </trans-unit>
       <trans-unit id="1CqBdS8" resname="Sélection de l'emplacement">
         <source>Sélection de l'emplacement</source>
@@ -315,7 +315,7 @@
       </trans-unit>
       <trans-unit id="a7JnNCz" resname="Mes réservations">
         <source>Mes réservations</source>
-        <target>My reservations</target>
+        <target>My bookings</target>
       </trans-unit>
       <trans-unit id="S0LGaQ6" resname="Administration">
         <source>Administration</source>
@@ -339,7 +339,7 @@
       </trans-unit>
       <trans-unit id="eV9KsdA" resname="Aucune réservation disponible">
         <source>Aucune réservation disponible</source>
-        <target>No reservations available</target>
+        <target>No bookings available</target>
       </trans-unit>
       <trans-unit id="a6AZ_kt" resname="Faites une recherche ou changez la date de votre recherche!">
         <source>Faites une recherche ou changez la date de votre recherche!</source>
@@ -467,15 +467,15 @@
       </trans-unit>
       <trans-unit id="cHQrRWf" resname="Le nom de votre réservation">
         <source>Le nom de votre réservation</source>
-        <target>The name of your reservation</target>
+        <target>The name of your booking</target>
       </trans-unit>
       <trans-unit id="3r4M6j4" resname="Entrez l'intitulé de la réservation">
         <source>Entrez l'intitulé de la réservation</source>
-        <target>Enter the title of the reservation</target>
+        <target>Enter the title of the booking</target>
       </trans-unit>
       <trans-unit id="lR.e2we" resname="La description de votre réservation">
         <source>La description de votre réservation</source>
-        <target>Description of your reservation</target>
+        <target>Description of your booking</target>
       </trans-unit>
       <trans-unit id="nNZ3LuO" resname="Vous ne pouvez pas réserver un créneau le weekend">
         <source>Vous ne pouvez pas réserver un créneau le weekend</source>
@@ -527,7 +527,7 @@
       </trans-unit>
       <trans-unit id="TH53GpD" resname="Le matériel {{ value }} existe déjà.">
         <source>Le matériel {{ value }} existe déjà.</source>
-        <target>The material {{ value }} already exists.</target>
+        <target>The equipment {{ value }} already exists.</target>
       </trans-unit>
       <trans-unit id="Bl0pUpO" resname="Le bureau {{ value }} existe déjà.">
         <source>Le bureau {{ value }} existe déjà.</source>
@@ -559,11 +559,11 @@
       </trans-unit>
       <trans-unit id="nkN0x1h" resname="Impossible d\'ajouter une reservation pour le bureau sélectionné, code d\'erreur:">
         <source>Impossible d\'ajouter une reservation pour le bureau sélectionné, code d\'erreur:</source>
-        <target>Unable to add a reservation for the selected office, error code:</target>
+        <target>Unable to add a booking for the selected office, error code:</target>
       </trans-unit>
       <trans-unit id="nMJWozX" resname="Réservations">
         <source>Réservations</source>
-        <target>Reservations</target>
+        <target>Booking</target>
       </trans-unit>
       <trans-unit id="PEiqK99" resname="Début">
         <source>Début</source>
@@ -575,7 +575,7 @@
       </trans-unit>
       <trans-unit id="UHzrTuP" resname="Aucune réservation pour le moment.">
         <source>Aucune réservation pour le moment.</source>
-        <target>Aucune réservation pour le moment.</target>
+        <target>No bookings at this time.</target>
       </trans-unit>
     </body>
   </file>

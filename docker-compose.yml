@@ -10,8 +10,6 @@ services:
     volumes:
       - ./:/var/www/symfony
     restart: always
-    networks:
-      - dev
 
   nginx:
     container_name: nginx_symfony
@@ -27,8 +25,6 @@ services:
       - "8080:80"
       - "8443:443"
     restart: always
-    networks:
-      - dev
 
   database:
     container_name: database_symfony
@@ -41,8 +37,6 @@ services:
     ports:
       - "3306:3306"
     restart: always
-    networks:
-      - dev
 
   phpmyadmin:
     container_name: phpmyadmin_symfony
@@ -56,8 +50,6 @@ services:
     ports:
       - "8081:80"
     restart: always
-    networks:
-      - dev
 
   maildev:
     image: maildev/maildev
@@ -66,8 +58,6 @@ services:
     ports:
       - "1080:80"
     restart: always
-    networks:
-      - dev
 
   ldap:
     container_name: ldap_symfony
@@ -76,8 +66,3 @@ services:
     ports:
       - '10389:10389'
     restart: always
-    networks:
-      - dev
-
-networks:
-  dev:

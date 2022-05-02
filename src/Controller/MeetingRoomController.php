@@ -28,12 +28,12 @@ class MeetingRoomController extends AbstractController
     }
 
     // Transform meeting room object in json format for the calendar
-    public function getReservationForFullCalendar(MeetingRoom $meetingRoom, \DateTime $startDate, \DateTime $endDate): array
+    public function getReservationForFullCalendar(MeetingRoom $meetingRoom): array
     {
         $allMeetingRoomReservation = [];
 
         // On récupère les RDV de la salle selectionné
-        $meetingRoomReservations = $this->meetingRoomReservationRepository->findReservationsForADateRange($meetingRoom, $startDate, $endDate);
+        $meetingRoomReservations = $this->meetingRoomReservationRepository->findBy(['meetingRoom' => $meetingRoom]);
         foreach ($meetingRoomReservations as $m) {
             $allMeetingRoomReservation[] = [
                 'title' => $m->getTitle(),
@@ -101,17 +101,12 @@ class MeetingRoomController extends AbstractController
 
     // A route that getting all reservation for a meeting room and return a json for fullcalendar
     #[Route('/meeting-room/reservation/{id}', name: 'app_meeting_room_reservation', methods: ['GET'])]
-    public function getReservationForMeetingRoom(int $id, Request $request): JsonResponse
+    public function getReservationForMeetingRoom(int $id): JsonResponse
     {
-        //get startDate and endDate from request
-        $startDate = new \DateTime($request->get('startDate'));
-        $endDate = new \DateTime($request->get('endDate'));
-
         $allMeetingRoomReservation = [];
         $meetingRoom = $this->meetingRoomRepository->findOneBy(['id' => $id]);
         if ($meetingRoom) {
-
-            $allMeetingRoomReservation =  $this->getReservationForFullCalendar($meetingRoom, $startDate, $endDate);
+            $allMeetingRoomReservation =  $this->getReservationForFullCalendar($meetingRoom);
         }
 
         return new JsonResponse($allMeetingRoomReservation);

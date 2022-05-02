@@ -47,29 +47,6 @@ class MeetingRoomReservationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    /**
-     * This function get all the reservations for the given meeting room between the given start and end dates
-     *
-     * @param MeetingRoom $meetingRoom
-     * @param DateTime $startDate
-     * @param Datetime $endDate
-     */
-    //SELECT * FROM `meeting_room_reservation` AS m
-    // WHERE m.meeting_room_id = 1
-    // AND (m.start_at >= '2022-04-27 08:00:00' AND m.end_at <= '2022-04-27 08:30:00')
-
-    public function findReservationsForADateRange(MeetingRoom $meetingRoom, \DateTime $startDate, \Datetime $endDate)
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.meetingRoom = :meetingRoom AND (m.startAt >= :startDate AND m.endAt <= :endDate)')
-            ->setParameter('startDate', $startDate)
-            ->setParameter('endDate', $endDate)
-            ->setParameter('meetingRoom', $meetingRoom)
-            ->getQuery()
-            ->getResult();
-    }
-
-
     // /**
     //  * @return MeetingRoomReservation[] Returns an array of MeetingRoomReservation objects
     //  */

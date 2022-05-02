@@ -32,6 +32,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
+    // Use environment variable to get password policy
+//    #[RollerworksPassword\PasswordRequirements(
+//        requireLetters: true,
+//        requireCaseDiff: true,
+//        requireNumbers: true,
+//        tooShortMessage: new TranslatableMessage("Le mot de passe doit contenir au moins {{length}} caractères"),
+//        missingLettersMessage: new TranslatableMessage("Le mot de passe doit contenir des lettres"),
+//        requireCaseDiffMessage: new TranslatableMessage("Le mot de passe doit contenir des majuscules et minuscules"),
+//        missingNumbersMessage: new TranslatableMessage("Le mot de passe doit contenir des chiffres"),
+//    )]
     private $password;
 
     private $plainPassword;

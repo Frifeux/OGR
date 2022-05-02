@@ -75,6 +75,9 @@ security:
 #         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } # allow anonymous access to everything
          - { path: ^/(fr|en)/admin, roles: ROLE_ADMIN }
          - { path: ^/(fr|en)/user, roles: ROLE_USER }
+         - { path: ^/(fr|en)/meeting-room, roles: ROLE_USER }
+         - { path: ^/(fr|en)/office, roles: ROLE_USER }
+         - { path: ^/(fr|en)/equipment, roles: ROLE_USER }
          - { path: ^/(fr|en)/reservation, roles: ROLE_USER }
          - { path: ^/(fr|en)/home, roles: ROLE_USER }
 

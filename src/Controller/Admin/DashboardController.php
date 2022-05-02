@@ -51,10 +51,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section(new TranslatableMessage('Gestion des utilisateurs'));
         yield MenuItem::linkToCrud(new TranslatableMessage('Utilisateurs'), 'fa fa-user', User::class);
 
-        yield MenuItem::section(new TranslatableMessage('Gestion des objets'));
+        yield MenuItem::section(new TranslatableMessage('Gestion des ressources'));
         yield MenuItem::linkToCrud(new TranslatableMessage('Salles de réunion'), 'fa fa-camera', MeetingRoom::class);
         yield MenuItem::linkToCrud(new TranslatableMessage('Bureaux'), 'fa fa-door-open', Office::class);
-        yield MenuItem::linkToCrud(new TranslatableMessage('Matériel'), 'fa fa-desktop', Equipment::class);
+        yield MenuItem::linkToCrud(new TranslatableMessage('Matériels'), 'fa fa-desktop', Equipment::class);
 
         yield MenuItem::section(new TranslatableMessage('Gestion des réservations'));
         yield MenuItem::linkToCrud(new TranslatableMessage('Salles de réunion'), 'fa fa-calendar', MeetingRoomReservation::class);

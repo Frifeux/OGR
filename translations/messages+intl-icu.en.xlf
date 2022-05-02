@@ -465,9 +465,9 @@
         <source>La salle a bien été dupliquée</source>
         <target>The room has been duplicated</target>
       </trans-unit>
-      <trans-unit id="cHQrRWf" resname="Le nom de votre réservation">
-        <source>Le nom de votre réservation</source>
-        <target>The name of your booking</target>
+      <trans-unit id="cHQrRWf" resname="Le titre de votre réservation">
+        <source>Le titre de votre réservation</source>
+        <target>The title of your booking</target>
       </trans-unit>
       <trans-unit id="3r4M6j4" resname="Entrez l'intitulé de la réservation">
         <source>Entrez l'intitulé de la réservation</source>

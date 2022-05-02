@@ -1,6 +1,6 @@
 # Projet Symfony
 
-Créer un nouveau projet WEB:
+Créer un nouveau projet WEB :
 
 ```bash
 symfony new my_project_name --full # Recup la dernière version dispo

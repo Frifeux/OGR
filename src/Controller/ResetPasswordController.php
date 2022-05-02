@@ -15,6 +15,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
@@ -156,13 +157,11 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_check_email');
         }
 
-        // TODO: Modifier les paramètres de mail, créer des variables d'environement
-        // TODO: Modifier la template Email
         // Sending an email to the user with the link to reset is own password
         $email = (new TemplatedEmail())
-            ->from(new Address('no-reply@ogr.fr', 'OGR'))
+            ->from(new Address($_ENV['ADDRESS_FROM'], 'OGR'))
             ->to($user->getEmail())
-            ->subject('Réinitialisation mot de passe OGR')
+            ->subject(new TranslatableMessage('Réinitialisation de votre mot de passe'))
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,

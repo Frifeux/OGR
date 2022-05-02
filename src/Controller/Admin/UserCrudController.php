@@ -141,13 +141,11 @@ class UserCrudController extends AbstractCrudController
             return $this->redirect($url);
         }
 
-        // TODO: Modifier les paramètres de mail, créer des variables d'environement
-        // TODO: Modifier la template Email
-        // Sending an email to the user with the link to reset is own password
+        // Sending an email to the user with the link to reset its own password
         $email = (new TemplatedEmail())
-            ->from(new Address('no-reply@ogr.fr', 'OGR Reset Password'))
+            ->from(new Address($_ENV['ADDRESS_FROM'], 'OGR'))
             ->to($user->getEmail())
-            ->subject('Your password reset request')
+            ->subject(new TranslatableMessage('Réinitialisation de votre mot de passe'))
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,

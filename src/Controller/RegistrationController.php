@@ -15,6 +15,7 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\Translation\TranslatableMessage;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
@@ -47,14 +48,12 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // TODO: Modifier les paramètres de mail, créer des variables d'environement
-            // TODO: Modifier la template Email
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('no-reply@ogr.fr', 'OGR'))
+                    ->from(new Address($_ENV['ADDRESS_FROM'], 'OGR'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject(new TranslatableMessage('Confirmation de votre inscription'))
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 

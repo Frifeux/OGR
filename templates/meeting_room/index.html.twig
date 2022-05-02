@@ -13,7 +13,7 @@
 {% block javascripts %}
     {{ parent() }}
 
-{#        Pour afficher le calendrier #}
+    {#        Pour afficher le calendrier #}
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"
             integrity="sha256-YicH/8aE660iEnJtgll3vT54dJApy3XkYmqNfGVFEzA=" crossorigin="anonymous"></script>
 
@@ -53,29 +53,41 @@
         });
 
         // Dynamically change the calendar view
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             function updateMeetingRoomReservation($meetingRoom) {
                 //get all reservation for the selected meeting room and display them to the calendar
                 $.ajax({
-                    url: '{{ path('app_meeting_room_reservation', {'id': '_idMeetingRoom_'}) }}'.replace('_idMeetingRoom_', $meetingRoom),
+                    url: '{{ path('app_meeting_room_reservation', {id: '_idMeetingRoom_', startDate: '_activeStart_', endDate: '_activeEnd_'})|escape('js') }}'
+                        .replace('_idMeetingRoom_', $meetingRoom)
+                        .replace('_activeStart_', $calendar.view.activeStart.toISOString())
+                        .replace('_activeEnd_', $calendar.view.activeEnd.toISOString()),
                     type: 'GET',
                     dataType: 'json',
-                    success: function(data) {
+                    success: function (data) {
                         $calendar.removeAllEvents();
                         $calendar.addEventSource(data);
                     },
-                    error: function(data) {
+                    error: function (data) {
                         console.log(data);
                     }
                 });
             }
 
             // // On load, we display the reservations for the meeting room selected
-            updateMeetingRoomReservation($(this).find('.js-selected-meeting-room :selected').attr('value'));
+            updateMeetingRoomReservation($('.js-selected-meeting-room :selected').attr('value'));
+
+            // Retrieve when the user clicks on button to change the view of the calendar
+            document.querySelectorAll('.fc-dayGridMonth-button, .fc-timeGridWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button')
+                .forEach(function (element) {
+                    element.addEventListener('click', function () {
+                        updateMeetingRoomReservation($('.js-selected-meeting-room :selected').attr('value'));
+                        console.log('click');
+                    });
+                });
 
             // When the user select a room in the select box, we get all reservations for this room and update the calendar
-            $('.js-selected-meeting-room').on("change", function(){
+            $('.js-selected-meeting-room').on("change", function () {
                     const $roomSelected = $("option:selected").attr('value');
                     updateMeetingRoomReservation($roomSelected);
                 }
@@ -94,22 +106,26 @@
 
             <!-- Affichage des messages de success et erreurs-->
             {% for flashSuccess in app.flashes('reservation_meeting_room_success') %}
-                <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
+                <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2"
+                     role="alert">
                     <i class="bi bi-check-circle-fill me-2"></i>
                     <div>
                         {{ flashSuccess }}
                     </div>
-                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
                 </div>
             {% endfor %}
 
             {% for flashError in app.flashes('reservation_meeting_room_error') %}
-                <div class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle-x mt-2" role="alert">
+                <div class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle-x mt-2"
+                     role="alert">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
                     <div>
                         {{ flashError }}
                     </div>
-                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
                 </div>
             {% endfor %}
 
@@ -123,23 +139,23 @@
                         <!-- Formulaire pour ajouter une réservation à une salle -->
                         {{ form_start(meetingRoomReservationForm) }}
 
-                            {{ form_row(meetingRoomReservationForm.meetingRoom, { 'attr': { 'class': 'js-selected-meeting-room' } }) }}
+                        {{ form_row(meetingRoomReservationForm.meetingRoom, { 'attr': { 'class': 'js-selected-meeting-room' } }) }}
 
-                            <hr>
+                        <hr>
 
-                            <!-- Infos demandé pour créer une réservation -->
-                            {{ form_row(meetingRoomReservationForm.title) }}
+                        <!-- Infos demandé pour créer une réservation -->
+                        {{ form_row(meetingRoomReservationForm.title) }}
 
-                            {{ form_row(meetingRoomReservationForm.description) }}
+                        {{ form_row(meetingRoomReservationForm.description) }}
 
-                            <!-- Input pour selectionner un(e) date/horaire-->
-                            {{ form_row(meetingRoomReservationForm.startAt) }}
-                            {{ form_row(meetingRoomReservationForm.endAt) }}
+                        <!-- Input pour selectionner un(e) date/horaire-->
+                        {{ form_row(meetingRoomReservationForm.startAt) }}
+                        {{ form_row(meetingRoomReservationForm.endAt) }}
 
-                            <!-- validation du form -->
-                            <div class="text-center">
-                                {{ form_widget(meetingRoomReservationForm.save) }}
-                            </div>
+                        <!-- validation du form -->
+                        <div class="text-center">
+                            {{ form_widget(meetingRoomReservationForm.save) }}
+                        </div>
 
                         {{ form_end(meetingRoomReservationForm) }}
 

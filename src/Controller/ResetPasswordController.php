@@ -160,9 +160,9 @@ class ResetPasswordController extends AbstractController
         // TODO: Modifier la template Email
         // Sending an email to the user with the link to reset is own password
         $email = (new TemplatedEmail())
-            ->from(new Address('no-reply@ogr.fr', 'OGR Reset Password'))
+            ->from(new Address('no-reply@ogr.fr', 'OGR'))
             ->to($user->getEmail())
-            ->subject('Your password reset request')
+            ->subject('Réinitialisation mot de passe OGR')
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,

@@ -1,8 +1,7 @@
-<p>Bonjour,</p>
+<p>{% trans %}Bonjour{% endtrans %},</p>
 
-<p>Voici le lien de réinitialisation pour votre compte OGR :</p>
+<p>{% trans %}Voici le lien de réinitialisation pour votre compte OGR :{% endtrans %}</p>
 
 <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
 
-<p>Bien cordialement,<br>
-Le Département des services d'information</p>
+<p>{% trans %}Bien cordialement{% endtrans %},<br>{% trans %}Le Département des services d'information{% endtrans %}</p>

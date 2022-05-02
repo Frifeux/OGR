@@ -1,13 +1,9 @@
-<p>Bonjour,<br></p>
-
-
-<p>
-    Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant : <br><br>
-    <a href="{{ signedUrl }}">Confirmer votre Email</a>.
-    Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}<br><br>.
-</p>
+<p>{% trans %}Bonjour{% endtrans %},<br></p>
 
 <p>
-    Bien cordialement,<br>
-    Le Département des services d'information
+    {% trans %}Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :{% endtrans %}<br><br>
+    <a href="{{ signedUrl }}">{% trans %}Confirmer votre Email{% endtrans %}</a>.
+    {% trans %}Ce lien expirera dans{% endtrans %} {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}<br><br>.
 </p>
+
+<p>{% trans %}Bien cordialement{% endtrans %},<br>{% trans %}Le Département des services d'information{% endtrans %}</p>

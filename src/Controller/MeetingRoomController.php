@@ -36,11 +36,10 @@ class MeetingRoomController extends AbstractController
         $meetingRoomReservations = $this->meetingRoomReservationRepository->findBy(['meetingRoom' => $meetingRoom]);
         foreach ($meetingRoomReservations as $m) {
             $allMeetingRoomReservation[] = [
-                'id' => $m->getId(),
-                'start' => $m->getStartAt()->format('Y-m-d H:i:s'),
-                'end' => $m->getEndAt()->format('Y-m-d H:i:s'),
                 'title' => $m->getTitle(),
                 'description' => $m->getDescription(),
+                'start' => $m->getStartAt()->format('Y-m-d H:i:s'),
+                'end' => $m->getEndAt()->format('Y-m-d H:i:s'),
                 'backgroundColor' => '#0053a3',
                 'borderColor' => '#0053a3',
             ];

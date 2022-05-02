@@ -77,10 +77,11 @@ Installation des dépendances:
 composer require --dev symfony/test-pack
 ```
 
-### Création de la BDD pour les tests:
+### Création de la BDD pour les tests et ajout fausses données:
 ```bash
 symfony console --env=test doctrine:database:create
 symfony console --env=test doctrine:schema:create
+symfony console --env=test doctrine:fixtures:load
 ```
 
 ### Réinitialisation automatique de la base de données avant chaque test

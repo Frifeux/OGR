@@ -1,4 +1,4 @@
-{% extends 'base.navbar.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}OGR - Reservation d'une salle {% endblock %}
 
@@ -98,78 +98,82 @@
 
 {% set current_menu = 'meeting_room' %}
 
-{% block content %}
+{% block body %}
 
-    <main class="d-flex flex-grow-1 align-items-stretch">
-        <div class="container-fluid">
+    {% include '_navbar.html.twig' %}
 
-            <!-- Affichage des messages de success et erreurs-->
-            {% for flashSuccess in app.flashes('reservation_meeting_room_success') %}
-                <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2"
-                     role="alert">
-                    <i class="bi bi-check-circle-fill me-2"></i>
-                    <div>
-                        {{ flashSuccess }}
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
-                            aria-label="Close"></button>
-                </div>
-            {% endfor %}
+    <main>
+        <div class="d-flex flex-grow-1 align-items-stretch">
+            <div class="container-fluid">
 
-            {% for flashError in app.flashes('reservation_meeting_room_error') %}
-                <div class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle-x mt-2"
-                     role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    <div>
-                        {{ flashError }}
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
-                            aria-label="Close"></button>
-                </div>
-            {% endfor %}
-
-            <div class="row g-4 py-3 align-items-stretch">
-
-                <div class="col-12 col-xxl-3 col-xl-4 col-lg-4 align-self-center">
-                    <div class="border rounded shadow-sm py-2 px-3 text-dark">
-
-                        <p class="h3 px-4 py-2"><strong>{% trans %}Salle{% endtrans %}</strong></p>
-
-                        <!-- Formulaire pour ajouter une réservation à une salle -->
-                        {{ form_start(meetingRoomReservationForm) }}
-
-                        {{ form_row(meetingRoomReservationForm.meetingRoom, { 'attr': { 'class': 'js-selected-meeting-room' } }) }}
-
-                        <hr>
-
-                        <!-- Infos demandé pour créer une réservation -->
-                        {{ form_row(meetingRoomReservationForm.title) }}
-
-                        {{ form_row(meetingRoomReservationForm.description) }}
-
-                        <!-- Input pour selectionner un(e) date/horaire-->
-                        {{ form_row(meetingRoomReservationForm.startAt) }}
-                        {{ form_row(meetingRoomReservationForm.endAt) }}
-
-                        <!-- validation du form -->
-                        <div class="text-center">
-                            {{ form_widget(meetingRoomReservationForm.save) }}
+                <!-- Affichage des messages de success et erreurs-->
+                {% for flashSuccess in app.flashes('reservation_meeting_room_success') %}
+                    <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2"
+                         role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <div>
+                            {{ flashSuccess }}
                         </div>
-
-                        {{ form_end(meetingRoomReservationForm) }}
-
+                        <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
                     </div>
-                </div>
+                {% endfor %}
 
-                <div class="col">
-                    <div class="border rounded shadow-sm py-2 px-4 text-dark">
+                {% for flashError in app.flashes('reservation_meeting_room_error') %}
+                    <div class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle-x mt-2"
+                         role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <div>
+                            {{ flashError }}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                    </div>
+                {% endfor %}
 
-                        <p class="h3 px-4 py-2"><strong>{% trans %}Disponibilités{% endtrans %}</strong></p>
+                <div class="row g-4 py-3 align-items-stretch">
 
-                        <!-- Affichage des Disponibilité -->
-                        <!-- overflow, Classe CSS custom ICI -->
-                        <div id="calendar" class="overflow-calendar">
+                    <div class="col-12 col-xxl-3 col-xl-4 col-lg-4 align-self-center">
+                        <div class="border rounded shadow-sm py-2 px-3 text-dark">
 
+                            <p class="h3 px-4 py-2"><strong>{% trans %}Salle{% endtrans %}</strong></p>
+
+                            <!-- Formulaire pour ajouter une réservation à une salle -->
+                            {{ form_start(meetingRoomReservationForm) }}
+
+                            {{ form_row(meetingRoomReservationForm.meetingRoom, { 'attr': { 'class': 'js-selected-meeting-room' } }) }}
+
+                            <hr>
+
+                            <!-- Infos demandé pour créer une réservation -->
+                            {{ form_row(meetingRoomReservationForm.title) }}
+
+                            {{ form_row(meetingRoomReservationForm.description) }}
+
+                            <!-- Input pour selectionner un(e) date/horaire-->
+                            {{ form_row(meetingRoomReservationForm.startAt) }}
+                            {{ form_row(meetingRoomReservationForm.endAt) }}
+
+                            <!-- validation du form -->
+                            <div class="text-center">
+                                {{ form_widget(meetingRoomReservationForm.save) }}
+                            </div>
+
+                            {{ form_end(meetingRoomReservationForm) }}
+
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="border rounded shadow-sm py-2 px-4 text-dark">
+
+                            <p class="h3 px-4 py-2"><strong>{% trans %}Disponibilités{% endtrans %}</strong></p>
+
+                            <!-- Affichage des Disponibilité -->
+                            <!-- overflow, Classe CSS custom ICI -->
+                            <div id="calendar" class="overflow-calendar">
+
+                            </div>
                         </div>
                     </div>
                 </div>

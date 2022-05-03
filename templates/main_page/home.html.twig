@@ -1,63 +1,68 @@
-{% extends 'base.navbar.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}OGR - Menu{% endblock %}
 
-{% block content %}
-    <main class="d-flex flex-grow-1 align-items-center justify-content-center">
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 g-4 text-center">
+{% block body %}
 
-                <div class="col-xl-3 col-sm-6">
+    {% include '_navbar.html.twig' %}
 
-                    <a href="{{ path('app_meeting_room') }}" class="text-decoration-none text-white">
-                        <div class="card">
-                            <div class="card-body bg-dark rounded shadow-sm py-5">
-                                <div class="h4 text-uppercase">{% trans %}Salle{% endtrans %}</div>
-                                <i class="bi bi-projector fs-1"></i>
+    <main>
+        <div class="d-flex flex-grow-1 align-items-center min-vh-home-custom">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 text-center">
+
+                    <div class="col-xl-3 col-sm-6 py-3">
+
+                        <a href="{{ path('app_meeting_room') }}" class="text-decoration-none text-white">
+                            <div class="card">
+                                <div class="card-body bg-dark rounded shadow-sm py-5">
+                                    <div class="h4 text-uppercase">{% trans %}Salle{% endtrans %}</div>
+                                    <i class="bi bi-projector fs-1"></i>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+
+                    </div>
+
+                    <div class="col-xl-3 col-sm-6 py-3">
+
+                        <a href="{{ path('app_office') }}" class="text-decoration-none text-white">
+                            <div class="card">
+                                <div class="card-body bg-dark rounded shadow-sm py-5">
+                                    <div class="h4 text-uppercase">{% trans %}Bureau{% endtrans %}</div>
+                                    <i class="bi bi-door-open fs-1"></i>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                    <div class="col-xl-3 col-sm-6 py-3">
+
+                        <a href="{{ path('app_equipment') }}" class="text-decoration-none text-white">
+                            <div class="card">
+                                <div class="card-body bg-dark rounded shadow-sm py-5">
+                                    <div class="h4 text-uppercase">{% trans %}Matériel{% endtrans %}</div>
+                                    <i class="bi bi-pc-display fs-1"></i>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <div class="col-xl-3 col-sm-6 py-3">
+
+                        <a href="{{ path('app_reservation') }}" class="text-decoration-none text-white">
+                            <div class="card">
+                                <div class="card-body bg-dark rounded shadow-sm py-5">
+                                    <div class="h4 text-uppercase">{% trans %}Mes réservations{% endtrans %}</div>
+                                    <i class="bi bi-calendar3 fs-1"></i>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
 
                 </div>
-
-                <div class="col-xl-3 col-sm-6">
-
-                    <a href="{{ path('app_office') }}" class="text-decoration-none text-white">
-                        <div class="card">
-                            <div class="card-body bg-dark rounded shadow-sm py-5">
-                                <div class="h4 text-uppercase">{% trans %}Bureau{% endtrans %}</div>
-                                <i class="bi bi-door-open fs-1"></i>
-                            </div>
-                        </div>
-                    </a>
-
-                </div>
-                <div class="col-xl-3 col-sm-6">
-
-                    <a href="{{ path('app_equipment') }}" class="text-decoration-none text-white">
-                        <div class="card">
-                            <div class="card-body bg-dark rounded shadow-sm py-5">
-                                <div class="h4 text-uppercase">{% trans %}Matériel{% endtrans %}</div>
-                                <i class="bi bi-pc-display fs-1"></i>
-                            </div>
-                        </div>
-                    </a>
-
-                </div>
-
-                <div class="col-xl-3 col-sm-6">
-
-                    <a href="{{ path('app_reservation') }}" class="text-decoration-none text-white">
-                        <div class="card">
-                            <div class="card-body bg-dark rounded shadow-sm py-5">
-                                <div class="h4 text-uppercase">{% trans %}Mes réservations{% endtrans %}</div>
-                                <i class="bi bi-calendar3 fs-1"></i>
-                            </div>
-                        </div>
-                    </a>
-
-                </div>
-
             </div>
         </div>
     </main>

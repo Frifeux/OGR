@@ -1,4 +1,4 @@
-{% extends 'base.navbar.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}OGR - Reservation d'un bureau {% endblock %}
 
@@ -61,113 +61,117 @@
     </script>
 {% endblock %}
 
-{% block content %}
+{% block body %}
+
+    {% include '_navbar.html.twig' %}
 
     <!-- contenu de notre page -->
-    <main class="d-flex flex-grow-1 align-items-stretch">
-        <div class="container-fluid">
+    <main>
+        <div class="d-flex flex-grow-1 align-items-stretch">
+            <div class="container-fluid">
 
-            <div id="js-alert-success-message"
-                 class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2 d-none"
-                 role="alert">
-                <i class="bi bi-check-circle-fill me-2"></i>
-                <div id="js-alert-success-message-body"></div>
-                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
-                        aria-label="Close"></button>
-            </div>
-
-            <div id="js-alert-danger-message"
-                 class="alert d-flex align-items-center position-absolute start-50 translate-middle-x mt-2 d-none"
-                 role="alert">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                <div id="js-alert-danger-message-body"></div>
-                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
-                        aria-label="Close"></button>
-            </div>
-
-
-            <div class="row g-4 py-3 align-items-stretch">
-
-                <div class="col-12 col-xxl-3 col-xl-4 col-lg-4 align-self-center">
-
-                    <div class="border rounded shadow-sm py-2 px-3 text-dark">
-                        <p class="h3 px-4 py-2"><strong>{% trans %}Bureau{% endtrans %}</strong></p>
-
-                        <!-- Formulaire pour ajouter une réservation à une salle -->
-                        {{ form_start(chooseOfficeReservationForm) }}
-
-                        <!-- Infos demandé pour créer une réservation -->
-                        {{ form_row(chooseOfficeReservationForm.location) }}
-
-                        {{ form_row(chooseOfficeReservationForm.floor) }}
-
-                        {{ form_row(chooseOfficeReservationForm.department) }}
-
-                        <!-- Input pour selectionner un(e) date/horaire-->
-                        {{ form_row(chooseOfficeReservationForm.startAt) }}
-                        {{ form_row(chooseOfficeReservationForm.endAt) }}
-
-                        <!-- validation du form -->
-                        <div class="text-center">
-                            {{ form_widget(chooseOfficeReservationForm.save) }}
-                        </div>
-
-                        {{ form_end(chooseOfficeReservationForm) }}
-                    </div>
+                <div id="js-alert-success-message"
+                     class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2 d-none"
+                     role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <div id="js-alert-success-message-body"></div>
+                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
                 </div>
 
-                <div class="col align-self-center">
-                    <div class="border rounded shadow-sm py-2 px-4 text-dark">
+                <div id="js-alert-danger-message"
+                     class="alert d-flex align-items-center position-absolute start-50 translate-middle-x mt-2 d-none"
+                     role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <div id="js-alert-danger-message-body"></div>
+                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                </div>
 
-                        <p class="h3 px-4 py-2"><strong>{% trans %}Disponibilités{% endtrans %}</strong></p>
 
-                        <!-- Affichage des Disponibilité -->
-                        <!-- overflow, Classe CSS custom ICI -->
-                        <div class="overflow-tabs">
+                <div class="row g-4 py-3 align-items-stretch">
 
-                            <table class="js-table table table-striped text-center">
+                    <div class="col-12 col-xxl-3 col-xl-4 col-lg-4 align-self-center">
 
-                                <thead class="table-dark">
-                                <tr>
-                                    <th>{% trans %}Nom{% endtrans %}</th>
-                                    <th>{% trans %}Localisation{% endtrans %}</th>
-                                    <th>{% trans %}Etage{% endtrans %}</th>
-                                    <th>{% trans %}Service{% endtrans %}</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
+                        <div class="border rounded shadow-sm py-2 px-3 text-dark">
+                            <p class="h3 px-4 py-2"><strong>{% trans %}Bureau{% endtrans %}</strong></p>
 
-                                <tbody>
+                            <!-- Formulaire pour ajouter une réservation à une salle -->
+                            {{ form_start(chooseOfficeReservationForm) }}
 
-                                {% if not availableOfficeReservations %}
-                                    <!-- Empty table if no reservation is available -->
-                                    <tr>
-                                        <td colspan="5" class="text-center">
-                                            <h4>{% trans %}Aucune réservation disponible{% endtrans %}</h4>
-                                            <p>{% trans %}Faites une recherche ou changez la date de votre recherche!{% endtrans %}</p>
-                                        </td>
-                                    </tr>
-                                {% endif %}
+                            <!-- Infos demandé pour créer une réservation -->
+                            {{ form_row(chooseOfficeReservationForm.location) }}
 
-                                {% for office in availableOfficeReservations %}
-                                    <tr>
-                                        <td>{{ office.name }}</td>
-                                        <td>{{ office.location }}</td>
-                                        <td>{{ office.floor }}</td>
-                                        <td>{{ office.department }}</td>
-                                        <td>
-                                            <a href="{{ path('app_office_add_reservation', {'id': office.id }) }}"
-                                               class="js-add-reservation btn btn-primary">
-                                                <i class="fas fa-plus-circle"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
+                            {{ form_row(chooseOfficeReservationForm.floor) }}
 
-                                </tbody>
-                            </table>
+                            {{ form_row(chooseOfficeReservationForm.department) }}
+
+                            <!-- Input pour selectionner un(e) date/horaire-->
+                            {{ form_row(chooseOfficeReservationForm.startAt) }}
+                            {{ form_row(chooseOfficeReservationForm.endAt) }}
+
+                            <!-- validation du form -->
+                            <div class="text-center">
+                                {{ form_widget(chooseOfficeReservationForm.save) }}
+                            </div>
+
+                            {{ form_end(chooseOfficeReservationForm) }}
                         </div>
+                    </div>
 
+                    <div class="col align-self-center">
+                        <div class="border rounded shadow-sm py-2 px-4 text-dark">
+
+                            <p class="h3 px-4 py-2"><strong>{% trans %}Disponibilités{% endtrans %}</strong></p>
+
+                            <!-- Affichage des Disponibilité -->
+                            <!-- overflow, Classe CSS custom ICI -->
+                            <div class="overflow-tabs">
+
+                                <table class="js-table table table-striped text-center">
+
+                                    <thead class="table-dark">
+                                    <tr>
+                                        <th>{% trans %}Nom{% endtrans %}</th>
+                                        <th>{% trans %}Localisation{% endtrans %}</th>
+                                        <th>{% trans %}Etage{% endtrans %}</th>
+                                        <th>{% trans %}Service{% endtrans %}</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                    {% if not availableOfficeReservations %}
+                                        <!-- Empty table if no reservation is available -->
+                                        <tr>
+                                            <td colspan="5" class="text-center">
+                                                <h4>{% trans %}Aucune réservation disponible{% endtrans %}</h4>
+                                                <p>{% trans %}Faites une recherche ou changez la date de votre recherche!{% endtrans %}</p>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+
+                                    {% for office in availableOfficeReservations %}
+                                        <tr>
+                                            <td>{{ office.name }}</td>
+                                            <td>{{ office.location }}</td>
+                                            <td>{{ office.floor }}</td>
+                                            <td>{{ office.department }}</td>
+                                            <td>
+                                                <a href="{{ path('app_office_add_reservation', {'id': office.id }) }}"
+                                                   class="js-add-reservation btn btn-primary">
+                                                    <i class="fas fa-plus-circle"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>

@@ -27,6 +27,14 @@
   max-height: calc(100vh - 500px);
 }
 
+.min-vh-home-custom {
+  min-height: calc(100vh - 65px);
+}
+
+body {
+  background-color: #f8f9fa;
+}
+
 label.required:after, legend.required:after  {
   content: " *";
   color: red;

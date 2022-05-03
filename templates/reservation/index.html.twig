@@ -1,4 +1,4 @@
-{% extends 'base.navbar.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}OGR - Gestion des réservations {% endblock %}
 
@@ -36,7 +36,9 @@
     </script>
 {% endblock %}
 
-{% block content %}
+{% block body %}
+
+    {% include '_navbar.html.twig' %}
 
     <!-- contenu de notre page -->
     <main>
@@ -243,7 +245,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

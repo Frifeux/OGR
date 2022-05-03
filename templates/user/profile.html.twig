@@ -1,99 +1,103 @@
-{% extends 'base.navbar.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}OGR - Paramètres du profil{% endblock %}
 
-{% block content %}
+{% block body %}
 
-    <div class="container-xl px-4 mt-4" style="max-width: 900px;">
+    {% include '_navbar.html.twig' %}
 
-        <!-- Affichage des messages de success et erreurs-->
-        {% for flashSuccess in app.flashes('success') %}
-            <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x" role="alert">
-                <i class="bi bi-check-circle-fill me-2"></i>
-                <div>
-                    {{ flashSuccess }}
+    <main>
+        <div class="container-xl px-4 mt-4" style="max-width: 900px;">
+
+            <!-- Affichage des messages de success et erreurs-->
+            {% for flashSuccess in app.flashes('success') %}
+                <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <div>
+                        {{ flashSuccess }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+            {% endfor %}
+
+            <nav class="nav nav-tabs">
+                <li><a class="nav-link active ms-0 " href="{{ path('user_profile') }}">{% trans %}Profil{% endtrans %}</a></li>
+    {#            <li><a class="nav-link text-dark " href="">{% trans %}Notifications{% endtrans %}</a></li>#}
+            </nav>
+
+            <div class="row mt-4">
+                <div class="col-xl-12">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">{% trans %}Détails du compte{% endtrans %}</div>
+                        <div class="card-body">
+
+                            <div class="row gx-3 mb-3">
+
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="lastname">{% trans %}Nom{% endtrans %}</label>
+                                    <input disabled class="form-control" id="lastname" type="text"
+                                           placeholder="{% trans %}Nom{% endtrans %}" value="{{ user.lastname }}">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="firstname">{% trans %}Prénom{% endtrans %}</label>
+                                    <input disabled class="form-control" id="firstname" type="text"
+                                           placeholder="{% trans %}Prénom{% endtrans %}" value="{{ user.firstname }}">
+                                </div>
+                            </div>
+
+                            <div class="row gx-3 mb-3">
+
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="email">{% trans %}Email{% endtrans %}</label>
+                                    <input disabled class="form-control" id="email" type="text"
+                                           placeholder="{% trans %}Email{% endtrans %}" value="{{ user.email }}">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="small mb-1"
+                                           for="localisation">{% trans %}Localisation{% endtrans %}</label>
+                                    <input disabled class="form-control" id="localisation" type="text"
+                                           placeholder="{% trans %}Localisation{% endtrans %}" value="{{ user.location }}">
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-        {% endfor %}
 
-        <nav class="nav nav-tabs">
-            <li><a class="nav-link active ms-0 " href="{{ path('user_profile') }}">{% trans %}Profil{% endtrans %}</a>
-            </li>
-{#            <li><a class="nav-link text-dark " href="">{% trans %}Notifications{% endtrans %}</a></li>#}
-        </nav>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-4 shadow-sm">
 
-        <div class="row mt-4">
-            <div class="col-xl-12">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-header">{% trans %}Détails du compte{% endtrans %}</div>
-                    <div class="card-body">
+                        <div class="card-header">{% trans %}Changement de mot de passe{% endtrans %}</div>
 
-                        <div class="row gx-3 mb-3">
+                        <div class="card-body">
+                            {{ form_start(passwordForm) }}
+                            <div class="row gx-3 mb-3">
 
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="lastname">{% trans %}Nom{% endtrans %}</label>
-                                <input disabled class="form-control" id="lastname" type="text"
-                                       placeholder="{% trans %}Nom{% endtrans %}" value="{{ user.lastname }}">
+                                <div class="col-md-6">
+                                    {{ form_row(passwordForm.plainPassword.first) }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    {{ form_row(passwordForm.plainPassword.second) }}
+                                </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="firstname">{% trans %}Prénom{% endtrans %}</label>
-                                <input disabled class="form-control" id="firstname" type="text"
-                                       placeholder="{% trans %}Prénom{% endtrans %}" value="{{ user.firstname }}">
+                            <div class="text-center">
+                                <button class="btn btn-danger" type="submit">{% trans %}Changer le mot de passe{% endtrans %}</button>
                             </div>
-                        </div>
-
-                        <div class="row gx-3 mb-3">
-
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="email">{% trans %}Email{% endtrans %}</label>
-                                <input disabled class="form-control" id="email" type="text"
-                                       placeholder="{% trans %}Email{% endtrans %}" value="{{ user.email }}">
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="small mb-1"
-                                       for="localisation">{% trans %}Localisation{% endtrans %}</label>
-                                <input disabled class="form-control" id="localisation" type="text"
-                                       placeholder="{% trans %}Localisation{% endtrans %}" value="{{ user.location }}">
-                            </div>
+                            {{ form_end(passwordForm) }}
 
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card mb-4 shadow-sm">
-
-                    <div class="card-header">{% trans %}Changement de mot de passe{% endtrans %}</div>
-
-                    <div class="card-body">
-                        {{ form_start(passwordForm) }}
-                        <div class="row gx-3 mb-3">
-
-                            <div class="col-md-6">
-                                {{ form_row(passwordForm.plainPassword.first) }}
-                            </div>
-
-                            <div class="col-md-6">
-                                {{ form_row(passwordForm.plainPassword.second) }}
-                            </div>
-                        </div>
-
-                        <div class="text-center">
-                            <button class="btn btn-danger" type="submit">{% trans %}Changer le mot de passe{% endtrans %}</button>
-                        </div>
-                        {{ form_end(passwordForm) }}
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </main>
 
 {% endblock %}

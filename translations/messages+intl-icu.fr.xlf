@@ -13,7 +13,7 @@
         <source>Il n'y a pas de materiel disponible à cette date.</source>
         <target>Il n'y a pas de materiel disponible à cette date.</target>
       </trans-unit>
-      <trans-unit id="u6Tgd2k" resname="Votre réservation a bien été ajoutée !">
+      <trans-unit id="8h0bHCr" resname="Votre réservation a bien été ajoutée !">
         <source>Votre réservation a bien été ajoutée !</source>
         <target>Votre réservation a bien été ajoutée !</target>
       </trans-unit>
@@ -321,7 +321,7 @@
         <source>Administration</source>
         <target>Administration</target>
       </trans-unit>
-      <trans-unit id="1pajW90" resname="Profil">
+      <trans-unit id="4mfTQ4I" resname="Profil">
         <source>Profil</source>
         <target>Profil</target>
       </trans-unit>
@@ -453,7 +453,7 @@
         <source>L'équipement a bien été dupliqué</source>
         <target>L'équipement a bien été dupliqué</target>
       </trans-unit>
-      <trans-unit id="xGtv1X8" resname="Langue">
+      <trans-unit id="X2uqtNv" resname="Langue">
         <source>Langue</source>
         <target>Langue</target>
       </trans-unit>
@@ -465,7 +465,7 @@
         <source>La salle a bien été dupliquée</source>
         <target>La salle a bien été dupliquée</target>
       </trans-unit>
-      <trans-unit id="cHQrRWf" resname="Le titre de votre réservation">
+      <trans-unit id="53Y3YjQ" resname="Le titre de votre réservation">
         <source>Le titre de votre réservation</source>
         <target>Le titre de votre réservation</target>
       </trans-unit>
@@ -553,7 +553,7 @@
         <source>Liste</source>
         <target>Liste</target>
       </trans-unit>
-      <trans-unit id="rSwSaAE" resname="Il n\'y a pas de bureau disponible à cette date">
+      <trans-unit id="N5P_K37" resname="Il n\'y a pas de bureau disponible à cette date">
         <source>Il n\'y a pas de bureau disponible à cette date</source>
         <target>Il n\'y a pas de bureau disponible à cette date</target>
       </trans-unit>
@@ -576,6 +576,74 @@
       <trans-unit id="UHzrTuP" resname="Aucune réservation pour le moment.">
         <source>Aucune réservation pour le moment.</source>
         <target>Aucune réservation pour le moment.</target>
+      </trans-unit>
+      <trans-unit id="4_P1Xxn" resname="Il n\'y a pas de matériel disponible à cette date">
+        <source>Il n\'y a pas de matériel disponible à cette date</source>
+        <target>Il n\'y a pas de matériel disponible à cette date</target>
+      </trans-unit>
+      <trans-unit id="GJ8alCF" resname="Impossible de trouver l'équipement que vous avez demandé">
+        <source>Impossible de trouver l'équipement que vous avez demandé</source>
+        <target>Impossible de trouver l'équipement que vous avez demandé</target>
+      </trans-unit>
+      <trans-unit id="J8v7fQH" resname="Gestion des ressources">
+        <source>Gestion des ressources</source>
+        <target>Gestion des ressources</target>
+      </trans-unit>
+      <trans-unit id="UYgj2fn" resname="Réinitialisation de votre mot de passe">
+        <source>Réinitialisation de votre mot de passe</source>
+        <target>Réinitialisation de votre mot de passe</target>
+      </trans-unit>
+      <trans-unit id="nk1sDkI" resname="Confirmation de votre inscription">
+        <source>Confirmation de votre inscription</source>
+        <target>Confirmation de votre inscription</target>
+      </trans-unit>
+      <trans-unit id="iRc1Vzz" resname="Le mot de passe doit contenir au moins {{length}} caractères">
+        <source>Le mot de passe doit contenir au moins {{length}} caractères</source>
+        <target>Le mot de passe doit contenir au moins {{length}} caractères</target>
+      </trans-unit>
+      <trans-unit id="yFfszLK" resname="Le mot de passe doit contenir des lettres">
+        <source>Le mot de passe doit contenir des lettres</source>
+        <target>Le mot de passe doit contenir des lettres</target>
+      </trans-unit>
+      <trans-unit id="iysl6A6" resname="Le mot de passe doit contenir des majuscules et minuscules">
+        <source>Le mot de passe doit contenir des majuscules et minuscules</source>
+        <target>Le mot de passe doit contenir des majuscules et minuscules</target>
+      </trans-unit>
+      <trans-unit id="Cp0f38z" resname="Le mot de passe doit contenir des chiffres">
+        <source>Le mot de passe doit contenir des chiffres</source>
+        <target>Le mot de passe doit contenir des chiffres</target>
+      </trans-unit>
+      <trans-unit id=".mD.bVI" resname="Le mot de passe doit contenir des caractères spéciaux">
+        <source>Le mot de passe doit contenir des caractères spéciaux</source>
+        <target>Le mot de passe doit contenir des caractères spéciaux</target>
+      </trans-unit>
+      <trans-unit id="SkixrrG" resname="Impossible d\'ajouter une reservation pour l\'équipement sélectionné, code d\'erreur:">
+        <source>Impossible d\'ajouter une reservation pour l\'équipement sélectionné, code d\'erreur:</source>
+        <target>Impossible d\'ajouter une reservation pour l\'équipement sélectionné, code d\'erreur:</target>
+      </trans-unit>
+      <trans-unit id="kXLo7sm" resname="Bonjour">
+        <source>Bonjour</source>
+        <target>Bonjour</target>
+      </trans-unit>
+      <trans-unit id="tlV7SE2" resname="Voici le lien de réinitialisation pour votre compte OGR :">
+        <source>Voici le lien de réinitialisation pour votre compte OGR :</source>
+        <target>Voici le lien de réinitialisation pour votre compte OGR :</target>
+      </trans-unit>
+      <trans-unit id="o8ykGoX" resname="Bien cordialement">
+        <source>Bien cordialement</source>
+        <target>Bien cordialement</target>
+      </trans-unit>
+      <trans-unit id="GnYpgR_" resname="Le Département des services d'information">
+        <source>Le Département des services d'information</source>
+        <target>Le Département des services d'information</target>
+      </trans-unit>
+      <trans-unit id="dGkfrWw" resname="Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :">
+        <source>Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :</source>
+        <target>Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :</target>
+      </trans-unit>
+      <trans-unit id="I6BxTJ3" resname="Confirmer votre Email">
+        <source>Confirmer votre Email</source>
+        <target>Confirmer votre Email</target>
       </trans-unit>
     </body>
   </file>

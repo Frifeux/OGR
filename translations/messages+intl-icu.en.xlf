@@ -630,8 +630,8 @@
         <target>Here is the reset link for your OGR account :</target>
       </trans-unit>
       <trans-unit id="o8ykGoX" resname="Bien cordialement">
-        <source>Yours sincerely</source>
-        <target></target>
+        <source>Bien cordialement</source>
+        <target>Yours sincerely</target>
       </trans-unit>
       <trans-unit id="GnYpgR_" resname="Le Département des services d'information">
         <source>Le Département des services d'information</source>

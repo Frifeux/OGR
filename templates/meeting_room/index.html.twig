@@ -84,7 +84,7 @@
                         updateMeetingRoomReservation($('.js-selected-meeting-room :selected').attr('value'));
                     });
                 });
-            
+
             // When the user select a room in the select box, we get all reservations for this room and update the calendar
             $('.js-selected-meeting-room').on("change", function () {
                     const $roomSelected = $("option:selected").attr('value');
@@ -133,7 +133,7 @@
                 <div class="col-12 col-xxl-3 col-xl-4 col-lg-4 align-self-center">
                     <div class="border rounded shadow-sm py-2 px-3 text-dark">
 
-                        <p class="h3 px-4 py-1"><strong>{% trans %}Salle{% endtrans %}</strong></p>
+                        <p class="h3 px-4 py-2"><strong>{% trans %}Salle{% endtrans %}</strong></p>
 
                         <!-- Formulaire pour ajouter une réservation à une salle -->
                         {{ form_start(meetingRoomReservationForm) }}

@@ -82,11 +82,9 @@
                 .forEach(function (element) {
                     element.addEventListener('click', function () {
                         updateMeetingRoomReservation($('.js-selected-meeting-room :selected').attr('value'));
-                        console.log('click');
                     });
                 });
-
-
+            
             // When the user select a room in the select box, we get all reservations for this room and update the calendar
             $('.js-selected-meeting-room').on("change", function () {
                     const $roomSelected = $("option:selected").attr('value');

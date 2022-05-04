@@ -89,7 +89,7 @@ class MeetingRoomReservationType extends AbstractType
 //                'date_label' => new TranslatableMessage('Date de début'),
                 'date_widget' => 'single_text',
 //                'time_label' => new TranslatableMessage('Heure de début'),
-                'hours' => range(8,20),
+                'hours' => range($_ENV['WORKING_HOURS_START'],$_ENV['WORKING_HOURS_END']),
                 'minutes' => [0,30],
                 'row_attr' => [
                     'class' => 'mb-2',

@@ -2,7 +2,6 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2">
         <div class="container">
 
-            <!-- Mettre Logo du site -->
             <a class="navbar-brand" href="{{ path('app_home') }}">OGR</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
@@ -12,6 +11,7 @@
 
             <div class="collapse navbar-collapse" id="navbarMenu">
 
+                {# menu du site #}
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
@@ -59,6 +59,7 @@
                     </ul>
                 </div>
 
+                <!-- Menu profil utilisateur -->
                 <div class="dropdown p-lg-2 pt-2 pb-2">
                     <a href="#" class="link-light text-decoration-none dropdown-toggle" id="dropUserMenu"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -67,8 +68,6 @@
 
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropUserMenu">
                         <li><a class="dropdown-item" href="{{ path('user_profile') }}">{% trans %}Profil{% endtrans %}</a></li>
-
-                        {#                            <li><a class="dropdown-item" href="#">{% trans %}Notifications{% endtrans %}</a></li>#}
                         <li>
                             <hr class="dropdown-divider">
                         </li>

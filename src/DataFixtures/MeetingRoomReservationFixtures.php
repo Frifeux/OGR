@@ -19,11 +19,11 @@ class MeetingRoomReservationFixtures extends Fixture implements DependentFixture
         $dayOfWeek = 1;
 
         // Create 10 meeting room reservations
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 4; $i++) {
 
             $meetingRoomReservation = new MeetingRoomReservation();
             $meetingRoomReservation->setTitle($faker->words(2, true));
-            $meetingRoomReservation->setDescription($faker->words(20, true));
+            $meetingRoomReservation->setDescription($faker->words(10, true));
 
             // We don't want to create a reservation for the weekend
             if ($dayOfWeek > 5) {

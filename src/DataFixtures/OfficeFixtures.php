@@ -12,20 +12,19 @@ class OfficeFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
-        $faker = Factory::create('fr_FR');
-
         $location = array('Nantes', 'Paris', 'Lyon', 'Marseille');
         $service = array('Développement', 'Réseau', 'Administration', 'Comptabilité');
+        $floor = array('1er', '2ème', '3ème', '4ème');
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $office = new Office();
 
             $this->addReference('office_' . $i, $office);
 
             $office->setName('Bureau '.$i);
-            $office->setLocation($faker->randomElement($location));
-            $office->setFloor('Etage '.$i);
-            $office->setDepartment($faker->randomElement($service));
+            $office->setLocation($location[$i]);
+            $office->setFloor($floor[$i]);
+            $office->setDepartment($service[$i]);
             $office->setEnabled(true);
 
             $manager->persist($office);

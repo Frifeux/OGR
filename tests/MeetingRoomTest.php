@@ -1,6 +1,6 @@
 <?php
 
-//namespace App\Tests;
+namespace App\Tests;
 
 use App\Entity\MeetingRoomReservation;
 use App\Repository\MeetingRoomReservationRepository;
@@ -9,6 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MeetingRoomTest extends WebTestCase
 {
+    /**
+     * We create a client, we log in a user, we access the reservation page, we fill the form with wrong data and we check
+     * that the reservation has not been created and that an error message is displayed
+     */
     public function testAddReservationWithWrongDate(): void
     {
 
@@ -40,6 +44,10 @@ class MeetingRoomTest extends WebTestCase
         self::assertSelectorExists('div.invalid-feedback');
     }
 
+    /**
+     * We create a client, we log in a user, we access the reservation page, we fill in the form and submit it, we check
+     * that the reservation has been created in the database and that the confirmation message is displayed
+     */
     public function testAddValidReservation(): void
     {
 

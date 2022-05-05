@@ -20,23 +20,25 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
-        $faker = Factory::create('fr_FR');
+        $firstName = ['John', 'Jane', 'Bob', 'Tom'];
+        $lastName = ['Doe', 'Smith', 'Black', 'White'];
+        $city = ['Paris', 'Lyon', 'Marseille', 'Toulouse'];
 
-        // generate 10 basic users
-        for ($i = 0; $i < 10; $i++) {
+        // generate 4 basic users
+        for ($i = 0; $i < 4; $i++) {
 
             $user = new User();
-            $user->setFirstname($faker->firstName);
-            $user->setLastname($faker->lastName);
-            $user->setEmail($faker->email);
+            $user->setFirstname($firstName[$i]);
+            $user->setLastname($lastName[$i]);
+            $user->setEmail($user->getFirstname() . '.' . $user->getLastname() . '@mail.com');
 
             $this->addReference('user_' . $i, $user);
 
             $hashedPassword = $this->passwordHasher->hashPassword($user, 'password');
             $user->setPassword($hashedPassword);
 
-            $user->setLocation($faker->city);
-            $user->setIsVerified($faker->numberBetween(0, 1));
+            $user->setLocation($city[$i]);
+            $user->setIsVerified(1);
 
             $user->setRoles(['ROLE_USER']);
 
@@ -54,7 +56,9 @@ class UserFixtures extends Fixture
         $hashedPassword = $this->passwordHasher->hashPassword($user, 'password');
         $user->setPassword($hashedPassword);
 
-        $user->setLocation($faker->city);
+        $user->setLocation("Paris");
+        $user->setIsVerified(1);
+
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
 
         $manager->persist($user);

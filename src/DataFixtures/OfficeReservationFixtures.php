@@ -18,10 +18,10 @@ class OfficeReservationFixtures extends Fixture implements DependentFixtureInter
         $date = new \DateTime();
         $dayOfWeek = 1;
 
-        // Create 10 office reservations
-        for ($i = 0; $i < 10; $i++) {
+        // Create 4 office reservations
+        for ($i = 0; $i < 4; $i++) {
             $officeReservation = new OfficeReservation();
-            $officeReservation->setDescription($faker->words(20, true));
+            $officeReservation->setDescription($faker->words(10, true));
 
             // We don't want to create a reservation for the weekend
             if ($dayOfWeek > 5) {

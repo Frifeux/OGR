@@ -104,4 +104,21 @@ class OfficeController extends AbstractController
 
         return new JsonResponse(['error' => $this->translator->trans('Impossible de trouver le bureau que vous avez demandé')]);
     }
+
+    // Delete a reservation from user
+    #[Route('/office/delete/{id}', name: 'app_office_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
+    public function delete(int $id): JsonResponse
+    {
+        // we get the office we want to delete
+        $officeReservation = $this->officeReservationRepository->findOneBy(['user' => $this->getUser(), 'id' => $id]);
+
+        // if the office exists we delete it
+        if ($officeReservation) {
+            $this->entityManager->remove($officeReservation);
+            $this->entityManager->flush();
+
+            return new JsonResponse(['success' => $this->translator->trans('Le bureau à bien été supprimé')]);
+        }
+        return new JsonResponse(['error' => $this->translator->trans('Impossible de supprimé ce bureau, il n\'existe pas !')]);
+    }
 }

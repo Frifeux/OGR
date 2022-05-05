@@ -14,17 +14,25 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MeetingRoomController extends AbstractController
 {
 
     private MeetingRoomReservationRepository $meetingRoomReservationRepository;
     private MeetingRoomRepository $meetingRoomRepository;
+    private EntityManagerInterface $entityManager;
+    private TranslatorInterface $translator;
 
-    public function __construct(MeetingRoomReservationRepository $meetingRoomReservationRepository, MeetingRoomRepository $meetingRoomRepository)
+    public function __construct(MeetingRoomReservationRepository $meetingRoomReservationRepository,
+                                MeetingRoomRepository $meetingRoomRepository,
+                                EntityManagerInterface $entityManager,
+                                TranslatorInterface $translator)
     {
         $this->meetingRoomReservationRepository = $meetingRoomReservationRepository;
         $this->meetingRoomRepository = $meetingRoomRepository;
+        $this->entityManager = $entityManager;
+        $this->translator = $translator;
     }
 
     // Transform meeting room object in json format for the calendar
@@ -119,6 +127,23 @@ class MeetingRoomController extends AbstractController
         }
 
         return new JsonResponse($allMeetingRoomReservation);
+    }
+
+    // Delete a reservation from user
+    #[Route('/meeting-room/delete/{id}', name: 'app_meeting_room_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
+    public function delete(int $id): JsonResponse
+    {
+        // we get the meeting room we want to delete
+        $meetingRoomReservation = $this->meetingRoomReservationRepository->findOneBy(['user' => $this->getUser(), 'id' => $id]);
+
+        // if the meeting room exists we delete it
+        if ($meetingRoomReservation) {
+            $this->entityManager->remove($meetingRoomReservation);
+            $this->entityManager->flush();
+
+            return new JsonResponse(['success' => $this->translator->trans('La salle de réunion à bien été supprimée')]);
+        }
+        return new JsonResponse(['error' => $this->translator->trans('Impossible de supprimé la salle de réunion, elle n\'existe pas !')]);
     }
 
 }

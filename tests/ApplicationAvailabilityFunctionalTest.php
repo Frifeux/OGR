@@ -9,6 +9,9 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 {
     /**
      * @dataProvider urlProviderWhenUserIsConnectedUser
+     * It tests that a user who is not connected is redirected to the login page when trying to access a page that requires
+     * authentication
+     *
      */
     public function testPageRedirectionWithoutBeingConnected($url): void
     {
@@ -23,6 +26,8 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
     /**
      * @dataProvider urlProviderWhenUserNotConnected
+     * It tests that the page is accessible without being connected
+     *
      */
     public function testPageWithoutBeingConnected($url): void
     {
@@ -34,6 +39,8 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
     /**
      * @dataProvider urlProviderWhenUserIsConnectedUser
+     * It tests that the page is accessible when the user is connected
+     *
      */
     public function testPageWhenUserIsConnected($url): void
     {
@@ -57,6 +64,9 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
     }
 
+    /**
+     * It returns an array of URL that should be accessible to a user who is not connected
+     */
     public function urlProviderWhenUserNotConnected(): \Generator
     {
         yield ['/fr/login'];
@@ -64,6 +74,9 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         yield ['/fr/reset-password'];
     }
 
+    /**
+     * It returns an array of URL that should be accessible to a user who is connected
+     */
     public function urlProviderWhenUserIsConnectedUser(): \Generator
     {
         yield ['/fr/home'];

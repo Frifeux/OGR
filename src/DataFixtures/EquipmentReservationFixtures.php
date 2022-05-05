@@ -18,10 +18,10 @@ class EquipmentReservationFixtures extends Fixture implements DependentFixtureIn
         $date = new \DateTime();
         $dayOfWeek = 1;
 
-        // Create 10 equipment reservations
-        for ($i = 0; $i < 10; $i++) {
+        // Create 4 equipment reservations
+        for ($i = 0; $i < 4; $i++) {
             $equipmentReservation = new EquipmentReservation();
-            $equipmentReservation->setDescription($faker->words(20, true));
+            $equipmentReservation->setDescription($faker->words(10, true));
 
             $equipmentReservation->setEquipment($this->getReference('equipment_' . $i));
             $equipmentReservation->setUser($this->getReference('user_' . $i));

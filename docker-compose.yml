@@ -57,6 +57,7 @@ services:
     container_name: maildev_symfony
     ports:
       - "1080:80"
+      - "1025:25"
     restart: always
 
   ldap:

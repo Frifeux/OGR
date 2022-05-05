@@ -111,7 +111,7 @@
                                                         <td>{{ meetingRoomReservation.startAt|date('d/m/Y H:i') }}</td>
                                                         <td>{{ meetingRoomReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
-                                                            <a href="{{ path('app_reservation_delete', {'id': meetingRoomReservation.id }) }}"
+                                                            <a href="{{ path('app_meeting_room_delete', {'id': meetingRoomReservation.id }) }}"
                                                                class="delete-reservation me-2"><i
                                                                         class="fa-solid fa-trash-can text-danger"></i></a>
 
@@ -167,7 +167,7 @@
                                                         <td>{{ officeReservation.startAt|date('d/m/Y H:i') }}</td>
                                                         <td>{{ officeReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
-                                                            <a href="{{ path('app_reservation_delete', {'id': officeReservation.id }) }}"
+                                                            <a href="{{ path('app_office_delete', {'id': officeReservation.id }) }}"
                                                                class="delete-reservation me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
 
                                                             <a href="#" data-bs-toggle="modal"
@@ -222,7 +222,7 @@
                                                         <td>{{ equipmentReservation.startAt|date('d/m/Y H:i') }}</td>
                                                         <td>{{ equipmentReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
-                                                            <a href="{{ path('app_reservation_delete', {'id': equipmentReservation.id }) }}"
+                                                            <a href="{{ path('app_equipment_delete', {'id': equipmentReservation.id }) }}"
                                                                class="delete-reservation me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
 
                                                             <a href="#" data-bs-toggle="modal"

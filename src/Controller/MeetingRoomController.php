@@ -92,6 +92,11 @@ class MeetingRoomController extends AbstractController
             } else {
                 $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Veuillez sélectionner une salle de réunion !'));
             }
+//        }else{
+            // Used to get message error for phpunit
+//            foreach ($meetingRoomReservationForm->getErrors(true) as $error) {
+//                var_dump($error->getMessage());
+//            }
         }
 
         return $this->render('meeting_room/index.html.twig', [

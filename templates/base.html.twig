@@ -5,6 +5,11 @@
 
     <title>{% block title %}Bienvenue !{% endblock %}</title>
 
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+
+    {# Zoom pour téléphone, changer initial-scale pour dézommer #}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     {#    logo du site #}
     <link rel="icon" type="image/svg" href={{ asset('build/images/favicon.svg') }}/>
 

@@ -106,6 +106,13 @@ Pour créer des sénarios de test:
 symfony console make:test
 ```
 
+Lancer un test:
+```bash
+php bin/phpunit tests
+#avec de la mise en forme
+php bin/phpunit tests --testdox
+```
+
 # BDD Code (Manipulation de données)
 
 ## OLD

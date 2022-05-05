@@ -2,8 +2,6 @@
 
 namespace App\Tests;
 
-use App\Entity\ResetPasswordRequest;
-use App\Repository\MeetingRoomReservationRepository;
 use App\Repository\ResetPasswordRequestRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

@@ -105,4 +105,21 @@ class EquipmentController extends AbstractController
 
         return new JsonResponse(['error' => $this->translator->trans('Impossible de trouver l\'équipement que vous avez demandé')]);
     }
+
+    // Delete a reservation from user
+    #[Route('/equipment/delete/{id}', name: 'app_equipment_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
+    public function delete(int $id): JsonResponse
+    {
+        // we get the meeting room we want to delete
+        $equipmentReservation = $this->equipmentReservationRepository->findOneBy(['user' => $this->getUser(), 'id' => $id]);
+
+        // if the meeting room exists we delete it
+        if ($equipmentReservation) {
+            $this->entityManager->remove($equipmentReservation);
+            $this->entityManager->flush();
+
+            return new JsonResponse(['success' => $this->translator->trans('Le matériel à bien été supprimé')]);
+        }
+        return new JsonResponse(['error' => $this->translator->trans('Impossible de supprimé le matériel, il n\'existe pas !')]);
+    }
 }

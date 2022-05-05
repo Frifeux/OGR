@@ -24,6 +24,9 @@ class ReservationsControllerTest extends WebTestCase
         $this->client->loginUser($this->testUser);
     }
 
+    /**
+     * We check that the user can see the list of his reservations
+     */
     public function testShowReservations(): void
     {
         //on récupère l'utilisateur et on le connecte
@@ -54,7 +57,9 @@ class ReservationsControllerTest extends WebTestCase
         $this->assertEquals(count($equipmentsReservation), $crawler->filter('#flush-collapseEquipment table > tbody > tr')->count());
     }
 
-
+    /**
+     * We check that the user can delete a meeting room reservation
+     */
     public function testDeleteMeetingRoomReservation(): void
     {
         $meetingRoomReservationRepo = static::getContainer()->get(MeetingRoomReservationRepository::class);
@@ -76,6 +81,9 @@ class ReservationsControllerTest extends WebTestCase
         self::assertNull($meetingRoomReservationAfterDelete);
     }
 
+    /**
+     * We check that the user can delete an office reservation
+     */
     public function testDeleteOfficeRoomReservation(): void
     {
         $officeReservationRepo = static::getContainer()->get(OfficeReservationRepository::class);
@@ -97,6 +105,9 @@ class ReservationsControllerTest extends WebTestCase
         self::assertNull($officeReservationAfterDelete);
     }
 
+    /**
+     * We check that the user can delete equipment reservation
+     */
     public function testDeleteEquipmentRoomReservation(): void
     {
         $equipmentReservationRepo = static::getContainer()->get(EquipmentReservationRepository::class);

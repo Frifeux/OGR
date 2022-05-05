@@ -76,7 +76,7 @@ class OfficeTest extends WebTestCase
         $office = static::getContainer()->get(OfficeRepository::class);
         $offices = $office->findBy(['enabled' => true]);
 
-        //on vérifie que le nombre de bureaux disponibles est égal au nombre de bureaux existants dans la base de données
+        //on vérifie que le nombre de bureaux disponibles affiché est égal au nombre de bureaux existants dans la base de données
         $table = $crawler->filter('table.js-table');
         $this->assertCount(count($offices), $table->filter('tbody tr'));
     }

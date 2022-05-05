@@ -23,8 +23,7 @@ class MeetingRoomTest extends WebTestCase
     }
 
     /**
-     * We create a client, we log in a user, we access the reservation page, we fill the form with wrong data and we check
-     * that the reservation has not been created and that an error message is displayed
+     * We check if the form shows an error message if the user doesn't fill the form correctly
      */
     public function testAddReservationWithWrongDate(): void
     {
@@ -50,8 +49,7 @@ class MeetingRoomTest extends WebTestCase
     }
 
     /**
-     * We create a client, we log in a user, we access the reservation page, we fill in the form and submit it, we check
-     * that the reservation has been created in the database and that the confirmation message is displayed
+     * We check if the reservation is created correctly
      */
     public function testAddValidReservation(): void
     {
@@ -86,8 +84,7 @@ class MeetingRoomTest extends WebTestCase
     }
 
     /**
-     * We create a client, we log in a user, we send a GET request to the route `meeting-room/reservation/2` with the
-     * parameters `startDate` and `endDate` and we check that the response is a JSON with one reservation
+     * We check if it returns all meeting rooms reservations for a given meeting room and dates
      */
     public function testGettingReservationForFullcalendar(): void
     {

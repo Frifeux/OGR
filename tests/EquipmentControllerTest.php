@@ -9,7 +9,7 @@ use App\Repository\OfficeReservationRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class EquipmentTest extends WebTestCase
+class EquipmentControllerTest extends WebTestCase
 {
     private $client = null;
     private $testUser = null;

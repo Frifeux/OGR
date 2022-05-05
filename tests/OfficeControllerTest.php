@@ -7,7 +7,7 @@ use App\Repository\OfficeReservationRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class OfficeTest extends WebTestCase
+class OfficeControllerTest extends WebTestCase
 {
     private $client = null;
     private $testUser = null;

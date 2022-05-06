@@ -9,8 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class UserControllerTest extends WebTestCase
 {
     /**
-     * It tests that the login page is accessible, that the form is submitted correctly, and that the user is redirected to
-     * the home page, so the user is logged in.
+     * We test if the user connection is working
      */
     public function testLogin(): void
     {
@@ -29,9 +28,36 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
+     * We test if the logout is working
+     */
+    public function testLogout(): void
+    {
+        $client = static::createClient();
+
+        //on récupère l'utilisateur et on le connecte
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneBy(['email' => 'Admin.DOE@mail.com']);
+        $client->loginUser($testUser);
+
+        // On vérifie qu'il accède bien à notre page home avant de le déconnecter
+        $client->request('GET', '/fr/home');
+        self::assertResponseIsSuccessful();
+
+        // On déconnecte l'utilisateur
+        $client->request('GET', '/fr/logout');
+        self::assertResponseStatusCodeSame(302);
+        self::assertStringContainsString('/fr/login', $client->getResponse()->getTargetUrl());
+
+        // On vérifie qu'il ne peut plus accéder à notre page home
+        $client->request('GET', '/fr/home');
+        self::assertResponseStatusCodeSame(302);
+        self::assertStringContainsString('/fr/login', $client->getResponse()->getTargetUrl());
+    }
+
+    /**
      * it shows a message if the user try to log in with an invalid email or password
      */
-    public function testWithWrongLogin(): void
+    public function testLoginWithWrongCredentials(): void
     {
         $client = static::createClient();
         $client->request('GET', '/fr/login');

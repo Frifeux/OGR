@@ -74,7 +74,7 @@ class EquipmentControllerTest extends WebTestCase
 
         //on récupère le nombre de bureaux disponibles
         $equipment = static::getContainer()->get(EquipmentRepository::class);
-        $equipments = $equipment->findBy(['enabled' => true]);
+        $equipments = $equipment->search(new \dateTime('2022-05-05 15:00:00'), new \dateTime('2022-05-05 15:30:00'));
 
         //on vérifie que le nombre de matériels disponibles affiché est égal au nombre de matériels existants dans la base de données
         $table = $crawler->filter('table.js-table');
@@ -106,7 +106,7 @@ class EquipmentControllerTest extends WebTestCase
 
         //on récupère le nombre de matériels disponibles
         $equipment = static::getContainer()->get(EquipmentRepository::class);
-        $equipments = $equipment->findBy(['enabled' => true, 'location' => 'Paris']);
+        $equipments = $equipment->search(new \dateTime('2022-05-05 15:00:00'), new \dateTime('2022-05-05 15:30:00'), 'Paris');
 
         //on vérifie que le nombre de matériels disponibles affiché est égal au nombre de matériels existants dans la base de données
         $table = $crawler->filter('table.js-table');

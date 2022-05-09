@@ -50,6 +50,7 @@ class MeetingRoomReservationType extends AbstractType
                 'required' => false,
                 'label' => new TranslatableMessage('Description'),
                 'attr' => [
+                    'class' => 'textarea-max-height',
                     'placeholder' => new TranslatableMessage('La description de votre réservation'),
                 ],
             ])

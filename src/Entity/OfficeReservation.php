@@ -19,6 +19,10 @@ class OfficeReservation
     private $description;
 
     #[ORM\Column(type: 'datetime')]
+    #[Assert\GreaterThanOrEqual(
+        value: "today",
+        message: new TranslatableMessage('La date de début doit être supérieure ou égal à la date du jour.')
+    )]
     private $startAt;
 
     #[ORM\Column(type: 'datetime')]

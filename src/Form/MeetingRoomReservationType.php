@@ -37,15 +37,8 @@ class MeetingRoomReservationType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => new TranslatableMessage('Titre'),
-                'label_attr' => [
-                    'class' => 'small',
-                ],
                 'attr' => [
-                    'class' => 'form-control-sm',
                     'placeholder' => new TranslatableMessage('Le titre de votre réservation'),
-                ],
-                'row_attr' => [
-                    'class' => 'mb-2',
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -56,34 +49,18 @@ class MeetingRoomReservationType extends AbstractType
             ->add('description', TextareaType::class, [
                 'required' => false,
                 'label' => new TranslatableMessage('Description'),
-                'label_attr' => [
-                    'class' => 'small',
-                ],
                 'attr' => [
-                    'class' => 'form-control-sm',
+                    'class' => 'textarea-max-height',
                     'placeholder' => new TranslatableMessage('La description de votre réservation'),
-                ],
-                'row_attr' => [
-                    'class' => 'mb-2',
                 ],
             ])
             ->add('meetingRoom', EntityType::class, [
                 'label' => new TranslatableMessage('Sélection de la salle'),
                 'class' => MeetingRoom::class,
-                'label_attr' => [
-                    'class' => 'small',
-                ],
-                'attr' => [
-                    'class' => 'form-select-sm',
-                ],
                 'choices' => $this->meetingRoomRepository->getMeetingRoomByLocation(),
-                'row_attr' => [
-                    'class' => 'mb-2',
-                ],
             ])
 
             // TODO: Voir pourquoi les label ne fonctionne pas !!
-
             ->add('startAt', DateTimeType::class,[
                 'label' => new TranslatableMessage('Date et Heure de début'),
 //                'date_label' => new TranslatableMessage('Date de début'),
@@ -91,9 +68,6 @@ class MeetingRoomReservationType extends AbstractType
 //                'time_label' => new TranslatableMessage('Heure de début'),
                 'hours' => range($_ENV['WORKING_HOURS_START'],$_ENV['WORKING_HOURS_END']),
                 'minutes' => [0,30],
-                'row_attr' => [
-                    'class' => 'mb-2',
-                ],
             ])
 
             ->add('endAt', DateTimeType::class,[
@@ -107,9 +81,6 @@ class MeetingRoomReservationType extends AbstractType
 
             ->add('save', SubmitType::class, [
                 'label' => new TranslatableMessage('Réserver'),
-                'attr' => [
-                    'class' => 'btn btn-primary btn-sm'
-                ]
             ])
         ;
     }

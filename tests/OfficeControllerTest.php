@@ -137,7 +137,12 @@ class OfficeControllerTest extends WebTestCase
 
         // On vérifie que la réservation a bien été créée en base de données
         $officeReservationRepository = static::getContainer()->get(OfficeReservationRepository::class);
-        $office = $officeReservationRepository->findOneBy(['office' => 2, 'user' => $this->testUser, 'startAt' => new \DateTime('2022-05-05 15:00:00'), 'endAt' => new \DateTime('2022-05-05 15:30:00')]);
+        $office = $officeReservationRepository->findOneBy([
+            'office' => 2,
+            'user' => $this->testUser,
+            'startAt' => new \DateTime('2022-05-05 15:00:00'),
+            'endAt' => new \DateTime('2022-05-05 15:30:00')
+        ]);
         self::assertNotNull($office);
     }
 }

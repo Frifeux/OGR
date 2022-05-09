@@ -29,30 +29,12 @@ class ChooseEquipmentReservationFormType extends AbstractType
                 'label' => new TranslatableMessage('Sélection de l\'emplacement'),
                 'required' => false,
                 'choices' => $this->equipmentRepository->getAllLocation(),
-                'label_attr' => [
-                    'class' => 'small',
-                ],
-                'row_attr' => [
-                    'class' => 'mb-1',
-                ],
-                'attr' => [
-                    'class' => 'form-select-sm',
-                ],
             ])
             ->add('type', ChoiceType::class, [
                 'mapped' => false,
                 'label' => new TranslatableMessage('Sélection du type'),
                 'required' => false,
                 'choices' => $this->equipmentRepository->getAllType(),
-                'label_attr' => [
-                    'class' => 'small',
-                ],
-                'row_attr' => [
-                    'class' => 'mb-1',
-                ],
-                'attr' => [
-                    'class' => 'form-select-sm',
-                ],
             ])
 
             // TODO: Voir pourquoi les label ne fonctionne pas !!
@@ -64,9 +46,6 @@ class ChooseEquipmentReservationFormType extends AbstractType
 //                'time_label' => new TranslatableMessage('Heure de début'),
                 'hours' => range($_ENV['WORKING_HOURS_START'],$_ENV['WORKING_HOURS_END']),
                 'minutes' => [0,30],
-                'row_attr' => [
-                    'class' => 'mb-2',
-                ],
             ])
 
             ->add('endAt', DateTimeType::class,[
@@ -77,14 +56,10 @@ class ChooseEquipmentReservationFormType extends AbstractType
 //                'time_label' => new TranslatableMessage('Heure de fin'),
                 'hours' => range($_ENV['WORKING_HOURS_START'],$_ENV['WORKING_HOURS_END']),
                 'minutes' => [0,30],
-//                'by_reference' => true, //The DateTime classes are treated as immutable objects.
             ])
 
             ->add('save', SubmitType::class, [
                 'label' => new TranslatableMessage('Voir les disponibilités'),
-                'attr' => [
-                    'class' => 'btn btn-primary btn-sm'
-                ]
             ]);
     }
 

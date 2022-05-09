@@ -75,7 +75,10 @@ class ReservationsControllerTest extends WebTestCase
         $jsonDate = json_decode($response, true);
         self::assertEquals('La salle de réunion à bien été supprimée', $jsonDate['success']);
 
-        $meetingRoomReservationAfterDelete = $meetingRoomReservationRepo->findOneBy(['user' => $this->testUser, 'meetingRoom' => $meetingRoomReservation->getId()]);
+        $meetingRoomReservationAfterDelete = $meetingRoomReservationRepo->findOneBy([
+            'user' => $this->testUser,
+            'meetingRoom' => $meetingRoomReservation->getId()
+        ]);
 
         // on vérifie que la réservation n'existe plus
         self::assertNull($meetingRoomReservationAfterDelete);
@@ -99,7 +102,10 @@ class ReservationsControllerTest extends WebTestCase
         $jsonDate = json_decode($response, true);
         self::assertEquals('Le bureau à bien été supprimé', $jsonDate['success']);
 
-        $officeReservationAfterDelete = $officeReservationRepo->findOneBy(['user' => $this->testUser, 'office' => $officeReservation->getId()]);
+        $officeReservationAfterDelete = $officeReservationRepo->findOneBy([
+            'user' => $this->testUser,
+            'office' => $officeReservation->getId()
+        ]);
 
         // on vérifie que la réservation n'existe plus
         self::assertNull($officeReservationAfterDelete);
@@ -123,7 +129,10 @@ class ReservationsControllerTest extends WebTestCase
         $jsonDate = json_decode($response, true);
         self::assertEquals('Le matériel à bien été supprimé', $jsonDate['success']);
 
-        $equipmentReservationAfterDelete = $equipmentReservationRepo->findOneBy(['user' => $this->testUser, 'equipment' => $equipmentReservation->getId()]);
+        $equipmentReservationAfterDelete = $equipmentReservationRepo->findOneBy([
+            'user' => $this->testUser,
+            'equipment' => $equipmentReservation->getId()
+        ]);
 
         // on vérifie que la réservation n'existe plus
         self::assertNull($equipmentReservationAfterDelete);

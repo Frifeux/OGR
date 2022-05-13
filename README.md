@@ -1,482 +1,369 @@
-# Projet Symfony
+# Installation WSL et Docker Desktop
 
-Créer un nouveau projet WEB :
+Doc officielle installation docker avec WSL: https://docs.docker.com/desktop/windows/wsl/
+
+> Faite un point de réstauration Windows avant !!
+
+Suivre ce [tuto](https://medium.com/@fred.gauthier.dev/web-development-environment-with-wsl-2-and-docker-for-symfony-5860704e127a) et s'arréter au moment de l'installation de docker dans la machine debian !
+> Nous installerons **docker** sur linux plus tard !
+
+## Problème d'installation WSL
+
+> Seulement si WSL ne veut vraiment pas fonctionner !
+
+1. Avoir activer la virtualisation CPU dans le BIOS
+2. Désactiver le **Secure Boot** et **Fast boot** dans le BIOS
+3. Bien avoir mis à jour son poste en dernière version de windows
+4. Dans les options d'alimentation Windows décocher `activer le démarrage rapide`
+
+Ensuite lancer dans cette ordre les commandes suivantes:
+```
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+BCDedit /set hypervisorlaunchtype Off
+```
+
+Redémarrer votre poste et normalement WSL devrait être installé !
+
+# Installation dépendances Debian
+
+Ici on va retrouver toutes les choses à installer qui seront nécessaires pour notre projet Symfony
+
+## Installation PHP 8.1
 
 ```bash
-symfony new my_project_name --full # Recup la dernière version dispo
-symfony new macave_daisyui_5.3 --full --version=5.3 #Pour spécifier une version
+apt install apt-transport-https lsb-release ca-certificates -y
+wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 ```
-
-Démarrer le serveur:
 
 ```bash
-symfony server:start
+apt update && apt upgrade
+apt install php-xml php-intl php-gd php-curl php-fpm php-mysql php-ldap php-dev php-raphf php-http
 ```
 
-Génération d'un formulaire:
+## Installation Symfony CLI
 
 ```bash
-symfony console make:form RegistrationType
+wget https://get.symfony.com/cli/installer -O - | bash
+mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 ```
 
-Génération d'un controller:
+## Installation Composer:
+
+Doc installation [composer](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-debian-10)
+```bash
+apt install curl php-cli php-mbstring git unzip
+cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+```
+
+## Installation Docker
+
+Doc installation [docker debian](https://docs.docker.com/engine/install/debian/)
+```bash
+apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+```
 
 ```bash
-symfony console make:controller
+curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
-
-# BDD
-
-Allez dans le fichier .env et ajouter la connexion à la BDD
-
-```yaml
-DATABASE_URL="mysql://root:@127.0.0.1:3306/macave"
-```
-
-Création de la BDD:
 
 ```bash
-symfony console doctrine:database:create
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
-
-Création des tables de la BDD:
 
 ```bash
-symfony console make:entity
-symfony console make:migration
+apt-get update
+apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
-Mettre à jour la BDD:
+
+## Docker-compose
 
 ```bash
-symfony console doctrine:migrations:migrate
+curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 
-## Mettre des fausses données dans la BDD:
+Voir la version actuelle de docker-compose:
+```bash
+docker-compose --version
+```
+
+## Nodejs & NPM
 
 ```bash
-composer require --dev doctrine/doctrine-fixtures-bundle
+curl -sL https://deb.nodesource.com/setup_16.x | bash -
+apt-get install -y nodejs build-essential gcc g++ make
 ```
 
-Création de la classe pour ajouter des données dans notre table:
+## Nodejs & YARN
+
+> Il faut au préalable installer **NPM** !
 
 ```bash
-symfony console make:fixtures
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list
+apt-get update && apt-get install yarn
 ```
 
-Ajouter les données fixtures dans la BDD de test:
+# Mise en place projet depuis zéro
+
+> Il faut avoir installé toutes les dépendances debian situé ci-dessus !
+
+On peut retrouver un tuto [ici](https://jean-pierre.lambelet.net/astuces/php/commencer-un-nouveau-projet-symfony5-avec-docker-compose-nginx-php-7-4-et-mariadb-692/) qui explique très bien la mise en place de symfony avec docker
+
+> Avant de commencer la suite, il faut vérifier que docker fonctionne correctement, il faut éxécuter cette commande: **sudo docker run hello-world**
+
+Création de l'arborescence du projet:
+```bash
+mkdir OGR && cd OGR
+mkdir docker && mkdir docker/{nginx,php-fpm}
+```
+
+Mise en place de notre docker **nginx**:
 
 ```bash
-symfony console doctrine:fixtures:load --env=test
+nano docker/nginx/Dockerfile
+
+FROM nginx:alpine
+CMD ["nginx"]
+EXPOSE 80 443
+```
+Mise en place de notre docker **php-fpm**:
+
+```dockerfile
+FROM php:8.1-fpm
+
+#https://github.com/mlocati/docker-php-extension-installer
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
+    install-php-extensions http intl opcache pdo pdo_mysql ldap apcu zip xdebug
 ```
 
-# Symfony Unit Test
-
-Installation des dépendances:
-```bash
-composer require --dev symfony/test-pack
-```
-
-### Création de la BDD pour les tests et ajout fausses données:
-```bash
-symfony console --env=test doctrine:database:create
-symfony console --env=test doctrine:schema:create
-symfony console --env=test doctrine:fixtures:load
-```
-
-### Réinitialisation automatique de la base de données avant chaque test
-```bash
-composer require --dev dama/doctrine-test-bundle
-```
-
-Maintenant, activez-le en tant qu'extension PHPUnit :
-```xml
-<!-- phpunit.xml.dist -->
-<phpunit>
-    <!-- ... -->
-
-    <extensions>
-        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
-    </extensions>
-</phpunit>
-```
-
-Pour créer des sénarios de test:
-```bash
-symfony console make:test
-```
-
-Lancer un test:
-```bash
-php bin/phpunit tests
-#avec de la mise en forme
-php bin/phpunit tests --testdox
-```
-
-# BDD Code (Manipulation de données)
-
-## OLD
-
-```php
-ObjectManager $manager
-
-$manager->persist();
-$manager->flush();
-```
-
-## NEW
-
-```php
-$entityManager = $this->getDoctrine()->getManager();
-$entityManager->flush();
-```
-
-## Selection de données
-
-```php
-$repo = $this->getDoctrine()->getRepository(User::class);
-$user = $repo->findOneBy(['firstname' => 'test']);
-```
-
-# Formulaire Connexion / Deconnexion / Inscription
-
-Dépendance composer necessaires:
+Configuration Nginx
 
 ```bash
-composer require security annotations doctrine
-composer require --dev web-profiler
-composer require symfony/password-hasher
-
-composer require symfonycasts/verify-email-bundle
+cd docker/nginx && mkdir sites
+nano sites/default.conf
 ```
 
-Contraite Formulaire:
+```nginx
+server {
+    listen 80 default_server;
+    #listen [::]:80 default_server ipv6only=on;
 
-- https://symfony.com/doc/current/reference/constraints.html
+    server_name localhost;
+    root /var/www/symfony/public;
 
-Creer la classe utilisateur avec mot de passe sécurisé/hasher:
+    index index.php index.html index.htm;
 
-- https://symfony.com/doc/current/security.html
-- https://symfony.com/doc/current/security/passwords.html
+    location / {
+         try_files $uri /index.php$is_args$args;
+    }
 
-```bash
-symfony console make:user
-```
+    location ~ ^/index\.php(/|$) {
+        fastcgi_pass php-fpm:9000;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
 
-Creer le formulaire de connexion et deconnexion
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
 
-```bash
-symfony console make:auth
-```
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 4 256k;
+        fastcgi_busy_buffers_size 256k;
 
-Creer le formulaire d'inscription
+        internal;
+    }
 
-```bash
-symfony console make:registration-form
-```
-
-Formulaire réinitialisation Mot de passe
-
-```bash
-composer require symfonycasts/reset-password-bundle
-symfony console make:reset-password
-```
-
-# Activer bootstrap 5 avec NPM
-
-```
-composer require symfony/webpack-encore-bundle
-npm install
-
-npm install bootstrap
-```
-
-Dans le fichier base.html.twig situé: `src/templates` décommenter pour obtenir ceci:
-
-```twig
-{% block stylesheets %}
-    {{ encore_entry_link_tags('app') }}
-{% endblock %}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-{% endblock %}
-```
-
-Renommons le fichier `/assets/styles/app.css` en `app.scss`, et modifions le fichier `/assets/app.js`.
-
-```js
-import './styles/app.scss';
-```
-
-Dé-commenter `.enableSassLoader()` dans le fichier webpack.config.js et installons sass-loader.
-
-```bash
-npm install sass-loader sass
-```
-
-Nous allons aussi installer PostCSS
-
-```bash
-npm install postcss-loader autoprefixer
-```
-
-Créons un fichier `postcss.config.js` à la racine du projet.
-
-```js
-module.exports = {
-    plugins: {
-        autoprefixer: {}
+    location ~ \\.php$ {
+        return 404;
     }
 }
 ```
 
-```
-npm run build
-```
+A la racine du dossier **nginx** nous allons créer un fichier configuration `nginx.conf`:
 
-Importons-le JavaScript suivant les consignes de la documentation de Bootstrap 5 en modifiant le
-fichier `/assets/app.js.`
+```nginx
+user  nginx;
+worker_processes  4;
+daemon off;
 
-```js
-// You can specify which plugins you need
-import {Tooltip, Toast, Popover} from 'bootstrap';
-```
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
 
-Dépendance nécessaire:
+events {
+    worker_connections  1024;
+}
 
-```
-npm install @popperjs/core --save
-```
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    access_log  /var/log/nginx/access.log;
+    # Switch logging to console out to view via Docker
+    #access_log /dev/stdout;
+    #error_log /dev/stderr;
+    sendfile        on;
+    keepalive_timeout  65;
 
-Créons un fichier `custom.scss` dans `/assets/styles`, puis importons les feuilles de style
-dans `/assets/styles/app.scss`.
-
-```js
-import "custom";
-import "~bootstrap/scss/bootstrap";
-```
-
-Documentation symfony: https://symfony.com/doc/current/form/form_themes.html
-
-Afin que par symfony par défaut utilise le thème bootstrap, il faut ajouter ceci:
-```yaml
-# config/packages/twig.yaml
-twig:
-    form_themes: ['bootstrap_5_layout.html.twig']
+    include /etc/nginx/sites-available/*.conf;
+}
 ```
 
-Lancer en arrière plan le serveur pour voir les changements en live du css (En même temps que celui de symfony):
+Importation de la structure du projet Symfony:
 
 ```bash
-npm run dev-server
+cd ../..
+symfony new OGR --full --no-git
 ```
 
-# Activer bootstrap 5 avec yarn
+## Fichier docker-compose.yml
 
+A la racine du dossier de votre projet, il faut créer un fichier `docker-compose.yml` avec cette configuration:
+
+> Il faudra changer les mots de passe des dockers phpmyadmin et database !
+
+```yaml
+version: '3.8'
+services:
+
+  php-fpm:
+    container_name: php-fpm_symfony
+    build:
+      context: ./docker/php-fpm
+    ports:
+      - '9000:9000'
+    volumes:
+      - ./:/var/www/symfony
+    restart: always
+
+  nginx:
+    container_name: nginx_symfony
+    build:
+      context: ./docker/nginx
+    volumes:
+      - ./:/var/www/symfony
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/sites/:/etc/nginx/sites-available
+    depends_on:
+      - php-fpm
+    ports:
+      - "8080:80"
+      - "8443:443"
+    restart: always
+
+  database:
+    container_name: database_symfony
+    image: mariadb:latest
+    environment:
+      - MYSQL_DATABASE=ogrdb
+      - MYSQL_USER=ogr
+      - MYSQL_PASSWORD=993Djc97ncXhdydfsjPhtFr4
+      - MYSQL_ROOT_PASSWORD=LQEzc6pJp8tBHh4zgEEQme7L
+    ports:
+      - "3306:3306"
+    restart: always
+    
+  phpmyadmin:
+    container_name: phpmyadmin_symfony
+    image: phpmyadmin:latest
+    environment:
+      PMA_HOST: database_symfony
+      PMA_USER: ogr
+      PMA_PASSWORD: 993Djc97ncXhdydfsjPhtFr4
+    ports:
+      - "8081:80"
+    restart: always
+
+  maildev:
+    image: maildev/maildev
+    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+    container_name: maildev_symfony
+    ports:
+      - "1080:80"
+      - "1025:25"
+    restart: always
 ```
-composer require symfony/webpack-encore-bundle
+
+Nous avons plus qu'a démarrer nos dockers, il faut ce situé au même endroit que le fichier `docker-compose.yml`:
+```bash
+docker-compose up -d
+```
+
+# Importer un projet via GIT
+
+> Il faut avoir installé toutes les dépendances debian situé ci-dessus !
+
+Importation du projet GIT:
+```bash
+git clone https://github.com/Frifeux/OGR.git
+```
+
+Quand vous importer un projet symfony toute les dépendances lié a celui-ci ne sont pas importées. Il faut donc les installées, ce rendre dans le dossier `OGR` et lancer cette commande:
+```bash
+composer install
 yarn install
-
-yarn add bootstrap
-```
-
-Dans le fichier base.html.twig situé: `src/templates` décommenter pour obtenir ceci:
-
-```twig
-{% block stylesheets %}
-    {{ encore_entry_link_tags('app') }}
-{% endblock %}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-{% endblock %}
-```
-
-Renommons le fichier `/assets/styles/app.css` en `app.scss`, et modifions le fichier `/assets/app.js`.
-
-```js
-import './styles/app.scss';
-```
-
-Dé-commenter `.enableSassLoader()` dans le fichier webpack.config.js et installons sass-loader.
-
-```bash
-yarn add sass-loader sass
-```
-
-Nous allons aussi installer PostCSS
-
-```bash
-yarn add postcss-loader autoprefixer
-```
-
-Créons un fichier `postcss.config.js` à la racine du projet.
-
-```js
-module.exports = {
-    plugins: {
-        autoprefixer: {}
-    }
-}
-```
-
-```
 yarn run build
 ```
 
-Importons-le JavaScript suivant les consignes de la documentation de Bootstrap 5 en modifiant le
-fichier `/assets/app.js.`
-
-```js
-// You can specify which plugins you need
-import {Tooltip, Toast, Popover} from 'bootstrap';
+Importation de la BDD
+```bash
+symfony console doctrine:database:create
+symfony console doctrine:migrations:migrate
 ```
 
-Dépendance nécessaire:
-
-```
-yarn add @popperjs/core
-```
-
-Créons un fichier `custom.scss` dans `/assets/styles`, puis importons les feuilles de style
-dans `/assets/styles/app.scss`.
-
-```js
-import "custom";
-import "~bootstrap/scss/bootstrap";
+Ajout des droits au dossier et fichiers:
+```bash
+chown www-data:www-data ../OGR -R
 ```
 
-Documentation symfony: https://symfony.com/doc/current/form/form_themes.html
-
-Afin que par symfony par défaut utilise le thème bootstrap, il faut ajouter ceci:
-```yaml
-# config/packages/twig.yaml
-twig:
-    form_themes: ['bootstrap_5_layout.html.twig']
+Ensuite démarrer nos dockers en se mettant au même endroit que le fichier `docker-compose.yml`:
+```bash
+docker-compose up -d
 ```
 
-Lancer en arrière plan le serveur pour voir les changements en live du css (En même temps que celui de symfony):
+> Et voila le tour est joué, votre projet est lancé !
+
+# Passer en version PROD
+
+Editer le fichier `.env` et modifier la variable `APP_ENV` à `prod`
+Ensuite il faudra aussi modifier `APP_SECRET` et mettre un chaine de caractères aléatoire
+
+> Cette commande est très importante sinon vous allez avoir des erreurs en passant de la version `DEV` à `PROD`
+
+Pour finir, il faut exécuter cette commande symfony, elle a pour but de supprimer le cache:
 
 ```bash
-yarn run dev-server
+symfony console cache:clear
 ```
 
-# Ajout d'images:
+> A vous de désactiver les dockers qui ne seront plus utiles en version de **production**, commenter les lignes dans le fichiers `docker-compose.yml` et faite à nouveau `docker-compose up -d`
 
-Installation des dépendances npm:
+# TIPS
 
+Accéder au fichier WSL depuis Windows:
 ```bash
-npm install file-loader
+\\wsl$\Debian
 ```
 
-Dans le fichier webpack.config.js ajouté ça:
+# Documentation Annexe
 
-```js
-.copyFiles({
-    from: './assets/images',
+- Aide création des dockers:
+https://yoandev.co/un-environnement-de-developpement-symfony-5-avec-docker-et-docker-compose
 
-    // optional target path, relative to the output dir
-    to: 'images/[path][name].[ext]',
+- maildev docker:
+https://hub.docker.com/r/maildev/maildev
 
-    // if versioning is enabled, add the file hash too
-    //to: 'images/[path][name].[hash:8].[ext]',
-
-    // only copy files matching this pattern
-    //pattern: /\.(png|jpg|jpeg)$/
-})
-```
-
-This will copy all files from assets/images into public/build/images. If you have versioning enabled, the copied files
-will include a hash based on their content.
-
-Ajouter une images dans le projet, il faut les copier dans ce dossier: `assets/images`
-
-Ajouter une image dans un fichier twig:
-```twig
-<link rel="icon" type="image/svg" href={{ asset('build/images/favicon.svg') }} />
-```
-
-# EasyAdminPanel
-
-Activer module php intl, sur xampp: `Panel -> Config -> php.ini`
-
-Plus qu'a décommenter cette ligne:
-
-```
-extension=intl
-```
-
-Pour finir, Redemarrer le server symfony
-
-## Installation du bundle:
-
-```bash
-composer require easycorp/easyadmin-bundle
-```
-
-## Creation du panel:
-
-```bash
-symfony console make:admin:dashboard
-```
-
-Ajout d'item dans le menu du dashboard
-
-```php
-public function configureMenuItems(): iterable
-{
-    yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-
-    yield MenuItem::section('Gestion utilisateur');
-    yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class);
-    // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
-}
-```
-
-## Ajout de la gestion des utilisateurs:
-
-```bash
-symfony console make:admin:crud
-```
-
-# Traduction
-
-Générer les fichiers de traduction selon la langue
-
-```bash
-symfony console translation:extract --force fr
-```
-
-Ensuite allez dans le dossier `translations` à la racine du projet, on y retrouve tout les fichiers de traduction. Les
-fichiers qui nous intéresse sont ceux qui commence par `messages+intl-icu*.xlf`
-
-Si ces fichiers n'existe pas alors vous n'avez pas encore mis en place de traduction dans votre code, voir ci-dessous
-
-## Traduction Via fichier Twig
-
-les balises `{% trans %} {% endtrans %}` permettent de dire à symfony ou il faut traduire le text.
-Exemple:
-
-```html
-<div class="col-md-6">
-    <label for="lastname" class="form-label">{% trans %} Prénom {% endtrans %}</label>
-    {{ form_widget(registrationForm.firstname) }}
-</div>
-```
-Ensuite réexecuter la commande pour générer les fichiers de traduction et traduisez vos messages !
-Pour traduire vous avez juste à remplacer le champs `<target></target>` avec votre traduction dans le fichier `messages+intl-icu*.xlf`
-
-## Traduction via code php
-
-Certaine partie ne peuvent pas être géré directement via TWIG alors on doit passer par PHP. Pour mettre en place la traduction il faut faire que ceci:
-```php
-use Symfony\Component\Translation\TranslatableMessage;
-$firstname_user_field  = new TranslatableMessage('Prénom');
-
-return [
-    TextField::new('firstname', $firstname_user_field->getMessage())
-]
-```
-Ensuite réexecuter la commande pour générer les fichiers de traduction et traduisez vos messages !
-Pour traduire vous avez juste à remplacer le champs `<target></target>` avec votre traduction dans le fichier `messages+intl-icu*.xlf`
+- phpmyadmin docker:
+https://hub.docker.com/r/phpmyadmin/phpmyadmin/

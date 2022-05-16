@@ -25,9 +25,9 @@ class MeetingRoomController extends AbstractController
     private TranslatorInterface $translator;
 
     public function __construct(MeetingRoomReservationRepository $meetingRoomReservationRepository,
-                                MeetingRoomRepository $meetingRoomRepository,
-                                EntityManagerInterface $entityManager,
-                                TranslatorInterface $translator)
+                                MeetingRoomRepository            $meetingRoomRepository,
+                                EntityManagerInterface           $entityManager,
+                                TranslatorInterface              $translator)
     {
         $this->meetingRoomReservationRepository = $meetingRoomReservationRepository;
         $this->meetingRoomRepository = $meetingRoomRepository;
@@ -65,7 +65,6 @@ class MeetingRoomController extends AbstractController
     #[Route('/meeting-room', name: 'app_meeting_room')]
     public function mettingRoom(Request $request, EntityManagerInterface $entityManager): Response
     {
-
         $meetingRoomReservation = new MeetingRoomReservation();
         // We set date to today as default
         $meetingRoomReservation->setStartAt(new \DateTime('now'));
@@ -100,13 +99,7 @@ class MeetingRoomController extends AbstractController
             } else {
                 $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Veuillez sélectionner une salle de réunion !'));
             }
-//        }else{
-            // Used to get message error for phpunit
-//            foreach ($meetingRoomReservationForm->getErrors(true) as $error) {
-//                var_dump($error->getMessage());
-//            }
         }
-
         return $this->render('meeting_room/index.html.twig', [
             'meetingRoomReservationForm' => $meetingRoomReservationForm->createView(),
         ]);
@@ -114,7 +107,7 @@ class MeetingRoomController extends AbstractController
 
     // A route that getting all reservation for a meeting room and return a json for fullcalendar
     #[Route('/meeting-room/reservation/{id}', name: 'app_meeting_room_reservation', methods: ['GET'])]
-    public function getReservationForMeetingRoom(int $id,  Request $request): JsonResponse
+    public function getReservationForMeetingRoom(int $id, Request $request): JsonResponse
     {
         //get startDate and endDate from request
         $startDate = new \DateTime($request->get('startDate'));
@@ -123,7 +116,7 @@ class MeetingRoomController extends AbstractController
         $allMeetingRoomReservation = [];
         $meetingRoom = $this->meetingRoomRepository->findOneBy(['id' => $id, 'enabled' => true]);
         if ($meetingRoom) {
-            $allMeetingRoomReservation =  $this->getReservationForFullCalendar($meetingRoom, $startDate, $endDate);
+            $allMeetingRoomReservation = $this->getReservationForFullCalendar($meetingRoom, $startDate, $endDate);
         }
 
         return new JsonResponse($allMeetingRoomReservation);

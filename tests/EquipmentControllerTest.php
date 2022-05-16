@@ -62,10 +62,10 @@ class EquipmentControllerTest extends WebTestCase
         $crawler = $this->client->submitForm('Voir les disponibilités', [
             'choose_equipment_reservation_form[location]' => '',
             'choose_equipment_reservation_form[type]' => '',
-            'choose_equipment_reservation_form[startAt][date]' => '2022-05-05',
+            'choose_equipment_reservation_form[startAt][date]' => date('Y-m-d'),
             'choose_equipment_reservation_form[startAt][time][hour]' => '15',
             'choose_equipment_reservation_form[startAt][time][minute]' => '0',
-            'choose_equipment_reservation_form[endAt][date]' => '2022-05-05',
+            'choose_equipment_reservation_form[endAt][date]' => date('Y-m-d'),
             'choose_equipment_reservation_form[endAt][time][hour]' => '15',
             'choose_equipment_reservation_form[endAt][time][minute]' => '30'
         ]);
@@ -74,10 +74,11 @@ class EquipmentControllerTest extends WebTestCase
 
         //on récupère le nombre de bureaux disponibles
         $equipment = static::getContainer()->get(EquipmentRepository::class);
-        $equipments = $equipment->search(new \dateTime('2022-05-05 15:00:00'), new \dateTime('2022-05-05 15:30:00'));
+        $equipments = $equipment->search(new \dateTime(date('Y-m-d') . '15:00:00'), new \dateTime(date('Y-m-d') . '15:30:00'));
 
         //on vérifie que le nombre de matériels disponibles affiché est égal au nombre de matériels existants dans la base de données
         $table = $crawler->filter('table.js-table');
+
         $this->assertCount(count($equipments), $table->filter('tbody tr'));
     }
 
@@ -94,10 +95,10 @@ class EquipmentControllerTest extends WebTestCase
         $crawler = $this->client->submitForm('Voir les disponibilités', [
             'choose_equipment_reservation_form[location]' => 'Paris',
             'choose_equipment_reservation_form[type]' => '',
-            'choose_equipment_reservation_form[startAt][date]' => '2022-05-05',
+            'choose_equipment_reservation_form[startAt][date]' => date('Y-m-d'),
             'choose_equipment_reservation_form[startAt][time][hour]' => '18',
             'choose_equipment_reservation_form[startAt][time][minute]' => '0',
-            'choose_equipment_reservation_form[endAt][date]' => '2022-05-05',
+            'choose_equipment_reservation_form[endAt][date]' => date('Y-m-d'),
             'choose_equipment_reservation_form[endAt][time][hour]' => '18',
             'choose_equipment_reservation_form[endAt][time][minute]' => '30'
         ]);
@@ -106,7 +107,7 @@ class EquipmentControllerTest extends WebTestCase
 
         //on récupère le nombre de matériels disponibles
         $equipment = static::getContainer()->get(EquipmentRepository::class);
-        $equipments = $equipment->search(new \dateTime('2022-05-05 15:00:00'), new \dateTime('2022-05-05 15:30:00'), 'Paris');
+        $equipments = $equipment->search(new \dateTime(date('Y-m-d') . '15:00:00'), new \dateTime(date('Y-m-d') . '15:30:00'), 'Paris');
 
         //on vérifie que le nombre de matériels disponibles affiché est égal au nombre de matériels existants dans la base de données
         $table = $crawler->filter('table.js-table');

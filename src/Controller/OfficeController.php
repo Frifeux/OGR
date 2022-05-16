@@ -84,7 +84,6 @@ class OfficeController extends AbstractController
             $officeReservation = $this->officeReservationRepository->findBy(['office' => $office, 'startAt' => $startAt, 'endAt' => $endAt]);
 
             if (count($officeReservation) > 0) {
-
                 // return a json response with the error message translated for the current locale of the user
                 return new JsonResponse(['error' => $this->translator->trans("Il n\'y a pas de bureau disponible à cette date")]);
             }
@@ -101,7 +100,6 @@ class OfficeController extends AbstractController
 
             return new JsonResponse(['success' => $this->translator->trans('Votre réservation a bien été ajoutée !')]);
         }
-
         return new JsonResponse(['error' => $this->translator->trans('Impossible de trouver le bureau que vous avez demandé')]);
     }
 

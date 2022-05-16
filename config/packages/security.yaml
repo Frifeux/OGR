@@ -21,7 +21,6 @@ security:
                 search_dn: '%env(LDAP_USER_DN)%'
                 search_password: '%env(LDAP_USER_PASSWORD)%'
                 default_roles: ROLE_USER
-#                uid_key: uid
 
         all_users:
             chain:
@@ -38,12 +37,8 @@ security:
             custom_authenticators:
                 - App\Security\LoginFormAuthenticator
 
-            # uncomes to use local authentication
-#            provider: app_user_provider
-#            custom_authenticator: App\Security\LoginFormAuthenticator
-
             # Uncomment to use LDAP authentication
-            entry_point: form_login_ldap # witch which form to use for the connection
+            entry_point: form_login_ldap
             provider: all_users
 
             form_login: true
@@ -51,11 +46,9 @@ security:
             form_login_ldap:
                 service: Symfony\Component\Ldap\Ldap
                 dn_string: 'ou=users,dc=wimpi,dc=net'
-#                dn_string: 'uid={username},ou=users,dc=wimpi,dc=net'
-#                query_string: '(&(uid={username})(memberOf=cn=admin,ou=users,dc=wimpi,dc=net))'
                 query_string: '(uid={_username})'
                 search_dn: '%env(LDAP_USER_DN)%'
-                search_password: '%env(LDAP_USER_PASSWORD)%' # password for the search_dn
+                search_password: '%env(LDAP_USER_PASSWORD)%'
                 login_path: app_login
                 check_path: app_login
 
@@ -63,16 +56,7 @@ security:
                 path: app_logout
                 target: app_login # where to redirect after logout
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
-#         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } # allow anonymous access to everything
         - { path: ^/(fr|en)/admin, roles: ROLE_ADMIN }
         - { path: ^/(fr|en)/user, roles: ROLE_USER }
         - { path: ^/(fr|en)/meeting-room, roles: ROLE_USER }

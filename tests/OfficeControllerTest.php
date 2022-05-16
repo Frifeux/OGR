@@ -62,10 +62,10 @@ class OfficeControllerTest extends WebTestCase
             'choose_office_reservation_form[location]' => '',
             'choose_office_reservation_form[floor]' => '',
             'choose_office_reservation_form[department]' => '',
-            'choose_office_reservation_form[startAt][date]' => '2022-05-05',
+            'choose_office_reservation_form[startAt][date]' => date('Y-m-d'),
             'choose_office_reservation_form[startAt][time][hour]' => '15',
             'choose_office_reservation_form[startAt][time][minute]' => '0',
-            'choose_office_reservation_form[endAt][date]' => '2022-05-05',
+            'choose_office_reservation_form[endAt][date]' => date('Y-m-d'),
             'choose_office_reservation_form[endAt][time][hour]' => '15',
             'choose_office_reservation_form[endAt][time][minute]' => '30'
         ]);
@@ -74,7 +74,7 @@ class OfficeControllerTest extends WebTestCase
 
         //on récupère le nombre de bureaux disponibles
         $office = static::getContainer()->get(OfficeRepository::class);
-        $offices = $office->search(new \dateTime('2022-05-05 15:00:00'), new \dateTime('2022-05-05 15:30:00'));
+        $offices = $office->search(new \dateTime(date('Y-m-d') . '15:00:00'), new \dateTime(date('Y-m-d') . '15:30:00'));
 
         //on vérifie que le nombre de bureaux disponibles affiché est égal au nombre de bureaux existants dans la base de données
         $table = $crawler->filter('table.js-table');
@@ -95,10 +95,10 @@ class OfficeControllerTest extends WebTestCase
             'choose_office_reservation_form[location]' => 'Paris',
             'choose_office_reservation_form[floor]' => '',
             'choose_office_reservation_form[department]' => '',
-            'choose_office_reservation_form[startAt][date]' => '2022-05-05',
+            'choose_office_reservation_form[startAt][date]' => date('Y-m-d'),
             'choose_office_reservation_form[startAt][time][hour]' => '18',
             'choose_office_reservation_form[startAt][time][minute]' => '0',
-            'choose_office_reservation_form[endAt][date]' => '2022-05-05',
+            'choose_office_reservation_form[endAt][date]' => date('Y-m-d'),
             'choose_office_reservation_form[endAt][time][hour]' => '18',
             'choose_office_reservation_form[endAt][time][minute]' => '30'
         ]);
@@ -107,7 +107,7 @@ class OfficeControllerTest extends WebTestCase
 
         //on récupère le nombre de bureaux disponibles
         $office = static::getContainer()->get(OfficeRepository::class);
-        $offices = $office->search(new \dateTime('2022-05-05 15:00:00'), new \dateTime('2022-05-05 15:30:00'), 'Paris');
+        $offices = $office->search(new \dateTime(date('Y-m-d') . '15:00:00'), new \dateTime(date('Y-m-d') . '15:30:00'), 'Paris');
 
         //On vérifie que le nombre de bureaux disponibles est égal au nombre de bureaux existants dans la base de données.
         $table = $crawler->filter('table.js-table');

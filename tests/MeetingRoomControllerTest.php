@@ -57,15 +57,21 @@ class MeetingRoomControllerTest extends WebTestCase
         $this->client->request('GET', '/fr/meeting-room');
         self::assertResponseIsSuccessful();
 
+        // On ne veut pas le weekend
+        $date = new \DateTime('now');
+        if (date('w') > 4) {
+            $date->modify('+2 day');
+        }
+
         //on récupère le formulaire et on remplit les champs
         $this->client->submitForm('Réserver', [
             'meeting_room_reservation[meetingRoom]' => '1',
             'meeting_room_reservation[title]' => 'new reservation',
             'meeting_room_reservation[description]' => 'new description',
-            'meeting_room_reservation[startAt][date]' => '2022-05-05',
+            'meeting_room_reservation[startAt][date]' => $date->format('Y-m-d'),
             'meeting_room_reservation[startAt][time][hour]' => '12',
             'meeting_room_reservation[startAt][time][minute]' => '0',
-            'meeting_room_reservation[endAt][date]' => '2022-05-05',
+            'meeting_room_reservation[endAt][date]' => $date->format('Y-m-d'),
             'meeting_room_reservation[endAt][time][hour]' => '12',
             'meeting_room_reservation[endAt][time][minute]' => '30',
         ]);

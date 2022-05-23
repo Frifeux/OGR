@@ -2,25 +2,29 @@
 
 [Retrieved images here !](website_screen)
 
+# Commandes utiles pour le développement
+
+[Retrieved the file here !](cmd_utiles.md)
+
 # Installation WSL et Docker Desktop
 
 Doc officielle installation docker avec WSL: https://docs.docker.com/desktop/windows/wsl/
 
-> Faite un point de réstauration Windows avant !!
+> Faite un point de restauration Windows avant !!
 
-Suivre ce [tuto](https://medium.com/@fred.gauthier.dev/web-development-environment-with-wsl-2-and-docker-for-symfony-5860704e127a) et s'arréter au moment de l'installation de docker dans la machine debian !
+Suivre ce [tuto](https://medium.com/@fred.gauthier.dev/web-development-environment-with-wsl-2-and-docker-for-symfony-5860704e127a) et s'arrêter au moment de l'installation de docker dans la machine debian !
 > Nous installerons **docker** sur linux plus tard !
 
 ## Problème d'installation WSL
 
 > Seulement si WSL ne veut vraiment pas fonctionner !
 
-1. Avoir activer la virtualisation CPU dans le BIOS
+1. Avoir activé la virtualisation CPU dans le BIOS
 2. Désactiver le **Secure Boot** et **Fast boot** dans le BIOS
 3. Bien avoir mis à jour son poste en dernière version de windows
 4. Dans les options d'alimentation Windows décocher `activer le démarrage rapide`
 
-Ensuite lancer dans cette ordre les commandes suivantes:
+Ensuite lancer dans cet ordre les commandes suivantes :
 ```
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
@@ -43,7 +47,7 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sou
 
 ```bash
 apt update && apt upgrade
-apt install php-xml php-intl php-gd php-curl php-fpm php-mysql php-ldap php-dev php-raphf php-http
+apt install php8.1-xml php8.1-intl php8.1-gd php8.1-curl php8.1-fpm php8.1-mysql php8.1-ldap php8.1-dev php8.1-raphf php8.1-http
 ```
 
 ## Installation Symfony CLI
@@ -97,7 +101,7 @@ chmod +x /usr/local/bin/docker-compose
 ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 
-Voir la version actuelle de docker-compose:
+Voir la version actuelle de docker-compose :
 ```bash
 docker-compose --version
 ```
@@ -125,9 +129,9 @@ apt-get update && apt-get install yarn
 
 On peut retrouver un tuto [ici](https://jean-pierre.lambelet.net/astuces/php/commencer-un-nouveau-projet-symfony5-avec-docker-compose-nginx-php-7-4-et-mariadb-692/) qui explique très bien la mise en place de symfony avec docker
 
-> Avant de commencer la suite, il faut vérifier que docker fonctionne correctement, il faut éxécuter cette commande: **sudo docker run hello-world**
+> Avant de commencer la suite, il faut vérifier que docker fonctionne correctement, il faut exécuter cette commande : **sudo docker run hello-world**
 
-Création de l'arborescence du projet:
+Création de l'arborescence du projet :
 ```bash
 mkdir OGR && cd OGR
 mkdir docker && mkdir docker/{nginx,php-fpm}
@@ -142,7 +146,7 @@ FROM nginx:alpine
 CMD ["nginx"]
 EXPOSE 80 443
 ```
-Mise en place de notre docker **php-fpm**:
+Mise en place de notre docker **php-fpm** :
 
 ```dockerfile
 FROM php:8.1-fpm
@@ -197,7 +201,7 @@ server {
 }
 ```
 
-A la racine du dossier **nginx** nous allons créer un fichier configuration `nginx.conf`:
+À la racine du dossier **nginx** nous allons créer un fichier configuration `nginx.conf`:
 
 ```nginx
 user  nginx;
@@ -225,7 +229,7 @@ http {
 }
 ```
 
-Importation de la structure du projet Symfony:
+Importation de la structure du projet Symfony :
 
 ```bash
 cd ../..
@@ -234,7 +238,7 @@ symfony new OGR --full --no-git
 
 ## Fichier docker-compose.yml
 
-A la racine du dossier de votre projet, il faut créer un fichier `docker-compose.yml` avec cette configuration:
+À la racine du dossier de votre projet, il faut créer un fichier `docker-compose.yml` avec cette configuration :
 
 > Il faudra changer les mots de passe des dockers phpmyadmin et database !
 
@@ -300,31 +304,25 @@ services:
     restart: always
 ```
 
-Nous avons plus qu'a démarrer nos dockers, il faut ce situé au même endroit que le fichier `docker-compose.yml`:
+Nous avons plus qu'à démarrer nos dockers, il faut ce situé au même endroit que le fichier `docker-compose.yml`:
 ```bash
-docker-compose up -d
+docker-compose up --build -d
 ```
 
 # Importer un projet via GIT
 
 > Il faut avoir installé toutes les dépendances debian situé ci-dessus !
 
-Importation du projet GIT:
+Importation du projet GIT :
 ```bash
 git clone https://github.com/Frifeux/OGR.git
 ```
 
-Quand vous importer un projet symfony toute les dépendances lié a celui-ci ne sont pas importées. Il faut donc les installées, ce rendre dans le dossier `OGR` et lancer cette commande:
+Quand vous importer un projet symfony toutes les dépendances liées a celui-ci n'est pas importées. Il faut donc les installées, se rendre dans le dossier `OGR` et lancer cette commande :
 ```bash
 composer install
 yarn install
 yarn run build
-```
-
-Importation de la BDD
-```bash
-symfony console doctrine:database:create
-symfony console doctrine:migrations:migrate
 ```
 
 Ajout des droits au dossier et fichiers:
@@ -332,9 +330,20 @@ Ajout des droits au dossier et fichiers:
 chown www-data:www-data ../OGR -R
 ```
 
+> Avec WSL il y a quelque problème de droits, alors on met plus de droits sur le dossier pour que le serveur puisse y accéder.
+```bash
+chmod 777 ../OGR -R
+```
+
 Ensuite démarrer nos dockers en se mettant au même endroit que le fichier `docker-compose.yml`:
 ```bash
-docker-compose up -d
+docker-compose up --build -d
+```
+
+Importation de la BDD
+```bash
+symfony console doctrine:database:create # Existe potentiellement déjà car docker-compose la crée
+symfony console doctrine:migrations:migrate
 ```
 
 > Et voila le tour est joué, votre projet est lancé !
@@ -342,17 +351,17 @@ docker-compose up -d
 # Passer en version PROD
 
 Editer le fichier `.env` et modifier la variable `APP_ENV` à `prod`
-Ensuite il faudra aussi modifier `APP_SECRET` et mettre un chaine de caractères aléatoire
+Ensuite il faudra aussi modifier `APP_SECRET` et mettre une chaine de caractères aléatoire
 
 > Cette commande est très importante sinon vous allez avoir des erreurs en passant de la version `DEV` à `PROD`
 
-Pour finir, il faut exécuter cette commande symfony, elle a pour but de supprimer le cache:
+Pour finir, il faut exécuter cette commande symfony, elle a pour but de supprimer le cache :
 
 ```bash
 symfony console cache:clear
 ```
 
-> A vous de désactiver les dockers qui ne seront plus utiles en version de **production**, commenter les lignes dans le fichiers `docker-compose.yml` et faite à nouveau `docker-compose up -d`
+> À vous de désactiver les dockers qui ne seront plus utiles en version de **production**, commenter les lignes dans le fichier `docker-compose.yml` et faite à nouveau `docker-compose up -d`
 
 # TIPS
 
@@ -361,9 +370,14 @@ Accéder au fichier WSL depuis Windows:
 \\wsl$\Debian
 ```
 
+Le CSS du EasyAdminBundle ne s'affiche pas:
+```bash
+symfony console assets:install
+```
+
 # Documentation Annexe
 
-- Aide création des dockers:
+- Aide création des dockers :
 https://yoandev.co/un-environnement-de-developpement-symfony-5-avec-docker-et-docker-compose
 
 - maildev docker:

@@ -9,7 +9,7 @@
 
     <script>
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Send the request to the server to delete a reservation when the user click on the trash icon
             function deleteReservation(event) {
                 event.preventDefault();
@@ -21,13 +21,13 @@
                         // Remove the reservation from the table
                         $(event.target).closest('tr').remove();
                     },
-                    error: function(xhr) {
+                    error: function (xhr) {
                         console.log("Impossible de supprimer la réservation, code d'erreur: " + xhr.status);
                     }
                 });
             }
 
-            document.querySelectorAll('a.delete-reservation').forEach(function(element) {
+            document.querySelectorAll('a.delete-reservation').forEach(function (element) {
                 element.addEventListener('click', deleteReservation);
             });
         });
@@ -111,14 +111,12 @@
                                                         <td>{{ meetingRoomReservation.startAt|date('d/m/Y H:i') }}</td>
                                                         <td>{{ meetingRoomReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
-                                                            <a href="{{ path('app_meeting_room_delete', {'id': meetingRoomReservation.id }) }}"
-                                                               class="delete-reservation me-2"><i
-                                                                        class="fa-solid fa-trash-can text-danger"></i></a>
+                                                            <a href="{{ path('app_meeting_room_delete', {'id': meetingRoomReservation.id}) }}"
+                                                               class="delete-reservation me-2">
+                                                                <i class="fa-solid fa-trash-can text-danger"></i></a>
 
-                                                            <a href="#" data-bs-toggle="modal"
-                                                               data-bs-target="#editReservationModal">
-                                                                <i class="fas fa-file-edit text-warning"></i>
-                                                            </a>
+                                                            <a href="{{ path('app_meeting_room_edit', {'id': meetingRoomReservation.id}) }}">
+                                                                <i class="fas fa-file-edit text-warning"></i></a>
 
                                                         </td>
                                                     </tr>
@@ -168,7 +166,8 @@
                                                         <td>{{ officeReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
                                                             <a href="{{ path('app_office_delete', {'id': officeReservation.id }) }}"
-                                                               class="delete-reservation me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                                               class="delete-reservation me-2"><i
+                                                                        class="fa-solid fa-trash-can text-danger"></i></a>
 
                                                             <a href="#" data-bs-toggle="modal"
                                                                data-bs-target="#editReservationModal">
@@ -223,7 +222,8 @@
                                                         <td>{{ equipmentReservation.endAt|date('d/m/Y H:i') }}</td>
                                                         <td>
                                                             <a href="{{ path('app_equipment_delete', {'id': equipmentReservation.id }) }}"
-                                                               class="delete-reservation me-2"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                                               class="delete-reservation me-2"><i
+                                                                        class="fa-solid fa-trash-can text-danger"></i></a>
 
                                                             <a href="#" data-bs-toggle="modal"
                                                                data-bs-target="#editReservationModal">

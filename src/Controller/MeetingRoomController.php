@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\MeetingRoom;
 use App\Entity\MeetingRoomReservation;
-use App\Form\MeetingRoomReservationType;
+use App\Form\MeetingRoomReservationFormType;
 use App\Repository\MeetingRoomRepository;
 use App\Repository\MeetingRoomReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[Route('/meeting-room')]
 class MeetingRoomController extends AbstractController
 {
 
@@ -62,51 +63,47 @@ class MeetingRoomController extends AbstractController
         return (date('N', $date->getTimestamp()) >= 6);
     }
 
-    #[Route('/meeting-room', name: 'app_meeting_room')]
-    public function mettingRoom(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/', name: 'app_meeting_room')]
+    public function mettingRoom(Request $request): Response
     {
         $meetingRoomReservation = new MeetingRoomReservation();
         // We set date to today as default
         $meetingRoomReservation->setStartAt(new \DateTime('now'));
         $meetingRoomReservation->setEndAt(new \DateTime('now'));
-        $meetingRoomReservationForm = $this->createForm(MeetingRoomReservationType::class, $meetingRoomReservation);
+        $meetingRoomReservationForm = $this->createForm(MeetingRoomReservationFormType::class, $meetingRoomReservation);
 
         $meetingRoomReservationForm->handleRequest($request);
 
         // Formulaire de réservation d'une salle de réunion
         if ($meetingRoomReservationForm->isSubmitted() && $meetingRoomReservationForm->isValid()) {
 
-            // Si on à une salle de réunion sélectionné
-            if ($meetingRoomReservation->getMeetingRoom()) {
-                // On définit l'utilisateur
-                $meetingRoomReservation->setUser($this->getUser());
+            // On définit l'utilisateur
+            $meetingRoomReservation->setUser($this->getUser());
 
-                // On verifie que la reservation n'est pas le weekend
-                if ($this->isWeekend($meetingRoomReservation->getStartAt()) || $this->isWeekend($meetingRoomReservation->getEndAt())) {
-                    $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Vous ne pouvez pas réserver un créneau le weekend'));
-                } else {
-                    // on vérifie si une réservation n'existe pas déja
-                    $reservationExist = $this->meetingRoomReservationRepository->checkExistingReservation($meetingRoomReservation->getMeetingRoom(), $meetingRoomReservation->getStartAt(), $meetingRoomReservation->getEndAt());
-                    if (!$reservationExist) {
-                        $entityManager->persist($meetingRoomReservation);
-                        $entityManager->flush();
-
-                        $this->addFlash('reservation_meeting_room_success', new TranslatableMessage('Votre réservation a bien été ajoutée !'));
-                    } else {
-                        $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Une réservation existe déjà pour les horaires de la salle de réunion sélectionnée !'));
-                    }
-                }
+            // On verifie que la reservation n'est pas le weekend
+            if ($this->isWeekend($meetingRoomReservation->getStartAt()) || $this->isWeekend($meetingRoomReservation->getEndAt())) {
+                $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Vous ne pouvez pas réserver un créneau le weekend'));
             } else {
-                $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Veuillez sélectionner une salle de réunion !'));
+                // on vérifie si une réservation n'existe pas déja
+                $reservationExist = $this->meetingRoomReservationRepository->checkExistingReservation($meetingRoomReservation->getMeetingRoom(), $meetingRoomReservation->getStartAt(), $meetingRoomReservation->getEndAt());
+                if (!$reservationExist) {
+                    $this->entityManager->persist($meetingRoomReservation);
+                    $this->entityManager->flush();
+
+                    $this->addFlash('reservation_meeting_room_success', new TranslatableMessage('Votre réservation a bien été ajoutée !'));
+                } else {
+                    $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Une réservation existe déjà pour les horaires de la salle de réunion sélectionnée !'));
+                }
             }
         }
+
         return $this->render('meeting_room/index.html.twig', [
             'meetingRoomReservationForm' => $meetingRoomReservationForm->createView(),
         ]);
     }
 
     // A route that getting all reservation for a meeting room and return a json for fullcalendar
-    #[Route('/meeting-room/reservation/{id}', name: 'app_meeting_room_reservation', methods: ['GET'])]
+    #[Route('/reservation/{id}', name: 'app_meeting_room_reservation', methods: ['GET'])]
     public function getReservationForMeetingRoom(int $id, Request $request): JsonResponse
     {
         //get startDate and endDate from request
@@ -123,7 +120,7 @@ class MeetingRoomController extends AbstractController
     }
 
     // Delete a reservation from user
-    #[Route('/meeting-room/delete/{id}', name: 'app_meeting_room_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
+    #[Route('/delete/{id}', name: 'app_meeting_room_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
     public function delete(int $id): JsonResponse
     {
         // we get the meeting room we want to delete
@@ -139,4 +136,45 @@ class MeetingRoomController extends AbstractController
         return new JsonResponse(['error' => $this->translator->trans('Impossible de supprimé la salle de réunion, elle n\'existe pas !')]);
     }
 
+    // Edit a meeting room reservation
+    #[Route('/edit/{id}', name: 'app_meeting_room_edit', requirements: ['id' => '\d+'])]
+    public function edit(int $id, Request $request): Response
+    {
+        // we get the meeting room we want to edit
+        $meetingRoomReservation = $this->meetingRoomReservationRepository->findOneBy(['user' => $this->getUser(), 'id' => $id]);
+
+        // if no metting room reservation we redirect to the management reservation page
+        if (!$meetingRoomReservation) {
+            return $this->redirectToRoute('app_reservation');
+        }
+
+        // Creation of the form
+        $meetingRoomReservationForm = $this->createForm(MeetingRoomReservationFormType::class, $meetingRoomReservation);
+        $meetingRoomReservationForm->handleRequest($request);
+
+        // Validation of the form
+        if ($meetingRoomReservationForm->isSubmitted() && $meetingRoomReservationForm->isValid()) {
+
+            // We verify if the reservation is not the weekend
+            if ($this->isWeekend($meetingRoomReservation->getStartAt()) || $this->isWeekend($meetingRoomReservation->getEndAt())) {
+                $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Vous ne pouvez pas réserver un créneau le weekend'));
+            } else {
+                // we check if the reservation is not already exist
+                $reservationExist = $this->meetingRoomReservationRepository->checkExistingReservation($meetingRoomReservation->getMeetingRoom(), $meetingRoomReservation->getStartAt(), $meetingRoomReservation->getEndAt());
+
+                if (!$reservationExist) {
+                    $this->entityManager->persist($meetingRoomReservation);
+                    $this->entityManager->flush();
+
+                    $this->addFlash('reservation_meeting_room_success', new TranslatableMessage('Votre réservation a bien été modifiée !'));
+                } else {
+                    $this->addFlash('reservation_meeting_room_error', new TranslatableMessage('Une réservation existe déjà pour les horaires de la salle de réunion sélectionnée !'));
+                }
+            }
+        }
+
+        return $this->render('meeting_room/edit.html.twig', [
+            'meetingRoomReservationForm' => $meetingRoomReservationForm->createView(),
+        ]);
+    }
 }

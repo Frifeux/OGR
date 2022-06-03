@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class MeetingRoomReservationType extends AbstractType
+class MeetingRoomReservationFormType extends AbstractType
 {
 
     private MeetingRoomRepository $meetingRoomRepository;
@@ -77,10 +77,6 @@ class MeetingRoomReservationType extends AbstractType
 //                'time_label' => new TranslatableMessage('Heure de fin'),
                 'hours' => range($_ENV['WORKING_HOURS_START'],$_ENV['WORKING_HOURS_END']),
                 'minutes' => [0,30],
-            ])
-
-            ->add('save', SubmitType::class, [
-                'label' => new TranslatableMessage('Réserver'),
             ])
         ;
     }

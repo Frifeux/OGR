@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OGR - Modification de la réservation d'une salle {% endblock %}
+
+{% set current_menu = 'reservations' %}
+
+{% block body %}
+
+    {% include '_navbar.html.twig' %}
+
+    <main>
+        <div class="container-xl px-4 mt-5" style="max-width: 900px;">
+
+            <div class="row mt-4">
+                <div class="col-xl-12">
+                    <div class="card mb-4 shadow-sm">
+
+                        <!-- Affichage des messages de success et erreurs-->
+                        {% for flashSuccess in app.flashes('reservation_meeting_room_success') %}
+                            <div class="alert alert-success d-flex align-items-center position-absolute start-50 translate-middle-x mt-2"
+                                 role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                <div>
+                                    {{ flashSuccess }}
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+
+                        {% for flashError in app.flashes('reservation_meeting_room_error') %}
+                            <div class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle-x mt-2"
+                                 role="alert">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <div>
+                                    {{ flashError }}
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 ms-2 m-auto" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+
+
+                        <div class="card-header">{% trans %}Salle de réunion - Modification de votre réservation{% endtrans %}</div>
+                        <div class="card-body">
+
+                            <!-- Formulaire pour ajouter une réservation à une salle -->
+                            {{ form_start(meetingRoomReservationForm) }}
+
+                            <div class="row gx-3 mb-3">
+
+                                {{ form_row(meetingRoomReservationForm.meetingRoom) }}
+
+                                <!-- Infos demandé pour créer une réservation -->
+                                {{ form_row(meetingRoomReservationForm.title) }}
+
+                                {{ form_row(meetingRoomReservationForm.description) }}
+
+                                <!-- Input pour selectionner un(e) date/horaire-->
+                                <div class="col-md-6">
+                                    {{ form_row(meetingRoomReservationForm.startAt) }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    {{ form_row(meetingRoomReservationForm.endAt) }}
+                                </div>
+                            </div>
+
+                            <!-- validation du form -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">{% trans %}Valider{% endtrans %}</button>
+                            </div>
+
+                            {{ form_end(meetingRoomReservationForm) }}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}

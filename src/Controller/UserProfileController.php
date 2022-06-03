@@ -27,7 +27,7 @@ class UserProfileController extends AbstractController
     /**
      * This function is used to change the password of the user
      */
-    #[Route('/user/profile', name: 'user_profile')]
+    #[Route('/user/profile', name: 'app_user_profile')]
     public function profile(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
             // récupération de notre objet utilisateur

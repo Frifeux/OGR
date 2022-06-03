@@ -34,6 +34,7 @@
         "intl": "^1.2.5",
         "postcss-loader": "^6.2.1",
         "sass": "^1.49.7",
-        "sass-loader": "^12.4.0"
+        "sass-loader": "^12.4.0",
+        "stimulus": "^3.0.1"
     }
 }
